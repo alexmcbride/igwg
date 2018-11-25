@@ -1,0 +1,109 @@
+[
+    {
+        "id": "0",
+        "type": "post",
+        "title": "Lorem ipsum dolor sit amet",
+        "created": "2018-11-06T21:18:02.852Z",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor metus eu tellus tincidunt efficitur. In egestas luctus fermentum. Proin ac placerat mi. Etiam tristique eros ac bibendum blandit. Donec mattis finibus nibh in imperdiet. Aliquam imperdiet eros odio, non bibendum diam varius et. Duis dapibus egestas eros. Nullam sed fringilla turpis. Nulla rhoncus diam eu tincidunt scelerisque.",
+        "author": "Alex"
+    },
+    {
+        "id": "1",
+        "type": "post",
+        "title": "Aliquam tempus tincidunt nulla",
+        "created": "2018-11-06T21:18:02.852Z",
+        "content": "Aliquam tempus tincidunt nulla, et scelerisque lorem auctor in. Donec sit amet blandit nibh. Aliquam ullamcorper, arcu vel ultricies imperdiet, dolor enim porttitor ex, sed viverra lorem urna a mi. Quisque eget lacinia libero. Proin maximus hendrerit dui, eu facilisis nulla. Nulla accumsan purus felis, at vulputate purus suscipit volutpat. Pellentesque erat neque, consectetur ut nisi sed, tempus lacinia dolor. Mauris id felis quis felis cursus ultricies in id ante. Maecenas ac velit magna. In auctor, mi sed fermentum ultrices, enim enim pellentesque metus, id posuere ligula dolor a erat. Aenean efficitur consequat purus id aliquam. Morbi eget luctus enim. Proin eget enim quis sapien sagittis tempor. Nullam id congue dui. Duis vel eros neque.",
+        "author": "Alex"
+    },
+    {
+        "id": "2",
+        "type": "image",
+        "title": "Donec sit amet blandit nibh",
+        "src": "images/features-worldwarone-4theastlancstroops1917-lrg.jpg"
+    },
+    {
+        "id": "3",
+        "type": "slideshow",
+        "title": "In egestas luctus fermentum",
+        "images": [
+            {
+                "title": "Slide 1",
+                "src": "images/slide1.jpg"
+            },
+            {
+                "title": "Slide 2",
+                "src": "images/slide2.jpg"
+            },
+            {
+                "title": "Slide 3",
+                "src": "images/slide3.jpg"
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "type": "quiz",
+        "title": "Quiz Title",
+        "questions": [
+            {
+                "text": "Why did the chicken cross the road?",
+                "options": [
+                    {
+                        "text": "To get to the other side?",
+                        "correct": true
+                    },
+                    {
+                        "text": "To get to THIS side?",
+                        "correct": false
+                    },
+                    {
+                        "text": "To die and go to heaven?",
+                        "correct": false
+                    },
+                    {
+                        "text": "To sniff a cat made of jam?",
+                        "correct": false
+                    }
+                ]
+            },
+            {
+                "text": "How are you?",
+                "options": [
+                    {
+                        "text": "Fine",
+                        "correct": true
+                    },
+                    {
+                        "text": "Not fine",
+                        "correct": false
+                    }
+                ]
+            },
+            {
+                "text": "Why did the war start?",
+                "options": [
+                    {
+                        "text": "Because a duke shot an osterich cause he was hungry",
+                        "correct": false
+                    },
+                    {
+                        "text": "The vile hun and their evil empire",
+                        "correct": false
+                    },
+                    {
+                        "text": "Because it was easier than not having a war",
+                        "correct": true
+                    }
+                ]
+            }            
+        ],
+        "answers": []
+    },
+    {
+        "id": "5",
+        "type": "video",
+        "title": "Video Test",
+        "src": "videos/SampleVideo_1280x720_5mb.mp4",
+        "contentType": "video/mp4"
+    }
+]

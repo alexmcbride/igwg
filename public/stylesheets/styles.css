@@ -1,0 +1,54 @@
+ body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav { 
+    float: left;
+    width: 20%;
+}
+
+#main-content {
+    width: 80%;
+    float: right;
+}
+
+footer {
+    clear: both;
+    font-size: small;
+    text-align: center;
+    margin-top: 20px;    
+    color: #888;
+}
+
+.slideshow .controls {
+    margin-top: 20px;
+}
+
+.slideshow .controls .start, .previous, .next, .end, .gotoslide {
+    float: left;
+    margin-right: 20px;
+}
+
+.hide-modal {
+    display: none;
+}
+
+.show-modal {
+    display: block;
+    background-color: cornflowerblue;
+    position: absolute;
+    top: 60px;
+    width: 640px;
+    height: 280px;
+}
+
+a {
+    color: darkblue;
+}
