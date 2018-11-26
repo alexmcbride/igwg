@@ -133,7 +133,6 @@ var ContentLoader = (function () {
     return {
         addPage: addPage,
         render: render,
-        renderModal: renderModal,
         run: run,
         getData: getData,
         url: url
