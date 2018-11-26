@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt-nodejs');
 var users = [];
 users['Alex'] = { username: 'Alex', password_hash: '$2y$12$3X1JVCsN7UvMBSicg0RdoeNkiGb4qnKh8rPae.aO1gdLMkisr40KO' };
 
-function jsonResponse(obj) {
+function jsonResponse(res, obj) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(obj));
   res.end();
@@ -14,13 +14,12 @@ function jsonResponse(obj) {
 
 router.get('/logged_in', function (req, res, next) {
   if (req.session.logged_in) {
-    var user = users[req.session.username];
-    jsonResponse({
+    jsonResponse(res, {
       logged_in: true,
-      user: user
+      username: req.session.username
     });
   } else {
-    jsonResponse({
+    jsonResponse(res, {
       logged_in: false,
     });
   }
@@ -29,20 +28,23 @@ router.get('/logged_in', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   var user = users[req.body.username];
   if (user === undefined) {
-    jsonResponse({
+    console.log('User not found');
+    jsonResponse(res, {
       logged_in: false
     });
   } else {
     bcrypt.compare(req.body.password, user.password_hash, function (error, result) {
       if (result) {
+        console.log('Pass correct!');
         req.session.logged_in = true;
         req.session.username = req.body.username;
-        jsonResponse({
+        jsonResponse(res, {
           logged_in: true,
-          user: user
+          username: req.body.username
         });
       } else {
-        jsonResponse({
+        console.log('Pass not correct');
+        jsonResponse(res, {
           logged_in: false,
         });
       }
@@ -53,21 +55,21 @@ router.post('/login', function (req, res, next) {
 router.post('/logout', function (req, res, next) {
   req.session.logged_in = false;
   req.session.username = null;
-  jsonResponse({
-    logged_in: req.session.logged_in,
+  jsonResponse(res, {
+    logged_in: false,
   });
 });
 
 router.post('/posts', function (req, res, next) {
   if (req.session.logged_in) {
     // add post to JSON payload and write to disk
-    jsonResponse({
+    jsonResponse(res, {
       success: true, post: {
 
       }
     });
   } else {
-    jsonResponse({ success: false });
+    jsonResponse(res, { success: false });
   }
 });
 

@@ -1,8 +1,6 @@
 var AdminManager = (function () {
     var currentState = null;
     var loggedIn = false;
-    var users = []
-    users['Alex'] = { id: 'Alex', username: 'Alex', password: 'password1' };
 
     var loginState = function (error) {
         var html = '<h2>Login</h2>';
@@ -30,16 +28,14 @@ var AdminManager = (function () {
     var login = function () {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
-        var user = users[username];
-        if (user === undefined) {
-            update("User not found");
-        } else {
-            if (password === user.password) {
-                loggedIn = true;
+
+        Ajax.postJson('/admin/login', function (response) {
+            if (response.logged_in) {
+                console.log('Successfully logged in!!');
             } else {
-                update("Password not correct");
+                update('Username and password incorrect');
             }
-        }
+        }, { username: username, password: password });
     }
 
     var update = function (error) {
