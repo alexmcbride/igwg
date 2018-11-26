@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 // List of users...
 var users = [];
-users['Alex'] = { username: 'Alex', password_hash: '$2y$12$3X1JVCsN7UvMBSicg0RdoeNkiGb4qnKh8rPae.aO1gdLMkisr40KO' };
+users['Alex'] = { username: 'Alex', password_hash: '$2a$10$vemZcFLxAKdJySCdhHQZU.sySP5zb/bOOZvKxSi1chsqgZaJl/V8O' };
 
 function jsonResponse(res, obj) {
   res.setHeader('Content-Type', 'application/json');

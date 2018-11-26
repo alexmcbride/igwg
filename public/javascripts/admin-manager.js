@@ -29,8 +29,9 @@ var AdminManager = (function () {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
-        Ajax.postJson('/admin/login', function (response) {
-            if (response.logged_in) {
+        Ajax.postJson('/admin/login', function (result) {
+            console.log(result);
+            if (result.response.logged_in) {
                 console.log('Successfully logged in!!');
             } else {
                 update('Username and password incorrect');
