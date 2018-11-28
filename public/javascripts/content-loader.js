@@ -1,7 +1,7 @@
 //a content loader module that loads the appropriate content and passes control over
 // to the appropriate display routine eg the slide manager; the page updater etc
 
-var ContentLoader = (function () {
+var contentLoader = (function () {
     var seperator = '/';
     var mainContentEl = null;
     var pageMap = [];
@@ -12,7 +12,7 @@ var ContentLoader = (function () {
 
     var getPageFunc = function (route) {
         if (pageMap[route] === undefined) {
-            return Page.notFound;
+            return page.notFound;
         } else {
             return pageMap[route];
         }
@@ -21,7 +21,7 @@ var ContentLoader = (function () {
     var load = function (route, contentId) {
         var pageFunc = getPageFunc(route);
         if (contentId !== undefined) {
-            var pageData = DataStore.findPage(contentId);
+            var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
                 render('<p>Page data for "' + contentId + '" not found</p>');
             } else {

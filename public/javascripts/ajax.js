@@ -1,4 +1,4 @@
-var Ajax = (function() {
+var ajax = (function() {
     var getXhrObject = function() {
         return (typeof window.XMLHttpRequest == "function") ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLDOM");
     }

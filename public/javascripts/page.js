@@ -1,9 +1,9 @@
 //a page updating module that puts the actual content on to the page
 
-var Page = (function () {
+var page = (function () {
     var home = function () {
         var html = '<h2>Home</h2><p>Intro to web site and stuff...</p>';
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var post = function (data) {
@@ -12,7 +12,7 @@ var Page = (function () {
             '<p>' + data.content + '</p>' +
             '<p>Posted by ' + data.author + ' on ' + data.created + '</p>' +
             '</div>';
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var image = function (data) {
@@ -20,7 +20,7 @@ var Page = (function () {
             '<h3>' + data.title + '</h3>' +
             '<p><img src="' + data.src + '"></p>' +
             '</div>';
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var video = function (data) {
@@ -31,25 +31,25 @@ var Page = (function () {
             'Your browser does not support this video' +
             '</video>' +
             '</div>';
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var slideshow = function (data) {
-        SlideshowManager.display(data);
+        slideshowManager.display(data);
     }
 
     var quiz = function (data) {
-        QuizManager.display(data);
+        quizManager.display(data);
     }
 
     var notFound = function () {
         var html = '<h3>Not found</h3>';
         html += "<p>Aww, we couldn't find that page. :(</p>";
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var login = function() {
-        AdminManager.display();
+        adminManager.display();
     }
 
     return {

@@ -1,5 +1,5 @@
 
-var DataStore = (function () {
+var dataStore = (function () {
     var version = 23; // Increment this when schema changes to cause local storage to be overidden.
 
     var uuid = function () {
@@ -27,7 +27,7 @@ var DataStore = (function () {
         var localVersion = parseInt(window.localStorage.getItem('version'));
         if (isNaN(localVersion) || version > localVersion) {
             // Load the initial json payload into local storage
-            Ajax.getJson(file, function (result) {
+            ajax.getJson(file, function (result) {
                 if (result.success) {
                     var pages = JSON.parse(result.response);
                     saveLocally(pages);

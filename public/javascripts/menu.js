@@ -1,6 +1,6 @@
 //a menu manager module that allows the user to navigate around your spa
 
-var Menu = (function () {
+var menu = (function () {
     var pageMap = [];
 
     var addPage = function(route, linkText) {

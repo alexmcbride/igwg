@@ -1,4 +1,4 @@
-var AdminManager = (function () {
+var adminManager = (function () {
     var currentState = null;
     var loggedIn = false;
 
@@ -20,7 +20,7 @@ var AdminManager = (function () {
         html += '<label for="password">Password</label><br>';
         html += '<input type="password" id="password">';
         html += '</div>';
-        html += '<input type="button" value="Login" onclick="AdminManager.login()">';
+        html += '<input type="button" value="Login" onclick="adminManager.login()">';
         html += '</form>';
         return html;
     }
@@ -29,7 +29,7 @@ var AdminManager = (function () {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
-        Ajax.postJson('/admin/login', function (result) {
+        ajax.postJson('/admin/login', function (result) {
             console.log(result);
             if (result.response.logged_in) {
                 console.log('Successfully logged in!!');
@@ -41,7 +41,7 @@ var AdminManager = (function () {
 
     var update = function (error) {
         var html = currentState(error);
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     var display = function () {

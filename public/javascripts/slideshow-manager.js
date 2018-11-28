@@ -1,6 +1,6 @@
 //a page updating module that puts the actual content on to the page
 
-var SlideshowManager = (function () {
+var slideshowManager = (function () {
     var pageData = null;
 
     // Gets next slide index or -1 if none
@@ -45,14 +45,14 @@ var SlideshowManager = (function () {
         } else if (input < 1 || input > pageData.images.length) {
             alert("'" + value + "' is outside of the slideshow range");
         } else {
-            document.location.hash = '#' + ContentLoader.url(pageData.type, pageData.id, input - 1);
+            document.location.hash = '#' + contentLoader.url(pageData.type, pageData.id, input - 1);
         }
     }
 
     // Get HTML for a single link
     var generateLink = function (index, cls, text) {
         if (index > -1) {
-            return '<a class="' + cls + '" href="#' + ContentLoader.url(pageData.type, pageData.id, index) + '">' + text + '</a>';
+            return '<a class="' + cls + '" href="#' + contentLoader.url(pageData.type, pageData.id, index) + '">' + text + '</a>';
         }
         return '';
     }
@@ -63,7 +63,7 @@ var SlideshowManager = (function () {
         if (pageData.images.length > 0) {
             output += '<div class="gotoslide">';
             output += '<label for="gotoslide">Go to slide:</label>';
-            output += '<input type="text" id="gotoslide" onchange="SlideshowManager.goToSlide()" value="' + (currentIndex + 1) + '">';
+            output += '<input type="text" id="gotoslide" onchange="slideshowManager.goToSlide()" value="' + (currentIndex + 1) + '">';
             output += '</div>';
         }
         return output;
@@ -83,7 +83,7 @@ var SlideshowManager = (function () {
 
     // Get HTML for the page.
     var generateHtml = function () {
-        var currentIndex = ContentLoader.getData();
+        var currentIndex = contentLoader.getData();
         var slide = pageData.images[currentIndex];
         if (slide === undefined) {
             return '<p>Slide not found :(</p>';
@@ -100,7 +100,7 @@ var SlideshowManager = (function () {
     var display = function (data) {
         pageData = data;
         var html = generateHtml();
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     return {

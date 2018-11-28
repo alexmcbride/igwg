@@ -6,42 +6,42 @@
  * App module that starts the application.
  */
 
-var App = (function () {
+var app = (function () {
     var defaultPage = 'home';
     var jsonContentFile = 'data.json';
     var mainContentEl = 'main-content';
     var menuContentEl = 'menu-content';
 
     var getMenuPages = function () {
-        var pages = DataStore.findPages();
+        var pages = dataStore.findPages();
         return pages.map(function (page) {
-            return { route: ContentLoader.url(page.type, page.id), title: page.title };
+            return { route: contentLoader.url(page.type, page.id), title: page.title };
         });
     }
 
     var loadContentLoader = function(defaultPage, mainContentEl) {
-        ContentLoader.addPage('home', Page.home);
-        ContentLoader.addPage('post', Page.post);
-        ContentLoader.addPage('image', Page.image);
-        ContentLoader.addPage('video', Page.video);
-        ContentLoader.addPage('slideshow', Page.slideshow);
-        ContentLoader.addPage('quiz', Page.quiz);
-        ContentLoader.addPage('login', Page.login);
-        ContentLoader.run(defaultPage, mainContentEl);
+        contentLoader.addPage('home', page.home);
+        contentLoader.addPage('post', page.post);
+        contentLoader.addPage('image', page.image);
+        contentLoader.addPage('video', page.video);
+        contentLoader.addPage('slideshow', page.slideshow);
+        contentLoader.addPage('quiz', page.quiz);
+        contentLoader.addPage('login', page.login);
+        contentLoader.run(defaultPage, mainContentEl);
     }
 
     var loadMainMenu = function(getMenuPages, menuContentEl) {
-        Menu.addPage('home', 'Home');
+        menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
-            Menu.addPage(page.route, page.title);
+            menu.addPage(page.route, page.title);
         });
-        Menu.addPage('login', 'Login');
-        Menu.display(menuContentEl);
+        menu.addPage('login', 'Login');
+        menu.display(menuContentEl);
     }
 
     var run = function () {
         // Initialize the data store
-        DataStore.initialize(function (result) {
+        dataStore.initialize(function (result) {
             if (result.success) {
                 // Start app
                 loadContentLoader(defaultPage, mainContentEl);
@@ -58,5 +58,5 @@ var App = (function () {
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
-    App.run();
+    app.run();
 });

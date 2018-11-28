@@ -1,4 +1,4 @@
-var QuizManager = (function () {
+var quizManager = (function () {
     // Object to represent a quiz. Uses simple state machine pattern. There are three states - start, question, and 
     // finish. When update is called the current state is processed and the handler moves to the next. Data is 
     // stored in local storage.
@@ -39,12 +39,12 @@ var QuizManager = (function () {
         html += '<h2>' + this.pageData.title + '</h2>'
         html += this.currentState();
         html += '</div>';
-        ContentLoader.render(html);
+        contentLoader.render(html);
     }
 
     // Handles the start state
     QuizHandler.prototype.startState = function () {
-        return '<p><button onclick="QuizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
+        return '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
     }
 
     // Handles the question state (there can be multiple question states).
@@ -54,11 +54,11 @@ var QuizManager = (function () {
         html += '<p>' + question.text + '</p>';
         var pageData = this.pageData; // Make pageData local so don't have to use 'this' inside foreach function.
         question.options.forEach(function (option, index) {
-            html += '<input type="radio" name="answer" id="answer' + index + '" onclick="QuizManager.onQuestion(\'' + pageData.id + '\', ' + index + ')">';
+            html += '<input type="radio" name="answer" id="answer' + index + '" onclick="quizManager.onQuestion(\'' + pageData.id + '\', ' + index + ')">';
             html += '<label for="answer' + index + '">' + option.text + '</label><br>';
         });
         html += '<br>';
-        html += '<input type="button" value="Answer" onclick="QuizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
+        html += '<input type="button" value="Answer" onclick="quizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
         html += '</form>';
         return html;
     }
@@ -69,7 +69,7 @@ var QuizManager = (function () {
         var total = this.pageData.questions.length;
         var html = '<p>You finished the quiz!</p>';
         html += '<p>You got ' + correct + ' out of ' + total + ' correct!</p>';
-        html += '<input type="button" value="Take Quiz Again!" onclick="QuizManager.onRestart(\'' + this.pageData.id + '\')">';
+        html += '<input type="button" value="Take Quiz Again!" onclick="quizManager.onRestart(\'' + this.pageData.id + '\')">';
         return html;
     }
 
@@ -90,7 +90,7 @@ var QuizManager = (function () {
     QuizHandler.prototype.addAnswer = function (question, answer) {
         // Add to answers list and then update local storage
         this.pageData.answers.push({ answer: answer, question: question });
-        DataStore.setPage(this.pageData);
+        dataStore.setPage(this.pageData);
     }
 
     // Event called when answer button pressed, moves state to finished.
@@ -123,7 +123,7 @@ var QuizManager = (function () {
     QuizHandler.prototype.onRestart = function () {
         // Reset answers
         this.pageData.answers = []
-        DataStore.setPage(this.pageData);
+        dataStore.setPage(this.pageData);
 
         // Set back to initial state
         this.currentState = this.questionState;
