@@ -2,7 +2,7 @@ var quizManager = (function () {
     // Object to represent a quiz. Uses simple state machine pattern. There are three states - start, question, and 
     // finish. When update is called the current state is processed and the handler moves to the next. Data is 
     // stored in local storage.
-    var QuizHandler = function (pageData) {
+    var Quiz = function (pageData) {
         this.pageData = pageData;
         this.currentQuestionIndex = this.getCurrentQuestionIndex();
         this.currentState = this.loadCurrentState();
@@ -10,7 +10,7 @@ var quizManager = (function () {
     }
 
     // Gets the index of the question currently being asked.
-    QuizHandler.prototype.getCurrentQuestionIndex = function () {
+    Quiz.prototype.getCurrentQuestionIndex = function () {
         if (this.pageData.answers.length > 0) {
             return this.pageData.answers.length;
         }
@@ -18,7 +18,7 @@ var quizManager = (function () {
     }
 
     // Get the current start of the quiz.
-    QuizHandler.prototype.loadCurrentState = function () {
+    Quiz.prototype.loadCurrentState = function () {
         if (this.pageData.answers.length == this.pageData.questions.length) {
             return this.finishedState;
         } else if (this.pageData.answers.length > 0) {
@@ -29,12 +29,12 @@ var quizManager = (function () {
     }
 
     // Gets the current question object
-    QuizHandler.prototype.getCurrentQuestion = function () {
+    Quiz.prototype.getCurrentQuestion = function () {
         return this.pageData.questions[this.currentQuestionIndex];
     }
 
     // Updates the current state and displays the output
-    QuizHandler.prototype.update = function () {
+    Quiz.prototype.update = function () {
         var html = '<div class="question">';
         html += '<h2>' + this.pageData.title + '</h2>'
         html += this.currentState();
@@ -43,12 +43,12 @@ var quizManager = (function () {
     }
 
     // Handles the start state
-    QuizHandler.prototype.startState = function () {
+    Quiz.prototype.startState = function () {
         return '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
     }
 
     // Handles the question state (there can be multiple question states).
-    QuizHandler.prototype.questionState = function () {
+    Quiz.prototype.questionState = function () {
         var question = this.getCurrentQuestion();
         var html = '<form class="question">';
         html += '<p>' + question.text + '</p>';
@@ -64,7 +64,7 @@ var quizManager = (function () {
     }
 
     // Handles finished state.
-    QuizHandler.prototype.finishedState = function () {
+    Quiz.prototype.finishedState = function () {
         var correct = this.getNumberCorrect();
         var total = this.pageData.questions.length;
         var html = '<p>You finished the quiz!</p>';
@@ -74,27 +74,27 @@ var quizManager = (function () {
     }
 
     // Event called when start button pressed, moves state to question.
-    QuizHandler.prototype.onStart = function () {
+    Quiz.prototype.onStart = function () {
         this.currentQuestionIndex = 0;
         this.currentState = this.questionState;
         this.update();
     }
 
     // Event called when user selected an answer to a question
-    QuizHandler.prototype.onQuestion = function (index) {
+    Quiz.prototype.onQuestion = function (index) {
         this.currentAnswerIndex = index;
         document.getElementById('answer-btn').removeAttribute('disabled');
     }
 
     // Adds answer to local storage
-    QuizHandler.prototype.addAnswer = function (question, answer) {
+    Quiz.prototype.addAnswer = function (question, answer) {
         // Add to answers list and then update local storage
         this.pageData.answers.push({ answer: answer, question: question });
         dataStore.setPage(this.pageData);
     }
 
     // Event called when answer button pressed, moves state to finished.
-    QuizHandler.prototype.onAnswer = function () {
+    Quiz.prototype.onAnswer = function () {
         this.addAnswer(this.currentQuestionIndex, this.currentAnswerIndex);
 
         if (this.currentQuestionIndex === (this.pageData.questions.length - 1)) {
@@ -107,7 +107,7 @@ var quizManager = (function () {
     }
 
     // Counts number of correct answers the user has given.
-    QuizHandler.prototype.getNumberCorrect = function () {
+    Quiz.prototype.getNumberCorrect = function () {
         var correct = 0;
         for (var i = 0; i < this.pageData.answers.length; i++) {
             var answer = this.pageData.answers[i];
@@ -120,7 +120,7 @@ var quizManager = (function () {
     }
 
     // Event called when restart button pressed, moves state back to start.
-    QuizHandler.prototype.onRestart = function () {
+    Quiz.prototype.onRestart = function () {
         // Reset answers
         this.pageData.answers = []
         dataStore.setPage(this.pageData);
@@ -149,7 +149,7 @@ var quizManager = (function () {
     var display = function (pageData) {
         var quiz = getQuiz(pageData.id);
         if (quiz === null) {
-            quiz = new QuizHandler(pageData);
+            quiz = new Quiz(pageData);
             quizMap[pageData.id] = quiz;
         }
         quiz.update();
