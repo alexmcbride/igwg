@@ -1,6 +1,6 @@
 
 var dataStore = (function () {
-    var version = 23; // Increment this when schema changes to cause local storage to be overidden.
+    var version = 24; // Increment this when schema changes to cause local storage to be overidden.
 
     var uuid = function () {
         return crypto.getRandomValues(new Uint32Array(4)).join('-');
