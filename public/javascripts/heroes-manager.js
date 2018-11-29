@@ -2,8 +2,15 @@
 
 var herosManager = (function () {
     var generateHtml = function (data) {
-        return '<h2>' + data.title + '<h2>';
-        // pagination of heroes
+        var html = '<h2>' + data.title + '<h2>';
+        html += '<ul>';
+        data.heroes.forEach(hero => {
+            html += '<li>';
+            html += hero.title;
+            html += '</li>';
+        });
+        html += '</ul>';
+        return html;
     }
 
     var display = function (data) {
