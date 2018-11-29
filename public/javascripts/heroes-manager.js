@@ -1,6 +1,6 @@
 //a menu manager module that allows the user to navigate around your spa
 
-var herosManager = (function () {
+var heroesManager = (function () {
     var generateHtml = function (data) {
         var html = '<h2>' + data.title + '<h2>';
         html += '<ul>';
