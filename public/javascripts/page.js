@@ -43,7 +43,7 @@ var page = (function () {
     }
 
     var heroes = function (data) {
-        herosManager.display(data);
+        heroesManager.display(data);
     }
 
     var notFound = function () {
