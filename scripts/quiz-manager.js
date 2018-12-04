@@ -46,7 +46,13 @@ var quizManager = (function () {
     Quiz.prototype.startState = function () {
         var html = '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
         html += '<h2>Previous Results</h2>';
+        html += this.generatePreviousResultsHtml();
+        return html;
+    }
 
+    // Gets the HTML for displaying previous results
+    Quiz.prototype.generatePreviousResultsHtml = function() {
+        // Get list of results.
         var results = [];
         for (var key in this.pageData.answers) {
             var answer = this.pageData.answers[key];
@@ -54,21 +60,23 @@ var quizManager = (function () {
             results.push({ name: answer.name, correct: correct });
         }
 
+        // Sort descending
         results.sort(function (a, b) {
             if (a.correct > b.correct) {
                 return -1;
             } else if (a.correct < b.correct) {
                 return 1;
+            } else {
+                return 0;
             }
-            return 0;
         });
 
-        html += '<ol>';
+        // Create HTML.
+        var html = '<ol>';
         results.forEach(function (result) {
             html += '<li>' + result.name + ' - ' + result.correct + '</li>';
         });
         html += '</ol>';
-
         return html;
     }
 
