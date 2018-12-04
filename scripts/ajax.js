@@ -1,3 +1,4 @@
+// Module to encapsulate JSON requests.
 var ajax = (function() {
     var getJson = function (url, callback) {
         var xhr = (typeof window.XMLHttpRequest == "function") ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLDOM");

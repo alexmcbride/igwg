@@ -19,16 +19,6 @@ var adminManager = (function () {
             html += '</div>'
             return html;
         },
-        getTitle: function () {
-            return document.getElementById('post-title').value.trim();
-        },
-        getContent: function () {
-            var value = document.getElementById('post-content').value;
-            if (value !== undefined) {
-                return value.trim();
-            }
-            return '';
-        },
         save: function () {
             dataStore.setPage({
                 id: createId(),
@@ -53,7 +43,17 @@ var adminManager = (function () {
                 success = false;
             }
             return success;
-        }
+        },
+        getTitle: function () {
+            return document.getElementById('post-title').value.trim();
+        },
+        getContent: function () {
+            var value = document.getElementById('post-content').value;
+            if (value !== undefined) {
+                return value.trim();
+            }
+            return '';
+        },        
     };
 
     // Class to manage adding slideshow.
@@ -80,22 +80,6 @@ var adminManager = (function () {
             html += '</div>'
             return html;
         },
-        getTitle: function () {
-            return document.getElementById('slideshow-title').value.trim();
-        },
-        getSlideObjects: function () {
-            var images = [];
-            var list = document.getElementById('slideshow-slides');
-            list.childNodes.forEach(function (item) {
-                var title = item.getElementsByClassName('slide-title')[0].value;
-                var url = item.getElementsByClassName('slide-url')[0].value;
-                images.push({
-                    title: title,
-                    src: url
-                });
-            });
-            return images;
-        },
         save: function () {
             var images = this.getSlideObjects();
             dataStore.setPage({
@@ -118,16 +102,30 @@ var adminManager = (function () {
 
             return success;
         },
+        getTitle: function () {
+            return document.getElementById('slideshow-title').value.trim();
+        },
+        getSlideObjects: function () {
+            var list = document.getElementById('slideshow-slides');
+            return list.childNodes.map(function (item) {
+                var title = item.getElementsByClassName('slide-title')[0].value;
+                var url = item.getElementsByClassName('slide-url')[0].value;
+                return {
+                    title: title,
+                    src: url
+                };
+            });
+        },        
         addSlide: function () {
             var list = document.getElementById('slideshow-slides');
-            var item = document.createElement('li');
-            item.innerHTML = this.slideInputHtml();
-            list.appendChild(item);
+            var listItem = document.createElement('li');
+            listItem.innerHTML = this.slideInputHtml();
+            list.appendChild(listItem);
         },
         deleteSlide: function (btnEl) {
-            var item = btnEl.parentNode;
+            var listItem = btnEl.parentNode;
             var list = document.getElementById('slideshow-slides');
-            list.removeChild(item);
+            list.removeChild(listItem);
         }
     };
     
@@ -193,7 +191,7 @@ var adminManager = (function () {
             throw 'Form type not found';
         } else {
             currentPage = page;
-            var html = currentPage.form();
+            var html = currentPage.form(); // Update this form.
             document.getElementById('form-content').innerHTML = html;
         }
     }
@@ -208,10 +206,11 @@ var adminManager = (function () {
         if (currentPage == null) {
             throw 'Current state not set';
         } else {
+            // Save if page valid.
             if (currentPage.validate()) {
                 currentPage.save();
                 message('Page saved!');
-                app.refreshMenu();
+                app.refreshMenu(); // Tell app to redraw main menu.
             } else {
                 message('Problem on form :(');
             }

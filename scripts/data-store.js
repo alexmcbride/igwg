@@ -1,6 +1,6 @@
 
 var dataStore = (function () {
-    var version = 31; // Increment this when schema changes to cause local storage to be overidden.
+    var version = 32; // Increment this when schema changes to cause local storage to be overidden.
 
     var saveLocalStorage = function (pages) {
         // Remove old stuff.
@@ -20,7 +20,7 @@ var dataStore = (function () {
     }
 
     var initialize = function (callback, file) {
-        // Check if the schema of the data has been changed.
+        // Check if the payload has changed
         var localVersion = parseInt(window.localStorage.getItem('version'));
         if (isNaN(localVersion) || version > localVersion) {
             // Load the initial json payload into local storage
