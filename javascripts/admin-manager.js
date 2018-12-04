@@ -1,5 +1,9 @@
 var adminManager = (function () {
-    var currentForm = null;
+    var currentState = null;
+
+    var createId = function () {
+        return crypto.getRandomValues(new Uint32Array(4)).join('');
+    }
 
     var generateHtml = function (form) {
         var html = '<form>';
@@ -17,65 +21,139 @@ var adminManager = (function () {
         html += '</div>';
         html += '<hr>';
         html += '<div>';
-        html += '<input type="button" id="saveForm" value="Save">';
+        html += '<input type="button" value="Save" onclick="adminManager.save()">';
         html += '</div>';
+        html += '<div id="message"></div>';
         html += '</form>';
         return html;
     }
 
-    var pageForm = function () {
-        return 'pageForm';
-    }
+    var Page = {
+        form: function () {
+            var html = '<div class="page-form">';
+            html += '<div clas="form-input">';
+            html += '<label for="title">Title</label><br>';
+            html += '<input type="text" id="title">';
+            html += '<span class="form-error" id="title-error"></span>';
+            html += '</div>'
+            html += '<div class="form-input">'
+            html += '<label for="content">Content</label><br>';
+            html += '<textarea id="content"></textarea>';
+            html += '<span class="form-error" id="content-error"></span>';
+            html += '</div>'
+            html += '</div>'
+            return html;
+        },
+        getValue: function(id) {
+            var value = document.getElementById(id).value;
+            if (value !== undefined) {
+                return value;
+            }
+            return '';
+        },
+        save: function () {
+            if (this.validate()) {
+                var post = {
+                    id: createId(),
+                    type: "post",
+                    title: this.getValue('title'),
+                    created: new Date().toISOString(),
+                    content: this.getValue('content')
+                };
+                dataStore.setPage(post);
+                document.getElementById('message').innerHTML = 'Yay, I was saved!';
+
+                // todo: tell main menu to refresh
+            } else {
+                document.getElementById('message').innerHTML = 'Problem on form :(';
+            }
+        },
+        validate: function () {
+            var success = true;
+            var title = this.getValue('title');
+            if (title.length == 0) {
+                document.getElementById('title-error').innerHTML = 'Title is required';
+                success = false;
+            }
+            var content = this.getValue('content');
+            if (content.length == 0) {
+                document.getElementById('content-error').innerHTML = 'Content is required';
+                success = false;
+            }
+            return success;
+        }
+    };
 
     var slideshowForm = function () {
         return 'slideshowForm';
+    }
+
+    var slideshowSave = function () {
+
     }
 
     var quizForm = function () {
         return 'quizForm';
     }
 
+    var quizSave = function () {
+
+    }
+
     var videoForm = function () {
         return 'videoForm';
     }
 
+    var videoSave = function () {
+
+    }
+
     var display = function () {
-        if (currentForm == null) {
-            currentForm = pageForm;
+        if (currentState == null) {
+            currentState = getState('page');;
         }
 
-        var form = currentForm();
+        var form = currentState.form();
         var html = generateHtml(form);
         contentLoader.render(html);
     }
 
-    var getFormType = function (type) {
+    var getState = function (type) {
         switch (type) {
             case 'page':
-                return pageForm;
-            case 'slideshow':
-                return slideshowForm;
-            case 'quiz':
-                return quizForm;
-            case 'video':
-                return videoForm;                
+                return Page;
+            // case 'slideshow':
+            //     return { form: slideshowForm, save: slideshowSave };
+            // case 'quiz':
+            //     return { form: quizForm, save: quizSave };
+            // case 'video':
+            //     return { form: videoForm, save: videoSave };
         }
         return null;
     }
 
     var formChange = function () {
         var type = document.getElementById('form-select').value;
-        formType = getFormType(type);
-        if (formType == null) {
-            alert('Form type not found');
+        var cls = getState(type);
+        if (cls == null) {
+            throw 'Form type not found';
         } else {
-            currentForm = formType;
+            currentState = cls;
             display();
+        }
+    }
+
+    var save = function () {
+        if (currentState == null) {
+            throw 'Current state not set';
+        } else {
+            currentState.save();
         }
     }
 
     return {
         display: display,
-        formChange: formChange
+        formChange: formChange,
+        save: save
     };
 })();

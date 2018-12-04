@@ -2,10 +2,6 @@
 var dataStore = (function () {
     var version = 27; // Increment this when schema changes to cause local storage to be overidden.
 
-    var uuid = function () {
-        return crypto.getRandomValues(new Uint32Array(4)).join('-');
-    }
-
     var saveLocally = function (pages) {
         // Remove old stuff.
         window.localStorage.clear();
