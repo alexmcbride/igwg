@@ -7,10 +7,9 @@ var dataStore = (function () {
         window.localStorage.clear();
 
         // Add each page to storage.
-        var ids = [];
-        pages.forEach(page => {
+        var ids = pages.map(function (page) {
             window.localStorage.setItem(page.id, JSON.stringify(page));
-            ids.push(page.id);
+            return page.id;
         });
 
         // So we have a list of retrieveable pages we store the IDs as a comma-seperated list
@@ -40,17 +39,13 @@ var dataStore = (function () {
 
     var findPages = function () {
         var ids = getPageIds();
-        var pages = [];
-        ids.forEach(function (id) {
-            var page = JSON.parse(window.localStorage.getItem(id));
-            pages.push(page);
+        return ids.map(function (id) {
+            return JSON.parse(window.localStorage.getItem(id));
         });
-        return pages;
     }
 
     var findPage = function (postId) {
-        var json = window.localStorage.getItem(postId);
-        return JSON.parse(json);
+        return JSON.parse(window.localStorage.getItem(postId));
     }
 
     var getPageIds = function () {

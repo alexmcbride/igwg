@@ -12,13 +12,6 @@ var app = (function () {
     var mainContentEl = 'main-content';
     var menuContentEl = 'menu-content';
 
-    var getMenuPages = function () {
-        var pages = dataStore.findPages();
-        return pages.map(function (page) {
-            return { route: contentLoader.url(page.type, page.id), title: page.title };
-        });
-    }
-
     var loadContentLoader = function () {
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
@@ -41,7 +34,14 @@ var app = (function () {
         menu.addPage('admin', 'Admin');
         menu.display(menuContentEl);
     }
-
+    
+    var getMenuPages = function () {
+        var pages = dataStore.findPages();
+        return pages.map(function (page) {
+            return { route: contentLoader.url(page.type, page.id), title: page.title };
+        });
+    }
+    
     var run = function () {
         // Initialize the data store
         dataStore.initialize(function (result) {
