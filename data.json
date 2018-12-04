@@ -74,15 +74,15 @@
                 "text": "Why did the war start?",
                 "options": [
                     {
-                        "text": "Because a duke shot an osterich cause he was hungry",
+                        "text": "A duke shot an osterich cause he was hungry",
                         "correct": false
                     },
                     {
-                        "text": "The vile hun and their evil empire",
+                        "text": "The vile hun and their vast empire",
                         "correct": false
                     },
                     {
-                        "text": "Because it was easier than not having a war",
+                        "text": "It was easier than not having a war",
                         "correct": true
                     }
                 ]
