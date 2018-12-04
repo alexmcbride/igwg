@@ -1,6 +1,6 @@
 
 var dataStore = (function () {
-    var version = 28; // Increment this when schema changes to cause local storage to be overidden.
+    var version = 31; // Increment this when schema changes to cause local storage to be overidden.
 
     var saveLocalStorage = function (pages) {
         // Remove old stuff.
