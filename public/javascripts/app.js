@@ -27,6 +27,7 @@ var app = (function () {
         contentLoader.addPage('slideshow', page.slideshow);
         contentLoader.addPage('quiz', page.quiz);
         contentLoader.addPage('login', page.login);
+        contentLoader.addPage('admin', page.admin);
         contentLoader.run(defaultPage, mainContentEl);
     }
 
@@ -36,6 +37,7 @@ var app = (function () {
             menu.addPage(page.route, page.title);
         });
         menu.addPage('login', 'Login');
+        menu.addPage('admin', 'Admin');
         menu.display(menuContentEl);
     }
 

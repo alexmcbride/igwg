@@ -49,6 +49,10 @@ var page = (function () {
     }
 
     var login = function () {
+        loginManager.display();
+    }
+
+    var admin = function () {
         adminManager.display();
     }
 
@@ -60,6 +64,7 @@ var page = (function () {
         slideshow: slideshow,
         quiz: quiz,
         notFound: notFound,
-        login: login
+        login: login,
+        admin: admin
     }
 })();

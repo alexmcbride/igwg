@@ -8,14 +8,6 @@
         "author": "Alex"
     },
     {
-        "id": "1",
-        "type": "post",
-        "title": "Aliquam tempus tincidunt nulla",
-        "created": "2018-11-06T21:18:02.852Z",
-        "content": "Aliquam tempus tincidunt nulla, et scelerisque lorem auctor in. Donec sit amet blandit nibh. Aliquam ullamcorper, arcu vel ultricies imperdiet, dolor enim porttitor ex, sed viverra lorem urna a mi. Quisque eget lacinia libero. Proin maximus hendrerit dui, eu facilisis nulla. Nulla accumsan purus felis, at vulputate purus suscipit volutpat. Pellentesque erat neque, consectetur ut nisi sed, tempus lacinia dolor. Mauris id felis quis felis cursus ultricies in id ante. Maecenas ac velit magna. In auctor, mi sed fermentum ultrices, enim enim pellentesque metus, id posuere ligula dolor a erat. Aenean efficitur consequat purus id aliquam. Morbi eget luctus enim. Proin eget enim quis sapien sagittis tempor. Nullam id congue dui. Duis vel eros neque.",
-        "author": "Alex"
-    },
-    {
         "id": "2",
         "type": "image",
         "title": "Donec sit amet blandit nibh",
