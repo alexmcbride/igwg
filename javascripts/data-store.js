@@ -2,10 +2,11 @@
 var dataStore = (function () {
     var version = 27; // Increment this when schema changes to cause local storage to be overidden.
 
-    var saveLocally = function (pages) {
+    var saveLocalStorage = function (pages) {
         // Remove old stuff.
         window.localStorage.clear();
 
+        // Add each page to storage.
         var ids = [];
         pages.forEach(page => {
             window.localStorage.setItem(page.id, JSON.stringify(page));
@@ -20,13 +21,14 @@ var dataStore = (function () {
     }
 
     var initialize = function (callback, file) {
+        // Check if the schema of the data has been changed.
         var localVersion = parseInt(window.localStorage.getItem('version'));
         if (isNaN(localVersion) || version > localVersion) {
             // Load the initial json payload into local storage
             ajax.getJson(file, function (result) {
                 if (result.success) {
                     var pages = JSON.parse(result.response);
-                    saveLocally(pages);
+                    saveLocalStorage(pages);
                 }
                 callback(result);
             });

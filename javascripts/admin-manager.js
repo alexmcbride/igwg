@@ -8,7 +8,7 @@ var adminManager = (function () {
     var generateHtml = function () {
         var html = '<form>';
         html += '<h2>Admin</h2>';
-        html += '<p>Pure add, edit, and delete pages, and all that.</p>';
+        html += '<p>Pure add, edit, and delete pages, and aw that.</p>';
         html += '<select id="form-select" onchange="adminManager.formChange()">';
         html += '<option value="post">Post</option>';
         html += '<option value="slideshow">Slideshow</option>';
