@@ -10,16 +10,16 @@ var contentLoader = (function () {
         pageMap[route] = page;
     }
 
-    var getPageFunc = function (route) {
+    var getPageHandler = function (route) {
         if (pageMap[route] === undefined) {
-            return page.notFound;
+            return page.notFound; // :(
         } else {
             return pageMap[route];
         }
     }
 
     var load = function (route, contentId) {
-        var pageFunc = getPageFunc(route);
+        var pageHandler = getPageHandler(route);
         if (contentId !== undefined && contentId !== 0) {
             var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
@@ -27,10 +27,10 @@ var contentLoader = (function () {
             } else if (pageData.type != route) {
                 render('<p>Page type "' + pageData.type + '" does not match route</p>');
             } else {
-                pageFunc(pageData);
+                pageHandler(pageData);
             }
         } else {
-            pageFunc();
+            pageHandler();
         }
     }
 
@@ -68,13 +68,14 @@ var contentLoader = (function () {
     }
 
     var getData = function () {
-        if (window.location.hash) {
-            var count = countSeperators(window.location.hash);
+        var hash = window.location.hash;
+        if (hash) {
+            var count = countSeperators(hash);
             if (count > 1) {
-                var index = window.location.hash.lastIndexOf(seperator);
+                var index = hash.lastIndexOf(seperator);
                 if (index > -1) {
-                    var hash = window.location.hash.substr(index + 1);
-                    var id = parseInt(hash);
+                    var lastHash = hash.substr(index + 1);
+                    var id = parseInt(lastHash);
                     if (!isNaN(id)) {
                         return id;
                     }
@@ -99,9 +100,9 @@ var contentLoader = (function () {
         mainContentEl = contentEl;
 
         if (window.location.hash) {
-            locationChanged();
+            locationChanged(); // Hash already set when page loaded.
         } else {
-            load(defaultPage);
+            load(defaultPage); // Start with default.
         }
 
         window.onhashchange = locationChanged;

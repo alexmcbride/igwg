@@ -2,7 +2,6 @@
 
 var menu = (function () {
     var pageMap = [];
-    var menuElement = null;
 
     var clear = function() {
         pageMap = [];
@@ -24,8 +23,7 @@ var menu = (function () {
 
     var display = function (menuElementId) {
         var html = generateHtml();
-        var menuDiv = document.getElementById(menuElementId);
-        menuDiv.innerHTML = html;
+        document.getElementById(menuElementId).innerHTML = html;
         menuElement = menuElementId;
     }
 

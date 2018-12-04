@@ -12,7 +12,7 @@ var dataStore = (function () {
             return page.id;
         });
 
-        // So we have a list of retrieveable pages we store the IDs as a comma-seperated list
+        // To have a list of retrieveable pages we store the IDs as a comma-seperated list.
         window.localStorage.setItem('ids', ids.join(','));
 
         // Set the version so we know when it changes.
@@ -23,7 +23,7 @@ var dataStore = (function () {
         // Check if the payload has changed
         var localVersion = parseInt(window.localStorage.getItem('version'));
         if (isNaN(localVersion) || version > localVersion) {
-            // Load the initial json payload into local storage
+            // Load the json payload into local storage
             ajax.getJson(file, function (result) {
                 if (result.success) {
                     var pages = JSON.parse(result.response);
@@ -32,14 +32,13 @@ var dataStore = (function () {
                 callback(result);
             });
         } else {
-            // Payload already in local storage so just callback success
+            // Payload already in storage so smile and go with it.
             callback({ success: true });
         }
     }
 
     var findPages = function () {
-        var ids = getPageIds();
-        return ids.map(function (id) {
+        return getPageIds().map(function (id) {
             return JSON.parse(window.localStorage.getItem(id));
         });
     }
@@ -58,7 +57,7 @@ var dataStore = (function () {
 
     var addToPageIds = function (id) {
         var ids = getPageIds();
-        if (ids.indexOf(id) == -1) {
+        if (ids.indexOf(id) === -1) {
             ids.push(id);
         }
         setPageIds(ids);
