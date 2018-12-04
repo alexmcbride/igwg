@@ -1,33 +1,7 @@
 var adminManager = (function () {
     var currentPage = null;
 
-    var createId = function () {
-        return crypto.getRandomValues(new Uint32Array(1)).join('');
-    }
-
-    var generateHtml = function () {
-        var html = '<form>';
-        html += '<h2>Admin</h2>';
-        html += '<p>Pure add, edit, and delete pages, and aw that.</p>';
-        html += '<select id="form-select" onchange="adminManager.formChange()">';
-        html += '<option value="post">Post</option>';
-        html += '<option value="slideshow">Slideshow</option>';
-        html += '<option value="quiz">Quiz</option>';
-        html += '<option value="video">Video</option>';
-        html += '</select>';
-        html += '<hr>';
-        html += '<p id="message"></p>';
-        html += '<div id="form-content">';
-        html += currentPage.form();
-        html += '</div>';
-        html += '<hr>';
-        html += '<div>';
-        html += '<input type="button" value="Save" onclick="adminManager.save()">';
-        html += '</div>';
-        html += '</form>';
-        return html;
-    }
-
+    // Class to represent adding post.
     var Post = {
         form: function () {
             var html = '<div class="post-form">';
@@ -82,6 +56,7 @@ var adminManager = (function () {
         }
     };
 
+    // Class to manage adding slideshow.
     var Slideshow = {
         slideInputHtml: function () {
             var html = '<input type="text" value="Slide Title" class="slide-title"> - ';
@@ -155,7 +130,8 @@ var adminManager = (function () {
             list.removeChild(item);
         }
     };
-
+    
+    // Displays the current admin manager state.
     var display = function () {
         if (currentPage == null) {
             currentPage = getState('post');;
@@ -165,6 +141,36 @@ var adminManager = (function () {
         contentLoader.render(html);
     }
 
+    // Generates a random ID for pages.
+    var createId = function () {
+        return crypto.getRandomValues(new Uint32Array(1)).join('');
+    }
+
+    // Generates HTML to display the admin form
+    var generateHtml = function () {
+        var html = '<form>';
+        html += '<h2>Admin</h2>';
+        html += '<p>Pure add, edit, and delete pages, and aw that.</p>';
+        html += '<select id="form-select" onchange="adminManager.formChange()">';
+        html += '<option value="post">Post</option>';
+        html += '<option value="slideshow">Slideshow</option>';
+        html += '<option value="quiz">Quiz</option>';
+        html += '<option value="video">Video</option>';
+        html += '</select>';
+        html += '<hr>';
+        html += '<p id="message"></p>';
+        html += '<div id="form-content">';
+        html += currentPage.form();
+        html += '</div>';
+        html += '<hr>';
+        html += '<div>';
+        html += '<input type="button" value="Save" onclick="adminManager.save()">';
+        html += '</div>';
+        html += '</form>';
+        return html;
+    }
+
+    // Gets the current state based on the type string.
     var getState = function (type) {
         switch (type) {
             case 'post':
@@ -179,6 +185,7 @@ var adminManager = (function () {
         return null;
     }
 
+    // Called when the form select input changes, switches state to selected page type
     var formChange = function () {
         var pageType = document.getElementById('form-select').value;
         var page = getState(pageType);
@@ -191,10 +198,12 @@ var adminManager = (function () {
         }
     }
 
+    // Shortcut for displaying status message.
     var message = function (msg) {
         document.getElementById('message').innerHTML = msg;
     }
 
+    // Called to save the current page state.
     var save = function () {
         if (currentPage == null) {
             throw 'Current state not set';
@@ -209,10 +218,12 @@ var adminManager = (function () {
         }
     }
 
+    // Adds a slide to the current slideshow.
     var addSlide = function () {
         Slideshow.addSlide();
     }
 
+    // Removes a slide from the current slideshow.
     var deleteSlide = function (btnEl) {
         Slideshow.deleteSlide(btnEl);
     }
