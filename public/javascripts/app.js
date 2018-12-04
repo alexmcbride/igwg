@@ -26,7 +26,6 @@ var app = (function () {
         contentLoader.addPage('video', page.video);
         contentLoader.addPage('slideshow', page.slideshow);
         contentLoader.addPage('quiz', page.quiz);
-        contentLoader.addPage('heroes', page.heroes);
         contentLoader.addPage('login', page.login);
         contentLoader.run(defaultPage, mainContentEl);
     }

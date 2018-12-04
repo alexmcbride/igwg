@@ -42,10 +42,6 @@ var page = (function () {
         quizManager.display(data);
     }
 
-    var heroes = function (data) {
-        heroesManager.display(data);
-    }
-
     var notFound = function () {
         var html = '<h3>Not found</h3>';
         html += "<p>Aww, we couldn't find that page. :(</p>";
@@ -63,7 +59,6 @@ var page = (function () {
         video: video,
         slideshow: slideshow,
         quiz: quiz,
-        heroes: heroes,
         notFound: notFound,
         login: login
     }
