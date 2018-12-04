@@ -57,7 +57,7 @@ var contentLoader = (function () {
         return 0;
     }
 
-    var countHyphens = function (str) {
+    var countSeperators = function (str) {
         var count = 0;
         for (var i = 0; i < str.length; i++) {
             if (str[i] === seperator) {
@@ -69,7 +69,8 @@ var contentLoader = (function () {
 
     var getData = function () {
         if (window.location.hash) {
-            if (countHyphens(window.location.hash) > 1) {
+            var count = countSeperators(window.location.hash);
+            if (count > 1) {
                 var index = window.location.hash.lastIndexOf(seperator);
                 if (index > -1) {
                     var hash = window.location.hash.substr(index + 1);
