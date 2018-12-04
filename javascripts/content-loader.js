@@ -49,10 +49,7 @@ var contentLoader = (function () {
         if (window.location.hash) {
             var hash = window.location.hash.substring(1);
             if (hash.indexOf(seperator) > -1) {
-                var id = parseInt(hash.split(seperator)[1]);
-                if (!isNaN(id)) {
-                    return id;
-                }
+                return hash.split(seperator)[1];
             }
         }
         return 0;

@@ -2,8 +2,13 @@
 
 var menu = (function () {
     var pageMap = [];
+    var menuElement = null;
 
-    var addPage = function(route, linkText) {
+    var clear = function() {
+        pageMap = [];
+    }
+
+    var addPage = function (route, linkText) {
         pageMap[route] = linkText;
     }
 
@@ -21,9 +26,11 @@ var menu = (function () {
         var html = generateHtml();
         var menuDiv = document.getElementById(menuElementId);
         menuDiv.innerHTML = html;
+        menuElement = menuElementId;
     }
 
     return {
+        clear: clear,
         display: display,
         addPage: addPage
     };

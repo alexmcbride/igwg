@@ -68,8 +68,10 @@ var dataStore = (function () {
     }
 
     var setPage = function (page) {
-        window.localStorage.setItem(page.id, JSON.stringify(page));
+        var data = JSON.stringify(page);
+        window.localStorage.setItem(page.id, data);
         addToPageIds(page.id);
+        return page;
     }
 
     var removePage = function (page) {

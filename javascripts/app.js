@@ -19,7 +19,7 @@ var app = (function () {
         });
     }
 
-    var loadContentLoader = function(defaultPage, mainContentEl) {
+    var loadContentLoader = function () {
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
         contentLoader.addPage('image', page.image);
@@ -31,7 +31,8 @@ var app = (function () {
         contentLoader.run(defaultPage, mainContentEl);
     }
 
-    var loadMainMenu = function(getMenuPages, menuContentEl) {
+    var loadMainMenu = function () {
+        menu.clear();
         menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
             menu.addPage(page.route, page.title);
@@ -46,16 +47,21 @@ var app = (function () {
         dataStore.initialize(function (result) {
             if (result.success) {
                 // Start app
-                loadContentLoader(defaultPage, mainContentEl);
-                loadMainMenu(getMenuPages, menuContentEl);
+                loadContentLoader();
+                loadMainMenu();
             } else {
                 document.getElementById(mainContentEl).innerHTML = "Error: " + result.response;
             }
         }, jsonContentFile);
     }
 
+    var refreshMenu = function () {
+        loadMainMenu();
+    }
+
     return {
-        run: run
+        run: run,
+        refreshMenu
     };
 })();
 
