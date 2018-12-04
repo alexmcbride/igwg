@@ -20,11 +20,11 @@ var quizManager = (function () {
     // Get the current start of the quiz.
     Quiz.prototype.loadCurrentState = function () {
         if (this.pageData.currentAnswers.length == this.pageData.questions.length) {
-            return this.resultsState;
+            return this.resultsState; // Completed
         } else if (this.pageData.currentAnswers.length > 0) {
-            return this.questionState;
+            return this.questionState; // Currently answering
         } else {
-            return this.startState;
+            return this.startState; // Not started
         }
     }
 
@@ -85,7 +85,7 @@ var quizManager = (function () {
         return results;
     }
 
-    // Handles the question state (there can be multiple question states).
+    // State for displaying current question.
     Quiz.prototype.questionState = function () {
         var question = this.getCurrentQuestion();
         var html = '<form class="question">';
@@ -117,7 +117,7 @@ var quizManager = (function () {
         return html;
     }
 
-    // Event called when start button pressed, moves state to question.
+    // Event called when start button pressed, moves state to first question.
     Quiz.prototype.onStart = function () {
         this.currentQuestionIndex = 0;
         this.currentState = this.questionState;
@@ -131,14 +131,14 @@ var quizManager = (function () {
     }
 
     // Adds answer to local storage
-    Quiz.prototype.addAnswer = function (question, answer) {
+    Quiz.prototype.addCurrentAnswer = function (question, answer) {
         this.pageData.currentAnswers.push({ answer: answer, question: question });
         dataStore.setPage(this.pageData);
     }
 
-    // Event called when answer button pressed, moves state to finished.
+    // Event called when answer button pressed, moves to next question or ends quiz if at end
     Quiz.prototype.onAnswer = function () {
-        this.addAnswer(this.currentQuestionIndex, this.currentAnswerIndex);
+        this.addCurrentAnswer(this.currentQuestionIndex, this.currentAnswerIndex);
 
         if (this.currentQuestionIndex === (this.pageData.questions.length - 1)) {
             this.currentState = this.resultsState; // End of quiz
@@ -149,13 +149,13 @@ var quizManager = (function () {
         this.update();
     }
 
-    // Called when user preses complete button to finish the quiz
+    // Called when user preses complete button on results view
     Quiz.prototype.onComplete = function () {
         var name = document.getElementById('name').value.trim();
         if (name.length === 0) {
             alert('Enter a name');
         } else if (this.nameInResults(name)) {
-            alert('Name already in use');
+            alert('Name already entered');
         } else {
             // Push name and current answer state onto finished answers
             this.pageData.answers.push({ name: name, answers: this.pageData.currentAnswers });
@@ -189,20 +189,6 @@ var quizManager = (function () {
             }
         }
         return correct;
-    }
-
-    // Event called when restart button pressed, moves state back to start.
-    Quiz.prototype.onRestart = function () {
-        // Reset answers
-        this.pageData.currentAnswers = []
-        dataStore.setPage(this.pageData);
-
-        // Set back to initial state
-        this.currentState = this.questionState;
-        this.currentAnswerIndex = 0;
-        this.currentQuestionIndex = 0;
-
-        this.update();
     }
 
     // Hash map where quiz objects are stored key by page ID, this is so multiple quizes can be kept in memory at once.
@@ -272,7 +258,6 @@ var quizManager = (function () {
         onStart: onStart,
         onQuestion: onQuestion,
         onAnswer: onAnswer,
-        onRestart: onRestart,
         onComplete: onComplete
     }
 })();
