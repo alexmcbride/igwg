@@ -23,7 +23,9 @@ var contentLoader = (function () {
         if (contentId !== undefined && contentId !== 0) {
             var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
-                render('<p>Page data for "' + contentId + '" not found</p>');
+                render('<p>Page data for ID "' + contentId + '" not found</p>');
+            } else if (pageData.type != route) {
+                render('<p>Page type "' + pageData.type + '" does not match route</p>');
             } else {
                 pageFunc(pageData);
             }
