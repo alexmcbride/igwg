@@ -44,14 +44,25 @@ var quizManager = (function () {
 
     // Handles the start state
     Quiz.prototype.startState = function () {
-        var html = '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
+        var html = '<p>'
+        html += '<button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button>'
+        html += '</p>';
         html += '<h2>Previous Results</h2>';
-        html += this.generatePreviousResultsHtml();
+        var results = this.getOrderedResults();
+        if (results.length > 0) {
+            html += '<ol>';
+            results.forEach(function (result) {
+                html += '<li>' + result.name + ' - ' + result.correct + '</li>';
+            });
+            html += '</ol>';
+        } else {
+            html += '<p>There are no results to show.</p>';
+        }
         return html;
     }
 
-    // Gets the HTML for displaying previous results
-    Quiz.prototype.generatePreviousResultsHtml = function() {
+    // Gets a ordered array of previous results.
+    Quiz.prototype.getOrderedResults = function() {
         // Get list of results.
         var results = [];
         for (var key in this.pageData.answers) {
@@ -71,13 +82,7 @@ var quizManager = (function () {
             }
         });
 
-        // Create HTML.
-        var html = '<ol>';
-        results.forEach(function (result) {
-            html += '<li>' + result.name + ' - ' + result.correct + '</li>';
-        });
-        html += '</ol>';
-        return html;
+        return results;
     }
 
     // Handles the question state (there can be multiple question states).
@@ -127,7 +132,6 @@ var quizManager = (function () {
 
     // Adds answer to local storage
     Quiz.prototype.addAnswer = function (question, answer) {
-        // Add to answers list and then update local storage
         this.pageData.currentAnswers.push({ answer: answer, question: question });
         dataStore.setPage(this.pageData);
     }
@@ -137,9 +141,9 @@ var quizManager = (function () {
         this.addAnswer(this.currentQuestionIndex, this.currentAnswerIndex);
 
         if (this.currentQuestionIndex === (this.pageData.questions.length - 1)) {
-            this.currentState = this.resultsState;
+            this.currentState = this.resultsState; // End of quiz
         } else {
-            this.currentQuestionIndex++;
+            this.currentQuestionIndex++; // Next question
         }
 
         this.update();
@@ -150,7 +154,7 @@ var quizManager = (function () {
         var name = document.getElementById('name').value.trim();
         if (name.length === 0) {
             alert('Enter a name');
-        } else if (this.nameExistsInAnswers(name)) {
+        } else if (this.nameInResults(name)) {
             alert('Name already in use');
         } else {
             // Push name and current answer state onto finished answers
@@ -164,8 +168,8 @@ var quizManager = (function () {
         }
     }    
     
-    // Checks if a user with this name already appears in answers.
-    Quiz.prototype.nameExistsInAnswers = function (name) {
+    // Checks if a user with this name already appears in results.
+    Quiz.prototype.nameInResults = function (name) {
         for (var key in this.pageData.answers) {
             if (this.pageData.answers[key].name === name) {
                 return true;
