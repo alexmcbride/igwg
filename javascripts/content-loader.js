@@ -20,7 +20,7 @@ var contentLoader = (function () {
 
     var load = function (route, contentId) {
         var pageFunc = getPageFunc(route);
-        if (contentId !== undefined) {
+        if (contentId !== undefined && contentId !== 0) {
             var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
                 render('<p>Page data for "' + contentId + '" not found</p>');
@@ -32,31 +32,8 @@ var contentLoader = (function () {
         }
     }
 
-    var centreModalHorizontal = function () {
-        var modalElement = document.getElementById('modal');
-        var style = window.getComputedStyle(modalElement);
-        var width = parseInt(style.getPropertyValue('width').replace('px', ''));
-        modalElement.style.left = ((window.innerWidth - width) / 2.0).toString() + 'px';
-    }
-
     var render = function (html) {
         document.getElementById(mainContentEl).innerHTML = html;
-    }
-
-    var renderModal = function(html, title) {
-        document.getElementById('modal-content').innerHTML = html;
-        document.getElementById('modal-title').innerHTML = title;
-        
-        var modalElement = document.getElementById('modal');
-        modalElement.classList.remove('hide-modal');
-        modalElement.classList.add('show-modal');
-
-        centreModalHorizontal();
-
-        // show as modal
-        // put into modal element
-        // show modal element
-        // grey out background
     }
 
     var locationChanged = function () {

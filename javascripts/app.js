@@ -59,6 +59,9 @@ var app = (function () {
     };
 })();
 
-document.addEventListener("DOMContentLoaded", function () {
+// DOMContentLoaded may fire before script has run, so check before adding a listener
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", app.run);
+} else {
     app.run();
-});
+}

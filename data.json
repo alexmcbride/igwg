@@ -1,11 +1,10 @@
 [
     {
-        "id": "0",
+        "id": "1",
         "type": "post",
         "title": "Lorem ipsum dolor sit amet",
         "created": "2018-11-06T21:18:02.852Z",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor metus eu tellus tincidunt efficitur. In egestas luctus fermentum. Proin ac placerat mi. Etiam tristique eros ac bibendum blandit. Donec mattis finibus nibh in imperdiet. Aliquam imperdiet eros odio, non bibendum diam varius et. Duis dapibus egestas eros. Nullam sed fringilla turpis. Nulla rhoncus diam eu tincidunt scelerisque.",
-        "author": "Alex"
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor metus eu tellus tincidunt efficitur. In egestas luctus fermentum. Proin ac placerat mi. Etiam tristique eros ac bibendum blandit. Donec mattis finibus nibh in imperdiet. Aliquam imperdiet eros odio, non bibendum diam varius et. Duis dapibus egestas eros. Nullam sed fringilla turpis. Nulla rhoncus diam eu tincidunt scelerisque."
     },
     {
         "id": "2",
