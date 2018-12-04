@@ -132,7 +132,7 @@ var adminManager = (function () {
     // Displays the current admin manager state.
     var display = function () {
         if (currentPage == null) {
-            currentPage = getState('post');;
+            currentPage = getPage('post');;
         }
 
         var html = generateHtml();
@@ -169,7 +169,7 @@ var adminManager = (function () {
     }
 
     // Gets the current state based on the type string.
-    var getState = function (type) {
+    var getPage = function (type) {
         switch (type) {
             case 'post':
                 return Post;
@@ -183,14 +183,14 @@ var adminManager = (function () {
         return null;
     }
 
-    // Called when the form select input changes, switches state to selected page type
+    // Called when the form select input changes, switches page to selected type
     var formChange = function () {
         var pageType = document.getElementById('form-select').value;
-        var page = getState(pageType);
+        var page = getPage(pageType);
         if (page == null) {
             throw 'Form type not found';
         } else {
-            currentPage = page;
+            currentPage = page; // Set for whole module.
             var html = currentPage.form(); // Update this form.
             document.getElementById('form-content').innerHTML = html;
         }
