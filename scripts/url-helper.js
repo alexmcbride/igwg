@@ -17,7 +17,11 @@ var urlHelper = (function () {
     var page = function() {
         var segments = hash();
         if (segments.length > 0) {
-            return segments[0];
+            var segment = segments[0];
+            if (segment.indexOf('?') > -1) {
+                return segment.split('?')[0];
+            }
+            return segment;
         }
         return null;
     }
@@ -44,6 +48,20 @@ var urlHelper = (function () {
         return 0;
     }
 
+    var search = function() {
+        var segments = hash();
+        if (segments.length > 0) {
+            segments = segments[0].split('?');
+            if (segments.length > 0) {
+                var query = segments[1];
+                if (query.indexOf('=') > -1) {
+                    return query.split('=')[1];
+                }
+            }
+        }
+        return null;
+    }
+
     // Creates a URL for the specified page.
     var url = function (page, pageId, dataId) {
         var url = page;
@@ -61,6 +79,7 @@ var urlHelper = (function () {
         page: page,
         pageId: pageId,
         slide: slide,
-        url: url
+        url: url,
+        search: search
     };
 })();

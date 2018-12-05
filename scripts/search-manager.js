@@ -6,7 +6,7 @@ var searchManager = (function () {
         html += '<ul>';
         pages.forEach(page => {
             html += '<li>';
-            html += '<a href="#' + contentLoader.url(page.type, page.id) + '">' + page.title + '</a>';
+            html += '<a href="#' + urlHelper.url(page.type, page.id) + '">' + page.title + '</a>';
             html += '</li>';
         });
         html += '</ul>';
@@ -19,22 +19,12 @@ var searchManager = (function () {
         content.render(html);
     }
 
-    var getTerm = function() {
-        var index = location.hash.indexOf('?');
-        if (index > -1) {
-            return location.hash.substr(index);
-        } 
-        return '';
-    }
-
     var search = function () {
-        var term = getTerm();
-        if (term.length > 0) {
+        var term = urlHelper.search();
+        if (term != null) {
             var pages = dataStore.search(term);
             if (pages.length == 0) {
-                var html = '<h2>Search Results</h2>';
-                html += '<p>There are no results to display</p>';
-                content.render(html);
+                noResults();
             } else {
                 results(term, pages);
                 document.getElementById('search-input').value = '';

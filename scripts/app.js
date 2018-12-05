@@ -17,6 +17,9 @@ var app = (function () {
         // Intiialize content helper.
         content.initialize(mainContentEl);
 
+        // Initialzie menu.
+        loadMainMenu();
+
         // Initialize content loader.
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
@@ -31,12 +34,9 @@ var app = (function () {
 
         // Initialize search box
         searchManager.display(searchContentEl);
-
-        // Initialzie menu.
-        loadMainMenu();
     }
-    
-    var loadMainMenu = function() {
+
+    var loadMainMenu = function () {
         menu.clear();
         menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
@@ -53,7 +53,7 @@ var app = (function () {
             return { route: urlHelper.url(page.type, page.id), title: page.title };
         });
     }
-    
+
     var run = function () {
         // Initialize the data store
         dataStore.initialize(function (result) {
