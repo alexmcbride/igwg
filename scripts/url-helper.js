@@ -1,6 +1,8 @@
+// Module to help with handling URLs.
 var urlHelper = (function () {
     var seperator = '/';
 
+    // Gets the hash as an array.
     var hash = function () {
         if (location.hash) {
             var segments = location.hash.substr(1).split(seperator);
@@ -11,6 +13,7 @@ var urlHelper = (function () {
         return [];
     }
 
+    // Gets the page part of the hash.
     var page = function() {
         var segments = hash();
         if (segments.length > 0) {
@@ -19,6 +22,7 @@ var urlHelper = (function () {
         return null;
     }
 
+    // Gets the page ID from the hash.
     var pageId = function() {
         var segments = hash();
         if (segments.length > 1) {
@@ -27,6 +31,7 @@ var urlHelper = (function () {
         return null;
     }
 
+    // Gets the slide from the hash.
     var slide = function() {
         var segments = hash();
         if (segments.length > 2) {
