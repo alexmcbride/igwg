@@ -43,7 +43,7 @@ var contentLoader = (function () {
     }
 
     // Runs the content loader, which draws the main content, and watches for location changes.
-    var run = function (defaultPage, contentEl) {
+    var initialize = function (defaultPage, contentEl) {
         defaultPageRoute = defaultPage;
         mainContentEl = contentEl;
 
@@ -58,6 +58,6 @@ var contentLoader = (function () {
 
     return {
         addPage: addPage,
-        run: run
+        initialize: initialize
     };
 })();

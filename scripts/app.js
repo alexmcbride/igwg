@@ -30,10 +30,10 @@ var app = (function () {
         contentLoader.addPage('login', page.login);
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
-        contentLoader.run(defaultPage, mainContentEl);
+        contentLoader.initialize(defaultPage, mainContentEl);
 
         // Initialize search box
-        searchManager.display(searchContentEl);
+        searchManager.initialize(searchContentEl);
     }
 
     var loadMainMenu = function () {

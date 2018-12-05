@@ -19,7 +19,7 @@ var searchManager = (function () {
         content.render(html);
     }
 
-    var search = function () {
+    var display = function () {
         var term = urlHelper.search();
         if (term != null) {
             var pages = dataStore.search(term);
@@ -41,7 +41,7 @@ var searchManager = (function () {
         }
     }
 
-    var display = function (searchElement) {
+    var initialize = function (searchElement) {
         var html = '<div class="input-group mb-3">';
         html += '<input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" id="search-input">';
         html += '<div class="input-group-prepend">';
@@ -52,8 +52,8 @@ var searchManager = (function () {
     }
 
     return {
+        initialize: initialize,
         display: display,
-        search: search,
         go: go
     };
 })();

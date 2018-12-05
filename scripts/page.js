@@ -57,7 +57,7 @@ var page = (function () {
     }
 
     var search = function () {
-        searchManager.search();
+        searchManager.display();
     }
 
     return {
