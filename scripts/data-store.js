@@ -1,16 +1,19 @@
 
 var dataStore = (function () {
-    var version = 32; // Increment this when schema changes to cause local storage to be overidden.
+    var version = 33; // Increment this when schema changes to cause local storage to be overidden.
 
     var saveLocalStorage = function (pages) {
         // Remove old stuff.
         window.localStorage.clear();
 
         // Add each page to storage.
+        var indexes = [];
         var ids = pages.map(function (page) {
             window.localStorage.setItem(page.id, JSON.stringify(page));
+            indexes.push(createIndex(page.title.toLowerCase(), page.id));
             return page.id;
         });
+        setIndexes(indexes);
 
         // To have a list of retrieveable pages we store the IDs as a comma-seperated list.
         window.localStorage.setItem('ids', ids.join(','));
@@ -67,6 +70,7 @@ var dataStore = (function () {
         var data = JSON.stringify(page);
         window.localStorage.setItem(page.id, data);
         addToPageIds(page.id);
+        addIndex(page.title, page.id);
         return page;
     }
 
@@ -78,10 +82,48 @@ var dataStore = (function () {
         setPageIds(ids);
     }
 
+    var getIndexes = function () {
+        var json = window.localStorage.getItem('indexes');
+        if (json == null) {
+            return [];
+        }
+        return JSON.parse(json);
+    }
+
+    var setIndexes = function (indexes) {
+        window.localStorage.setItem('indexes', JSON.stringify(indexes));
+    }
+
+    var createIndex = function (text, id) {
+        return { text: text.toLowerCase(), id: id };
+    }
+
+    var addIndex = function (text, id) {
+        var indexes = getIndexes();
+        indexes.push(createIndex(text, id));
+        setIndexes(indexes);
+    }
+
+    var search = function (value) {
+        var value = value.toLowerCase();
+        var indexes = getIndexes();
+        var results = [];
+        for (var key in indexes) {
+            var index = indexes[key];
+            if (index.text.indexOf(value) > -1) {
+                results.push(index.id);
+            }
+        }
+        return results.map(function (id) {
+            return findPage(id);
+        });
+    }
+
     return {
         findPage: findPage,
         findPages: findPages,
         initialize: initialize,
-        setPage: setPage
+        setPage: setPage,
+        search: search
     };
 })();

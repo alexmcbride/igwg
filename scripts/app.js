@@ -11,6 +11,7 @@ var app = (function () {
     var jsonContentFile = 'data.json';
     var mainContentEl = 'main-content';
     var menuContentEl = 'menu-content';
+    var searchContentEl = 'search-content';
 
     var loadContentLoader = function () {
         contentLoader.addPage('home', page.home);
@@ -22,6 +23,8 @@ var app = (function () {
         contentLoader.addPage('login', page.login);
         contentLoader.addPage('admin', page.admin);
         contentLoader.run(defaultPage, mainContentEl);
+
+        searchManager.display(searchContentEl);
     }
 
     var loadMainMenu = function () {
