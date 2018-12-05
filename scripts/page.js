@@ -18,7 +18,7 @@ var page = (function () {
     var image = function (data) {
         var html = '<div class="image">' +
             '<h3>' + data.title + '</h3>' +
-            '<p><img src="' + data.src + '"></p>' +
+            '<p><img src="' + data.src + '" alt="' + data.title + '"></p>' +
             '</div>';
         contentLoader.render(html);
     }

@@ -44,15 +44,14 @@ var quizManager = (function () {
 
     // Handles the start state
     Quiz.prototype.startState = function () {
-        var html = '<p>'
-        html += '<button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button>'
-        html += '</p>';
+        var html = '<p>' + this.pageData.description + '</p>';
+        html += '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
         html += '<h2>Previous Results</h2>';
         var results = this.getOrderedResults();
         if (results.length > 0) {
             html += '<ol>';
             results.forEach(function (result) {
-                html += '<li>' + result.name + ' - ' + result.correct + '</li>';
+                html += '<li>' + result.name + ' (' + result.correct + ' Correct)</li>';
             });
             html += '</ol>';
         } else {
@@ -93,7 +92,7 @@ var quizManager = (function () {
         var pageData = this.pageData; // Make pageData local so don't have to use 'this' inside foreach function.
         question.options.forEach(function (option, index) {
             html += '<input type="radio" name="answer" id="answer' + index + '" onclick="quizManager.onQuestion(\'' + pageData.id + '\', ' + index + ')">';
-            html += '<label for="answer' + index + '">' + option.text + '</label><br>';
+            html += '<label for="answer' + index + '">' + option + '</label><br>';
         });
         html += '<br>';
         html += '<input type="button" value="Answer" onclick="quizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
@@ -184,7 +183,7 @@ var quizManager = (function () {
         for (var i = 0; i < answers.length; i++) {
             var answer = answers[i];
             var question = this.pageData.questions[answer.question];
-            if (question.options[answer.answer].correct) {
+            if (answer.answer === question.correctIndex) {
                 correct++;
             }
         }

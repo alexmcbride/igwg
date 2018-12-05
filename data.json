@@ -34,57 +34,34 @@
     {
         "id": "4",
         "type": "quiz",
-        "title": "Quiz Title",
+        "title": "World War One Quiz",
+        "description": "This is a quick and simple quiz about world war one. The first ever war.",
         "questions": [
             {
                 "text": "Why did the chicken cross the road?",
+                "correctIndex": 0,
                 "options": [
-                    {
-                        "text": "To get to the other side?",
-                        "correct": true
-                    },
-                    {
-                        "text": "To get to THIS side?",
-                        "correct": false
-                    },
-                    {
-                        "text": "To die and go to heaven?",
-                        "correct": false
-                    },
-                    {
-                        "text": "To sniff a cat made of jam?",
-                        "correct": false
-                    }
+                    "To get to the other side?",
+                    "To get to THIS side?",
+                    "To die and go to heaven?",
+                    "To sniff a cat made of jam?"
                 ]
             },
             {
                 "text": "How are you?",
+                "correctIndex": 0,
                 "options": [
-                    {
-                        "text": "Fine",
-                        "correct": true
-                    },
-                    {
-                        "text": "Not fine",
-                        "correct": false
-                    }
+                    "Fine",
+                    "Not fine"
                 ]
             },
             {
                 "text": "Why did the war start?",
+                "correctIndex": 2,
                 "options": [
-                    {
-                        "text": "A duke shot an osterich cause he was hungry",
-                        "correct": false
-                    },
-                    {
-                        "text": "The vile hun and their vast empire",
-                        "correct": false
-                    },
-                    {
-                        "text": "It was easier than not having a war",
-                        "correct": true
-                    }
+                    "A duke shot an osterich cause he was hungry",
+                    "The vile hun and their vast empire",
+                    "It was easier than not having a war"
                 ]
             }
         ],

@@ -22,7 +22,7 @@ var contentLoader = (function () {
     // Loads the specified route, and attempts to load the content from that route if present.
     var load = function (route, contentId) {
         var pageHandler = getPageHandler(route);
-        if (contentId !== undefined && contentId !== 0) {
+        if (contentId !== undefined && contentId !== 0 && contentId !== '') {
             var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
                 render('<p>Page data for ID "' + contentId + '" not found</p>');

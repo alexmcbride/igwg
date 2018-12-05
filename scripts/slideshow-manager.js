@@ -1,5 +1,4 @@
-//a page updating module that puts the actual content on to the page
-
+// Module to control a slideshow.
 var slideshowManager = (function () {
     var pageData = null;
 
@@ -58,7 +57,7 @@ var slideshowManager = (function () {
     }
 
     // Get HTML for the go to slide input
-    var generateGoToSlide = function(currentIndex) {
+    var generateGoToSlide = function (currentIndex) {
         var output = '';
         if (pageData.images.length > 0) {
             output += '<div class="gotoslide">';
@@ -91,7 +90,7 @@ var slideshowManager = (function () {
             var output = '<div class="slideshow">' +
                 '<h3>' + pageData.title + '</h3>' +
                 '<h4>' + slide.title + '</h4>' +
-                '<img src="' + slide.src + '">';
+                '<img src="' + slide.src + '" alt="' + slide.title + '" height="350px">';
             output += generateControlsHtml(currentIndex);
             return output + '</div>';
         }
