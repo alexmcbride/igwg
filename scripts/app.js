@@ -33,6 +33,10 @@ var app = (function () {
         searchManager.display(searchContentEl);
 
         // Initialzie menu.
+        loadMainMenu();
+    }
+    
+    var loadMainMenu = function() {
         menu.clear();
         menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
@@ -42,7 +46,7 @@ var app = (function () {
         menu.addPage('admin', 'Admin');
         menu.display(menuContentEl);
     }
-    
+
     var getMenuPages = function () {
         var pages = dataStore.findPages();
         return pages.map(function (page) {
