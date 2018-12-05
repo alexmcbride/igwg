@@ -136,7 +136,7 @@ var adminManager = (function () {
         }
 
         var html = generateHtml();
-        contentLoader.render(html);
+        content.render(html);
     }
 
     // Generates a random ID for pages.

@@ -41,7 +41,7 @@ var loginManager = (function () {
 
     var update = function (error) {
         var html = currentState(error);
-        contentLoader.render(html);
+        content.render(html);
     }
 
     var display = function () {

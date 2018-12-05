@@ -99,7 +99,7 @@ var slideshowManager = (function () {
     var display = function (data) {
         pageData = data;
         var html = generateHtml();
-        contentLoader.render(html);
+        content.render(html);
     }
 
     return {

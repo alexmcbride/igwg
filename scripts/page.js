@@ -3,7 +3,7 @@
 var page = (function () {
     var home = function () {
         var html = '<h2>Home</h2><p>Intro to web site and stuff...</p>';
-        contentLoader.render(html);
+        content.render(html);
     }
 
     var post = function (data) {
@@ -12,7 +12,7 @@ var page = (function () {
             '<p>' + data.content + '</p>' +
             '<p>Posted on ' + data.created + '</p>' +
             '</div>';
-        contentLoader.render(html);
+            content.render(html);
     }
 
     var image = function (data) {
@@ -20,7 +20,7 @@ var page = (function () {
             '<h3>' + data.title + '</h3>' +
             '<p><img src="' + data.src + '" alt="' + data.title + '"></p>' +
             '</div>';
-        contentLoader.render(html);
+            content.render(html);
     }
 
     var video = function (data) {
@@ -31,7 +31,7 @@ var page = (function () {
             'Your browser does not support this video' +
             '</video>' +
             '</div>';
-        contentLoader.render(html);
+            content.render(html);
     }
 
     var slideshow = function (data) {
@@ -45,7 +45,7 @@ var page = (function () {
     var notFound = function () {
         var html = '<h3>Not found</h3>';
         html += "<p>Aww, we couldn't find that page. :(</p>";
-        contentLoader.render(html);
+        content.render(html);
     }
 
     var login = function () {

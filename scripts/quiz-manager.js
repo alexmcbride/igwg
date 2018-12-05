@@ -39,7 +39,7 @@ var quizManager = (function () {
         html += '<h2>' + this.pageData.title + '</h2>'
         html += this.currentState();
         html += '</div>';
-        contentLoader.render(html);
+        content.render(html);
     }
 
     // Handles the start state

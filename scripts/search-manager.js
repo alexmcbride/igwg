@@ -10,7 +10,7 @@ var searchManager = (function () {
             html += '</li>';
         });
         html += '</ul>';
-        contentLoader.render(html);
+        content.render(html);
     }
 
     var search = function () {
@@ -18,7 +18,7 @@ var searchManager = (function () {
         if (text.length > 0) {
             var pages = dataStore.search(text);
             if (pages.length == 0) {
-                contentLoader.render('<p>There are no results to display</p>');
+                content.render('<p>There are no results to display</p>');
             } else {
                 results(text, pages);
                 document.getElementById('search-input').value = '';

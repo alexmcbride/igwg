@@ -25,20 +25,15 @@ var contentLoader = (function () {
         if (contentId !== undefined && contentId !== 0 && contentId !== '') {
             var pageData = dataStore.findPage(contentId);
             if (pageData === null) {
-                render('<p>Page data for ID "' + contentId + '" not found</p>');
+                content.render('<p>Page data for ID "' + contentId + '" not found</p>');
             } else if (pageData.type != route) {
-                render('<p>Page type "' + pageData.type + '" does not match route</p>');
+                content.render('<p>Page type "' + pageData.type + '" does not match route</p>');
             } else {
                 pageHandler(pageData);
             }
         } else {
             pageHandler();
         }
-    }
-
-    // Renders the HTML to the main content element.
-    var render = function (html) {
-        document.getElementById(mainContentEl).innerHTML = html;
     }
 
     // Called when the hash location changes, tries to parse the content out and calls load.
@@ -123,7 +118,6 @@ var contentLoader = (function () {
 
     return {
         addPage: addPage,
-        render: render,
         run: run,
         getData: getData,
         url: url

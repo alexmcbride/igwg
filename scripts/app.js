@@ -14,6 +14,8 @@ var app = (function () {
     var searchContentEl = 'search-content';
 
     var loadContentLoader = function () {
+        content.initialize(mainContentEl);
+
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
         contentLoader.addPage('image', page.image);
