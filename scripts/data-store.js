@@ -1,12 +1,13 @@
-
+// Provides an interface for the data stored in local storage.
 var dataStore = (function () {
     var version = 33; // Increment this when schema changes to cause local storage to be overidden.
 
+    // Saves array of pages to storage.
     var saveLocalStorage = function (pages) {
         // Remove old stuff.
         window.localStorage.clear();
 
-        // Add each page to storage.
+        // Add each page to storage and create search index.
         var indexes = [];
         var ids = pages.map(function (page) {
             window.localStorage.setItem(page.id, JSON.stringify(page));
@@ -22,6 +23,7 @@ var dataStore = (function () {
         window.localStorage.setItem('version', version.toString());
     }
 
+    // Initializes the data and loads the json payload if nessesary.
     var initialize = function (callback, file) {
         // Check if the payload has changed
         var localVersion = parseInt(window.localStorage.getItem('version'));
@@ -40,24 +42,29 @@ var dataStore = (function () {
         }
     }
 
+    // Gets an array of all pages.
     var findPages = function () {
         return getPageIds().map(function (id) {
             return JSON.parse(window.localStorage.getItem(id));
         });
     }
 
+    // Gets a page with a specific id.
     var findPage = function (postId) {
         return JSON.parse(window.localStorage.getItem(postId));
     }
 
+    // Gets an array of all page ids.
     var getPageIds = function () {
         return window.localStorage.getItem('ids').split(',');
     }
 
+    // Sets the array of page ids into local storage
     var setPageIds = function (ids) {
         window.localStorage.setItem('ids', ids.join(','));
     }
 
+    // Adds a single id to the list.
     var addToPageIds = function (id) {
         var ids = getPageIds();
         if (ids.indexOf(id) === -1) {
@@ -66,6 +73,7 @@ var dataStore = (function () {
         setPageIds(ids);
     }
 
+    // Adds a page to local storage, updates list of ids and indexes.
     var setPage = function (page) {
         var data = JSON.stringify(page);
         window.localStorage.setItem(page.id, data);
@@ -74,6 +82,7 @@ var dataStore = (function () {
         return page;
     }
 
+    // Removes a page from local storage.
     var removePage = function (page) {
         window.localStorage.removeItem(page.id);
         var ids = getPageIds();
@@ -82,6 +91,7 @@ var dataStore = (function () {
         setPageIds(ids);
     }
 
+    // Gets list of indexes from storage or returns empty array.
     var getIndexes = function () {
         var json = window.localStorage.getItem('indexes');
         if (json == null) {
@@ -90,20 +100,24 @@ var dataStore = (function () {
         return JSON.parse(json);
     }
 
+    // Converts the indexes list to string and stores in storage.
     var setIndexes = function (indexes) {
         window.localStorage.setItem('indexes', JSON.stringify(indexes));
     }
 
+    // Creates an index object.
     var createIndex = function (text, id) {
         return { text: text.toLowerCase(), id: id };
     }
 
+    // Adds an index to the list.
     var addIndex = function (text, id) {
         var indexes = getIndexes();
         indexes.push(createIndex(text, id));
         setIndexes(indexes);
     }
 
+    // Search indexes for occurance of value, returns list of pages.
     var search = function (value) {
         var value = value.toLowerCase();
         var indexes = getIndexes();
