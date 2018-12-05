@@ -13,9 +13,11 @@ var app = (function () {
     var menuContentEl = 'menu-content';
     var searchContentEl = 'search-content';
 
-    var loadContentLoader = function () {
+    var start = function () {
+        // Intiialize content helper.
         content.initialize(mainContentEl);
 
+        // Initialize content loader.
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
         contentLoader.addPage('image', page.image);
@@ -27,10 +29,10 @@ var app = (function () {
         contentLoader.addPage('search', page.search);
         contentLoader.run(defaultPage, mainContentEl);
 
+        // Initialize search box
         searchManager.display(searchContentEl);
-    }
 
-    var loadMainMenu = function () {
+        // Initialzie menu.
         menu.clear();
         menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
@@ -52,9 +54,7 @@ var app = (function () {
         // Initialize the data store
         dataStore.initialize(function (result) {
             if (result.success) {
-                // Start app
-                loadContentLoader();
-                loadMainMenu();
+                start();
             } else {
                 document.getElementById(mainContentEl).innerHTML = "Error: " + result.response;
             }

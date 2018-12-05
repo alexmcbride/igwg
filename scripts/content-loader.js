@@ -58,8 +58,6 @@ var contentLoader = (function () {
 
     return {
         addPage: addPage,
-        run: run,
-        getData: getData,
-        url: url
+        run: run
     };
 })();
