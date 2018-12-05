@@ -53,7 +53,7 @@ var adminManager = (function () {
                 return value.trim();
             }
             return '';
-        },        
+        },
     };
 
     // Class to manage adding slideshow.
@@ -115,7 +115,7 @@ var adminManager = (function () {
                     src: url
                 };
             });
-        },        
+        },
         addSlide: function () {
             var list = document.getElementById('slideshow-slides');
             var listItem = document.createElement('li');
@@ -128,7 +128,7 @@ var adminManager = (function () {
             list.removeChild(listItem);
         }
     };
-    
+
     // Displays the current admin manager state.
     var display = function () {
         if (currentPage == null) {
