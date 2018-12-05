@@ -1,4 +1,4 @@
-// Module to encapsulate JSON requests.
+// Module to encapsulate searches.
 var searchManager = (function () {
     var results = function (text, pages) {
         var html = '<h2>Search Results</h2>';
@@ -21,6 +21,7 @@ var searchManager = (function () {
                 contentLoader.render('<p>There are no results to display</p>');
             } else {
                 results(text, pages);
+                document.getElementById('search-input').value = '';
             }
         } else {
             console.log('Search: nothing entered');
