@@ -5,6 +5,7 @@ var contentLoader = (function () {
     var seperator = '/';
     var mainContentEl = null;
     var pageMap = [];
+    var defaultPageRoute = null;
 
     var addPage = function (route, page) {
         pageMap[route] = page;
@@ -44,6 +45,9 @@ var contentLoader = (function () {
             page = page.split(seperator)[0];
         }
         var contentId = getContentId();
+        if (page == '') {
+            page = defaultPageRoute;
+        }
         load(page, contentId);
     }
 
@@ -97,6 +101,7 @@ var contentLoader = (function () {
     }
 
     var run = function (defaultPage, contentEl) {
+        defaultPageRoute = defaultPage;
         mainContentEl = contentEl;
 
         if (window.location.hash) {
