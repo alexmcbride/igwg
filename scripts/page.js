@@ -56,6 +56,10 @@ var page = (function () {
         adminManager.display();
     }
 
+    var search = function () {
+        searchManager.search();
+    }
+
     return {
         home: home,
         post: post,
@@ -65,6 +69,7 @@ var page = (function () {
         quiz: quiz,
         notFound: notFound,
         login: login,
-        admin: admin
+        admin: admin,
+        search: search
     }
 })();

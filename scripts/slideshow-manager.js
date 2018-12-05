@@ -44,14 +44,14 @@ var slideshowManager = (function () {
         } else if (input < 1 || input > pageData.images.length) {
             alert("'" + value + "' is outside of the slideshow range");
         } else {
-            document.location.hash = '#' + contentLoader.url(pageData.type, pageData.id, input - 1);
+            document.location.hash = '#' + urlHelper.url(pageData.type, pageData.id, input - 1);
         }
     }
 
     // Get HTML for a single link
     var generateLink = function (index, cls, text) {
         if (index > -1) {
-            return '<a class="' + cls + '" href="#' + contentLoader.url(pageData.type, pageData.id, index) + '">' + text + '</a>';
+            return '<a class="' + cls + '" href="#' + urlHelper.url(pageData.type, pageData.id, index) + '">' + text + '</a>';
         }
         return '';
     }
@@ -82,7 +82,7 @@ var slideshowManager = (function () {
 
     // Get HTML for the page.
     var generateHtml = function () {
-        var currentIndex = contentLoader.getData();
+        var currentIndex = urlHelper.slide();
         var slide = pageData.images[currentIndex];
         if (slide === undefined) {
             return '<p>Slide not found :(</p>';

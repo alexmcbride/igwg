@@ -24,6 +24,7 @@ var app = (function () {
         contentLoader.addPage('quiz', page.quiz);
         contentLoader.addPage('login', page.login);
         contentLoader.addPage('admin', page.admin);
+        contentLoader.addPage('search', page.search);
         contentLoader.run(defaultPage, mainContentEl);
 
         searchManager.display(searchContentEl);
@@ -43,7 +44,7 @@ var app = (function () {
     var getMenuPages = function () {
         var pages = dataStore.findPages();
         return pages.map(function (page) {
-            return { route: contentLoader.url(page.type, page.id), title: page.title };
+            return { route: urlHelper.url(page.type, page.id), title: page.title };
         });
     }
     
