@@ -117,19 +117,14 @@ var dataStore = (function () {
         setIndexes(indexes);
     }
 
-    // Search indexes for occurance of value, returns list of pages.
+    // Search indexes for occurances of value, returns list of pages.
     var search = function (value) {
         var value = value.toLowerCase();
         var indexes = getIndexes();
-        var results = [];
-        for (var key in indexes) {
-            var index = indexes[key];
-            if (index.text.indexOf(value) > -1) {
-                results.push(index.id);
-            }
-        }
-        return results.map(function (id) {
-            return findPage(id);
+        return indexes.filter(function (index) {
+            return index.text.indexOf(value) > -1;
+        }).map(function (index) {
+            return findPage(index.id);
         });
     }
 

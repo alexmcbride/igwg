@@ -13,16 +13,12 @@ var searchManager = (function () {
         contentLoader.render(html);
     }
 
-    var noResults = function () {
-        contentLoader.render('<p>There are no results to display</p>');
-    }
-
     var search = function () {
         var text = document.getElementById('search-input').value.trim();
         if (text.length > 0) {
             var pages = dataStore.search(text);
             if (pages.length == 0) {
-                noResults();
+                contentLoader.render('<p>There are no results to display</p>');
             } else {
                 results(text, pages);
             }
