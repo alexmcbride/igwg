@@ -44,10 +44,10 @@ var contentLoader = (function () {
         if (page.indexOf(seperator) > -1) {
             page = page.split(seperator)[0];
         }
-        var contentId = getContentId();
         if (page == '') {
             page = defaultPageRoute;
         }
+        var contentId = getContentId();
         load(page, contentId);
     }
 
