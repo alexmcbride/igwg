@@ -20,6 +20,9 @@ var app = (function () {
         // Initialzie menu.
         loadMainMenu();
 
+        // Initialize search box
+        searchManager.initialize(searchContentEl);
+
         // Initialize content loader.
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
@@ -31,9 +34,6 @@ var app = (function () {
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
         contentLoader.initialize(defaultPage, mainContentEl);
-
-        // Initialize search box
-        searchManager.initialize(searchContentEl);
     }
 
     var loadMainMenu = function () {

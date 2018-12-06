@@ -5,18 +5,16 @@ var adminManager = (function () {
     var Post = {
         form: function () {
             var html = '<div class="post-form">';
-            html += '<h3>Add Post</h3>';
-            html += '<div clas="form-input">';
+            html += '<h3>Post</h3>';
             html += '<label for="post-title">Title</label><br>';
-            html += '<input type="text" id="post-title">';
+            html += '<input type="text" id="post-title" class="form-control">';
             html += '<span class="form-error" id="post-title-error"></span>';
-            html += '</div>'
-            html += '<div class="form-input">'
+            html += '</div>';
+            html += '<div class="form-group">';
             html += '<label for="post-content">Content</label><br>';
-            html += '<textarea id="post-content" rows="10" cols="40"></textarea>';
+            html += '<textarea id="post-content" rows="10" class="form-control"></textarea>';
             html += '<span class="form-error" id="post-content-error"></span>';
-            html += '</div>'
-            html += '</div>'
+            html += '</div>';
             return html;
         },
         save: function () {
@@ -59,24 +57,26 @@ var adminManager = (function () {
     // Class to manage adding slideshow.
     var Slideshow = {
         slideInputHtml: function () {
-            var html = '<input type="text" value="Slide Title" class="slide-title"> - ';
-            html += '<input type="text" value="http://..." class="slide-url"> ';
-            html += '<input type="button" value="Delete" onclick="adminManager.deleteSlide(this)">';
+            var html = '<input type="text" placeholder="Title" class="slide-title" class="form-control"> - ';
+            html += '<input type="text" placeholder="URL" class="slide-url" class="form-control"> ';
+            html += '<button onclick="adminManager.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
+            html += '<span class="form-error slideshow-slide-error"></span>';
             return html;
         },
         form: function () {
             var html = '<div class="slideshow-form">';
-            html += '<h3>Add Slideshow</h3>';
-            html += '<div clas="form-input">';
+            html += '<h3>Slideshow</h3>';
+            html += '<div clas="form-group">';
             html += '<label for="slideshow-title">Title</label><br>';
-            html += '<input type="text" id="slideshow-title">';
+            html += '<input type="text" id="slideshow-title" class="form-control">';
             html += '<span class="form-error" id="slideshow-title-error"></span>';
-            html += '</div>'
-            html += '<p>Add images to slideshow</p>';
+            html += '</div><br>'
+            html += '<p>Add images to slideshow.</p>';
             html += '<ol id="slideshow-slides">';
             html += '<li>' + this.slideInputHtml() + '</li>';
             html += '</ol>';
-            html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()">';
+            html += '<p><em>URL can be either absolute or relative to images folder.</em></p>';
+            html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';
             html += '</div>'
             return html;
         },
@@ -98,7 +98,19 @@ var adminManager = (function () {
                 success = false;
             }
 
-            // Check each slide... yay. maybe create little slide class?
+            this.getSlideObjects().forEach(function (slide) {
+                if (slide.title.length == 0) {
+                    var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
+                    errorEl.innerHTML = 'Title missing';
+                    success = false;
+                }
+
+                if (slide.url.length == 0) {
+                    var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
+                    errorEl.innerHTML = 'URL missing';
+                    success = false;
+                }
+            });
 
             return success;
         },
@@ -107,14 +119,21 @@ var adminManager = (function () {
         },
         getSlideObjects: function () {
             var list = document.getElementById('slideshow-slides');
-            return list.childNodes.map(function (item) {
-                var title = item.getElementsByClassName('slide-title')[0].value;
-                var url = item.getElementsByClassName('slide-url')[0].value;
-                return {
-                    title: title,
-                    src: url
-                };
-            });
+            var slides = [];
+            var children = list.childNodes;
+            for (var child in children) {
+                if (children.hasOwnProperty(child)) {
+                    var item = list.childNodes[child];
+                    var title = item.getElementsByClassName('slide-title')[0].value.trim();
+                    var url = item.getElementsByClassName('slide-url')[0].value.trim();
+                    slides.push({
+                        title: title,
+                        url: url,
+                        el: item
+                    });
+                }
+            }
+            return slides;
         },
         addSlide: function () {
             var list = document.getElementById('slideshow-slides');
@@ -131,12 +150,16 @@ var adminManager = (function () {
 
     // Displays the current admin manager state.
     var display = function () {
-        if (currentPage == null) {
-            currentPage = getPage('post');;
-        }
+        if (loginManager.isLoggedIn()) {
+            if (currentPage == null) {
+                currentPage = getPage('post');;
+            }
 
-        var html = generateHtml();
-        content.render(html);
+            var html = generateHtml();
+            content.render(html);
+        } else {
+            content.render('<p>You must be logged in to view this page</p>');
+        }
     }
 
     // Generates a random ID for pages.
@@ -148,13 +171,16 @@ var adminManager = (function () {
     var generateHtml = function () {
         var html = '<form>';
         html += '<h2>Admin</h2>';
-        html += '<p>Pure add, edit, and delete pages, and aw that.</p>';
-        html += '<select id="form-select" onchange="adminManager.formChange()">';
+        html += '<hr>';
+        html += '<div class="form-group">';
+        html += '<label for="form-select">Select the type of page</label><br>';
+        html += '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';
         html += '<option value="post">Post</option>';
         html += '<option value="slideshow">Slideshow</option>';
         html += '<option value="quiz">Quiz</option>';
         html += '<option value="video">Video</option>';
         html += '</select>';
+        html += '</div>';
         html += '<hr>';
         html += '<p id="message"></p>';
         html += '<div id="form-content">';
@@ -162,7 +188,7 @@ var adminManager = (function () {
         html += '</div>';
         html += '<hr>';
         html += '<div>';
-        html += '<input type="button" value="Save" onclick="adminManager.save()">';
+        html += '<input type="button" value="Save" onclick="adminManager.save()" class="btn btn-primary">';
         html += '</div>';
         html += '</form>';
         return html;
@@ -193,6 +219,7 @@ var adminManager = (function () {
             currentPage = page; // Set for whole module.
             var html = currentPage.form(); // Update this form.
             document.getElementById('form-content').innerHTML = html;
+            message('');
         }
     }
 
@@ -211,8 +238,6 @@ var adminManager = (function () {
                 currentPage.save();
                 message('Page saved!');
                 app.refreshMenu(); // Tell app to redraw main menu.
-            } else {
-                message('Problem on form :(');
             }
         }
     }

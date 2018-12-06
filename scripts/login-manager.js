@@ -64,7 +64,7 @@ var loginManager = (function () {
         if (user !== null) {
             window.localStorage.setItem('loggedIn', JSON.stringify({username: user.username}));
             currentState = logoutState;
-            content.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '!. You can now add, edit, and delete pages!</p>');
+            content.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now add, edit, and delete pages!</p>');
             app.refreshMenu();
         } else {
             showError('Username and password incorrect');
