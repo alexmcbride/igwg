@@ -62,11 +62,9 @@ var loginManager = (function () {
 
         var user = authenticate(username, password);
         if (user !== null) {
-            window.localStorage.setItem('loggedIn', user);
+            window.localStorage.setItem('loggedIn', JSON.stringify({username: user.username}));
             currentState = logoutState;
-            var html = '<h2>Logged In</h2>';
-            html += '<p>Welcome, ' + user.username + '!. You can now add, edit, and delete pages!</p>';
-            content.render(html);
+            content.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '!. You can now add, edit, and delete pages!</p>');
             app.refreshMenu();
         } else {
             showError('Username and password incorrect');
@@ -95,11 +93,11 @@ var loginManager = (function () {
     }
 
     var isLoggedIn = function () {
-        return window.localStorage.getItem('loggedIn') !== null;
+        return currentUser() !== null;
     }
 
     var currentUser = function() {
-        return window.localStorage.getItem('loggedIn');
+        return JSON.parse(window.localStorage.getItem('loggedIn'));
     }
 
     return {
