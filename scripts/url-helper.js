@@ -5,10 +5,7 @@ var urlHelper = (function () {
     // Gets the hash as an array.
     var hash = function () {
         if (location.hash) {
-            var segments = location.hash.substr(1).split(seperator);
-            if (segments.length > 0) {
-                return segments;
-            }
+            return location.hash.substr(1).split(seperator);
         }
         return [];
     }
@@ -17,11 +14,11 @@ var urlHelper = (function () {
     var page = function() {
         var segments = hash();
         if (segments.length > 0) {
-            var segment = segments[0];
-            if (segment.indexOf('?') > -1) {
-                return segment.split('?')[0];
+            var index = segments[0].indexOf('?');
+            if (index > -1) {
+                return segments[0].substr(0, index);
             }
-            return segment;
+            return segments[0];
         }
         return null;
     }
@@ -54,8 +51,9 @@ var urlHelper = (function () {
             segments = segments[0].split('?');
             if (segments.length > 0) {
                 var query = segments[1];
-                if (query.indexOf('=') > -1) {
-                    return query.split('=')[1];
+                var index = query.indexOf('=');
+                if (index > -1) {
+                    return query.substring(index + 1);
                 }
             }
         }
