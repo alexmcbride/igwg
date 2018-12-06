@@ -52,6 +52,18 @@ var page = (function () {
         loginManager.display();
     }
 
+    var loginConfirm = function() {
+        var html = '<h3>Login Confirm</h3>';
+        html += "<p>You are now logged in!</p>";
+        content.render(html);
+    }
+
+    var logoutConfirm = function() {
+        var html = '<h3>Logout Confirm</h3>';
+        html += "<p>You are now logged out!</p>";
+        content.render(html);
+    }
+
     var admin = function () {
         adminManager.display();
     }
@@ -69,6 +81,8 @@ var page = (function () {
         quiz: quiz,
         notFound: notFound,
         login: login,
+        loginConfirm: loginConfirm,
+        logoutConfirm: logoutConfirm,
         admin: admin,
         search: search
     }

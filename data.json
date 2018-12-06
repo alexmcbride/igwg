@@ -2,20 +2,20 @@
     {
         "id": "1",
         "type": "post",
-        "title": "Lorem ipsum dolor sit amet",
+        "title": "History of WWI",
         "created": "2018-11-06T21:18:02.852Z",
         "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor metus eu tellus tincidunt efficitur. In egestas luctus fermentum. Proin ac placerat mi. Etiam tristique eros ac bibendum blandit. Donec mattis finibus nibh in imperdiet. Aliquam imperdiet eros odio, non bibendum diam varius et. Duis dapibus egestas eros. Nullam sed fringilla turpis. Nulla rhoncus diam eu tincidunt scelerisque."
     },
     {
         "id": "2",
         "type": "image",
-        "title": "Donec sit amet blandit nibh",
+        "title": "Tommys in the tenches",
         "src": "images/features-worldwarone-4theastlancstroops1917-lrg.jpg"
     },
     {
         "id": "3",
         "type": "slideshow",
-        "title": "In egestas luctus fermentum",
+        "title": "The war in images",
         "images": [
             {
                 "title": "Slide 1",
@@ -32,9 +32,16 @@
         ]
     },
     {
+        "id": "5",
+        "type": "video",
+        "title": "Archive Footage",
+        "src": "videos/SampleVideo_1280x720_5mb.mp4",
+        "contentType": "video/mp4"
+    },  
+    {
         "id": "4",
         "type": "quiz",
-        "title": "World War One Quiz",
+        "title": "The great WWI quiz",
         "description": "This is a quick and simple quiz about world war one. The first ever war.",
         "questions": [
             {
@@ -67,12 +74,5 @@
         ],
         "currentAnswers": [],
         "answers": []
-    },
-    {
-        "id": "5",
-        "type": "video",
-        "title": "Video Test",
-        "src": "videos/SampleVideo_1280x720_5mb.mp4",
-        "contentType": "video/mp4"
     }
 ]

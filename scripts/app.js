@@ -42,8 +42,14 @@ var app = (function () {
         getMenuPages().forEach(function (page) {
             menu.addPage(page.route, page.title);
         });
-        menu.addPage('login', 'Login');
-        menu.addPage('admin', 'Admin');
+
+        if (loginManager.isLoggedIn()) {
+            menu.addPage('admin', 'Add Page');
+            menu.addPage('login', 'Logout');
+        } else {
+            menu.addPage('login', 'Login');
+        }
+
         menu.display(menuContentEl);
     }
 

@@ -45,6 +45,7 @@ var urlHelper = (function () {
         return 0;
     }
 
+    // Gets the search term from the hash.
     var search = function() {
         var segments = hash();
         if (segments.length > 0) {
