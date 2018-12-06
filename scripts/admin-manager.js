@@ -75,7 +75,6 @@ var adminManager = (function () {
             html += '<ol id="slideshow-slides">';
             html += '<li>' + this.slideInputHtml() + '</li>';
             html += '</ol>';
-            html += '<p><em>URL can be either absolute or relative to images folder.</em></p>';
             html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';
             html += '</div>'
             return html;
@@ -101,13 +100,11 @@ var adminManager = (function () {
             this.getSlideObjects().forEach(function (slide) {
                 if (slide.title.length == 0) {
                     var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
-                    errorEl.innerHTML = 'Title missing';
+                    errorEl.innerHTML = 'Title is required';
                     success = false;
-                }
-
-                if (slide.url.length == 0) {
+                } else if (slide.url.length == 0) {
                     var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
-                    errorEl.innerHTML = 'URL missing';
+                    errorEl.innerHTML = 'URL is required';
                     success = false;
                 }
             });
@@ -169,7 +166,7 @@ var adminManager = (function () {
 
     // Generates HTML to display the admin form
     var generateHtml = function () {
-        var html = '<form>';
+        var html = '<form id="admin-form">';
         html += '<h2>Admin</h2>';
         html += '<hr>';
         html += '<div class="form-group">';
@@ -228,12 +225,20 @@ var adminManager = (function () {
         document.getElementById('message').innerHTML = msg;
     }
 
+    var clearFormMessages = function() {
+        var children = document.getElementsByClassName('form-error');
+        for (var child in children) {
+            children[child].innerHTML = '';
+        }
+    }
+
     // Called to save the current page state.
     var save = function () {
         if (currentPage == null) {
             throw 'Current state not set';
         } else {
             // Save if page valid.
+            clearFormMessages();
             if (currentPage.validate()) {
                 currentPage.save();
                 message('Page saved!');
