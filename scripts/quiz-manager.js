@@ -12,7 +12,7 @@ var quizManager = (function () {
     // Gets the index of the question currently being asked.
     Quiz.prototype.getCurrentQuestionIndex = function () {
         if (this.pageData.currentAnswers.length > 0) {
-            return this.pageData.answers.length;
+            return this.pageData.currentAnswers.length;
         }
         return 0;
     }
@@ -45,7 +45,7 @@ var quizManager = (function () {
     // Handles the start state
     Quiz.prototype.startState = function () {
         var html = '<p>' + this.pageData.description + '</p>';
-        html += '<p><button onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
+        html += '<p><button class="btn btn-primary" onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
         html += '<h2>Previous Results</h2>';
         var results = this.getOrderedResults();
         if (results.length > 0) {
@@ -95,7 +95,7 @@ var quizManager = (function () {
             html += '<label for="answer' + index + '">' + option + '</label><br>';
         });
         html += '<br>';
-        html += '<input type="button" value="Answer" onclick="quizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
+        html += '<input type="button" class="btn btn-primary" value="Answer" onclick="quizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
         html += '</form>';
         return html;
     }
@@ -107,11 +107,11 @@ var quizManager = (function () {
         var html = '<p>You completed the quiz!</p>';
         html += '<p>You got ' + correct + ' out of ' + total + ' correct!</p>';
         html += '<form>';
-        html += '<div>'
+        html += '<div class="form-group">'
         html += '<label for="name">Please enter your name:</label><br>';
-        html += '<input type="text" id="name">';
+        html += '<input type="text" id="name" class="form-control">';
         html += '</div>'
-        html += '<input type="button" value="Complete the quiz!" onclick="quizManager.onComplete(\'' + this.pageData.id + '\')">';
+        html += '<input type="button" class="btn btn-primary" value="Complete the quiz!" onclick="quizManager.onComplete(\'' + this.pageData.id + '\')">';
         html += '</form>';
         return html;
     }
