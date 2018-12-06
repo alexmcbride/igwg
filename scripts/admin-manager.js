@@ -17,6 +17,10 @@ var adminManager = (function () {
             html += '</div>';
             return html;
         },
+        update: function (page) {
+            document.getElementById('post-title').value = page.title;
+            document.getElementById('post-content').value = page.content;
+        },
         save: function () {
             dataStore.setPage({
                 id: createId(),
@@ -56,9 +60,12 @@ var adminManager = (function () {
 
     // Class to manage adding slideshow.
     var Slideshow = {
-        slideInputHtml: function () {
-            var html = '<input type="text" placeholder="Title" class="slide-title" class="form-control"> - ';
-            html += '<input type="text" placeholder="URL" class="slide-url" class="form-control"> ';
+        slideInputHtml: function (page) {
+            if (page === undefined) {
+                page = { title: '', src: '' };
+            }
+            var html = '<input type="text" placeholder="Title" class="slide-title" class="form-control" value="' + page.title + '"> ';
+            html += '<input type="text" placeholder="URL" class="slide-url" class="form-control" value="' + page.src + '">';
             html += '<button onclick="adminManager.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
             html += '<span class="form-error slideshow-slide-error"></span>';
             return html;
@@ -73,11 +80,18 @@ var adminManager = (function () {
             html += '</div><br>'
             html += '<p>Add images to slideshow.</p>';
             html += '<ol id="slideshow-slides">';
-            html += '<li>' + this.slideInputHtml() + '</li>';
             html += '</ol>';
             html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';
             html += '</div>'
             return html;
+        },
+        update: function (page) {
+            document.getElementById('slideshow-title').value = page.title;
+            var slideshow = this;
+            page.images.forEach(function (image) {
+                var html = slideshow.slideInputHtml(image);
+                slideshow.addSlide(html)
+            });
         },
         save: function () {
             var images = this.getSlideObjects();
@@ -132,10 +146,13 @@ var adminManager = (function () {
             }
             return slides;
         },
-        addSlide: function () {
+        addSlide: function (html) {
+            if (html === undefined) {
+                html = this.slideInputHtml();
+            }
             var list = document.getElementById('slideshow-slides');
             var listItem = document.createElement('li');
-            listItem.innerHTML = this.slideInputHtml();
+            listItem.innerHTML = html;
             list.appendChild(listItem);
         },
         deleteSlide: function (btnEl) {
@@ -152,7 +169,8 @@ var adminManager = (function () {
                 currentPage = getPage('post');;
             }
 
-            var html = generateHtml();
+            var pages = dataStore.findPages();
+            var html = generateHtml(pages);
             content.render(html);
         } else {
             content.render('<p>You must be logged in to view this page</p>');
@@ -165,11 +183,24 @@ var adminManager = (function () {
     }
 
     // Generates HTML to display the admin form
-    var generateHtml = function () {
+    var generateHtml = function (pages) {
         var html = '<form id="admin-form">';
         html += '<h2>Admin</h2>';
+
         html += '<hr>';
         html += '<div class="form-group">';
+        html += '<label for="page-select">Select page to manage</label><br>';
+        html += '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
+        html += '<option value="create">Create new page</option>';
+        html += '<option disabled>----</option>';
+        pages.forEach(function (page) {
+            html += '<option value="' + page.id + '">' + page.title + ' (' + page.type + ')</option>';
+        });
+        html += '</select>';
+        html += '<hr>';
+        html += '</div>';
+
+        html += '<div class="form-group" id="form-select-box">';
         html += '<label for="form-select">Select the type of page</label><br>';
         html += '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';
         html += '<option value="post">Post</option>';
@@ -177,15 +208,17 @@ var adminManager = (function () {
         html += '<option value="quiz">Quiz</option>';
         html += '<option value="video">Video</option>';
         html += '</select>';
-        html += '</div>';
         html += '<hr>';
+        html += '</div>';
+
         html += '<p id="message"></p>';
         html += '<div id="form-content">';
         html += currentPage.form();
         html += '</div>';
         html += '<hr>';
         html += '<div>';
-        html += '<input type="button" value="Save" onclick="adminManager.save()" class="btn btn-primary">';
+        html += '<input type="button" value="Save" onclick="adminManager.save()" class="btn btn-primary"> ';
+        html += '<input type="button" value="Delete" onclick="adminManager.deletePage()" id="deleteButton" class="btn btn-primary" style="display: none;">';
         html += '</div>';
         html += '</form>';
         return html;
@@ -209,6 +242,11 @@ var adminManager = (function () {
     // Called when the form select input changes, switches page to selected type
     var formChange = function () {
         var pageType = document.getElementById('form-select').value;
+        performFormChange(pageType);
+    }
+
+    // Changes to show form for page type
+    var performFormChange = function(pageType) {
         var page = getPage(pageType);
         if (page == null) {
             throw 'Form type not found';
@@ -220,12 +258,32 @@ var adminManager = (function () {
         }
     }
 
+    // Called when the page select input changes, switches page to selected
+    var pageChange = function () {
+        var pageId = document.getElementById('page-select').value;
+        if (pageId == 'create') {
+            // enable select input
+            document.getElementById('form-select-box').style.display = 'block';
+            document.getElementById('deleteButton').style.display = 'none';
+        } else {
+            // disenable select input
+            document.getElementById('form-select-box').style.display = 'none';
+            document.getElementById('deleteButton').style.display = 'inline';
+            var page = dataStore.findPage(pageId);
+
+            currentPage = getPage(page.type);
+            document.getElementById('form-content').innerHTML = currentPage.form();
+            currentPage.update(page);
+        }
+    }
+
     // Shortcut for displaying status message.
     var message = function (msg) {
         document.getElementById('message').innerHTML = msg;
     }
 
-    var clearFormMessages = function() {
+    // Clears all form error messages.
+    var clearFormMessages = function () {
         var children = document.getElementsByClassName('form-error');
         for (var child in children) {
             children[child].innerHTML = '';
@@ -247,6 +305,22 @@ var adminManager = (function () {
         }
     }
 
+    // Removes page from local storage.
+    var deletePage = function () {
+        if (currentPage == null) {
+            throw 'Current state not set';
+        } else {
+            var pageId = document.getElementById('page-select').value;
+            dataStore.removePage(pageId);
+            
+            document.getElementById('page-select').value = 'create';
+            performFormChange('post');
+            document.getElementById('form-select-box').style.display = 'block';
+
+            app.refreshMenu();
+        }
+    }
+
     // Adds a slide to the current slideshow.
     var addSlide = function () {
         Slideshow.addSlide();
@@ -260,7 +334,9 @@ var adminManager = (function () {
     return {
         display: display,
         formChange: formChange,
+        pageChange: pageChange,
         save: save,
+        deletePage: deletePage,
         addSlide: addSlide,
         deleteSlide: deleteSlide
     };

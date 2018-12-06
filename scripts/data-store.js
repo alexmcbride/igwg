@@ -83,12 +83,23 @@ var dataStore = (function () {
     }
 
     // Removes a page from local storage.
-    var removePage = function (page) {
-        window.localStorage.removeItem(page.id);
+    var removePage = function (pageId) {
+        window.localStorage.removeItem(pageId);
+
         var ids = getPageIds();
-        var index = ids.indexOf(page.id);
-        ids.splice(index, 1);
+        ids.splice(ids.indexOf(pageId), 1);
         setPageIds(ids);
+
+        var indexes = getIndexes();
+        var index;
+        for (var key in indexes) {
+            if (indexes[key].id === pageId) {
+                index = key;
+                continue;
+            }
+        }
+        indexes.splice(index, 1);
+        setIndexes(indexes);
     }
 
     // Gets list of indexes from storage or returns empty array.
@@ -133,6 +144,7 @@ var dataStore = (function () {
         findPages: findPages,
         initialize: initialize,
         setPage: setPage,
+        removePage: removePage,
         search: search
     };
 })();
