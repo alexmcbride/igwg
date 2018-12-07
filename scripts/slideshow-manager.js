@@ -60,22 +60,26 @@ var slideshowManager = (function () {
     var generateGoToSlide = function (currentIndex) {
         var output = '';
         if (pageData.images.length > 0) {
-            output += '<div class="gotoslide">';
-            output += '<label for="gotoslide">Go to slide:</label>';
-            output += '<input type="text" id="gotoslide" onchange="slideshowManager.goToSlide()" value="' + (currentIndex + 1) + '">';
-            output += '</div>';
+            output += '<label for="gotoslide">Go to slide:</label> ';
+            output += '<input type="text" id="gotoslide" onchange="slideshowManager.goToSlide()" value="' + (currentIndex + 1) + '" style="width: 80px;">';
         }
         return output;
     }
 
     // Get HTML for the slide controls
     var generateControlsHtml = function (currentIndex) {
-        var output = '<div class="controls">';
-        output += generateLink(getStartIndex(currentIndex), 'start', 'Start');
-        output += generateLink(getPreviousIndex(currentIndex), 'previous', 'Previous');
-        output += generateGoToSlide(currentIndex);
-        output += generateLink(getNextIndex(currentIndex), 'next', 'Next');
-        output += generateLink(getEndIndex(currentIndex), 'end', 'End');
+        var output = '<div class="row">';
+        output += '<div class="col-4">';
+        output += generateLink(getStartIndex(currentIndex), 'start', 'Start &laquo;') + '&nbsp;&nbsp;';
+        output += generateLink(getPreviousIndex(currentIndex), 'previous', 'Previous &laquo;') + '&nbsp;&nbsp;';
+        output += '</div>';
+        output += '<div class="col-4">';
+        output += generateGoToSlide(currentIndex) + ' ';
+        output += '</div>';
+        output += '<div class="col-4 text-right">';
+        output += generateLink(getNextIndex(currentIndex), 'next', 'Next &raquo;') + '&nbsp;&nbsp;';
+        output += generateLink(getEndIndex(currentIndex), 'end', 'End &raquo;');
+        output += '</div>';
         output += '</div>';
         return output;
     }
@@ -90,7 +94,9 @@ var slideshowManager = (function () {
             var output = '<div class="slideshow">' +
                 '<h3>' + pageData.title + '</h3>' +
                 '<h4>' + slide.title + '</h4>' +
-                '<img src="' + slide.src + '" alt="' + slide.title + '" height="350px">';
+                '<div class="text-center">' + 
+                '<img src="' + slide.src + '" alt="' + slide.title + '" height="350px">' + 
+                '</div><br>';
             output += generateControlsHtml(currentIndex);
             return output + '</div>';
         }
