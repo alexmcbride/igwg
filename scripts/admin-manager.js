@@ -47,11 +47,11 @@ var adminManager = (function () {
         validate: function () {
             var success = true;
 
-            if (!validateRequired('post-title')) {
+            if (!validateRequired('post-title', 'Title')) {
                 success = false;
             }
 
-            if (!validateRequired('post-content')) {
+            if (!validateRequired('post-content', 'Content')) {
                 success = false;
             }
 
@@ -117,7 +117,7 @@ var adminManager = (function () {
         validate: function () {
             var success = true;
 
-            if (!validateRequired('slideshow-title')) {
+            if (!validateRequired('slideshow-title', 'Title')) {
                 success = false;
             }
 
@@ -216,13 +216,13 @@ var adminManager = (function () {
         },
         validate: function () {
             var success = true;
-            if (!validateRequired('video-title')) {
+            if (!validateRequired('video-title', 'Title')) {
                 success = false;
             }
-            if (!validateRequired('video-src')) {
+            if (!validateRequired('video-src', 'URL')) {
                 success = false;
             }
-            if (!validateRequired('video-type')) {
+            if (!validateRequired('video-type', 'Content-type')) {
                 success = false;
             }
             return success;
@@ -273,10 +273,10 @@ var adminManager = (function () {
         },
         validate: function () {
             var success = true;
-            if (!validateRequired('image-title')) {
+            if (!validateRequired('image-title', 'Title')) {
                 success = false;
             }
-            if (!validateRequired('image-src')) {
+            if (!validateRequired('image-src', 'URL')) {
                 success = false;
             }
             return success;
@@ -294,46 +294,190 @@ var adminManager = (function () {
             var html = '<div class="quiz-form">';
             html += '<h3>Quiz</h3>';
             html += '<div class="form-group">';
-            html += '<label for="image-title">Title</label><br>';
-            html += '<input type="text" id="image-title" class="form-control">';
-            html += '<span class="form-error" id="image-title-error"></span>';
+            html += '<label for="quiz-title">Title</label><br>';
+            html += '<input type="text" id="quiz-title" class="form-control">';
+            html += '<span class="form-error" id="quiz-title-error"></span>';
             html += '</div>';
             html += '<div class="form-group">';
-            html += '<label for="image-src">Image URL</label><br>';
-            html += '<input type="text" id="image-src" class="form-control">';
-            html += '<span class="form-error" id="image-src-error"></span>';
+            html += '<label for="quiz-description">Description</label><br>';
+            html += '<input type="text" id="quiz-description" class="form-control">';
+            html += '<span class="form-error" id="quiz-description-error"></span>';
             html += '</div>';
+
+            html += '<p>Questions</p>'
+            html += '<div class="question-panel">';
+            html += '<ol id="question-list">';
+            html += '</ol>';
+            html += '<button class="btn btn-secondary" onclick="adminManager.addQuestion()">Add Question</button>';
+            html += '</div>';
+
             return html;
         },
         update: function (page) {
-            document.getElementById('image-title').value = page.title;
-            document.getElementById('image-src').value = page.src;
+            document.getElementById('quiz-title').value = page.title;
+            document.getElementById('quiz-description').value = page.description;
+            var quiz = this;
+            page.questions.forEach(function (question) {
+                quiz.addQuestion(question);
+            });
         },
         clear: function () {
-            document.getElementById('image-title').value = '';
-            document.getElementById('image-src').value = '';
+            document.getElementById('quiz-title').value = '';
+            document.getElementById('quiz-description').value = '';
         },
         save: function () {
+            var questions = this.getQuestions().map(function (question) {
+                return {
+                    text: question.text,
+                    correctIndex: parseInt(question.correct) - 1,
+                    options: question.answers.map(function (answer) {
+                        return answer.text;
+                    })
+                };
+            });
+
             dataStore.setPage({
                 id: createId(),
-                type: "image",
-                title: this.getTitle(),
-                src: this.getSrc()
+                type: "quiz",
+                title: document.getElementById('quiz-title').value.trim(),
+                description: document.getElementById('quiz-description').value.trim(),
+                questions: questions,
+                currentAnswers: [],
+                answers: []
             });
             this.clear();
         },
         validate: function () {
             var success = true;
-            if (!validateRequired('quiz-title')) {
+
+            if (!validateRequired('quiz-title', 'Title')) {
                 success = false;
             }
+
+            if (!validateRequired('quiz-description', 'Description')) {
+                success = false;
+            }
+
+            var questions = this.getQuestions();
+            questions.forEach(function (question) {
+                if (question.text.length === 0) {
+                    question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Question is required';
+                    success = false;
+                } else if (question.correct.length === 0) {
+                    question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is required';
+                    success = false;
+                } else {
+                    var correct = parseInt(question.correct);
+                    if (isNaN(correct)) {
+                        question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is not a number';
+                        success = false;
+                    } else if (correct < 1 || correct > question.answers.length) {
+                        question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is out of range';
+                        success = false;
+                    }
+                }
+                question.answers.forEach(function (answer) {
+                    if (answer.text.length === 0) {
+                        answer.el.getElementsByClassName('quiz-answer-error')[0].innerHTML = 'Answer is required';
+                        success = false;
+                    }
+                });
+            });
+
             return success;
         },
-        getTitle: function () {
-            return document.getElementById('image-title').value.trim();
+        getQuestionHtml: function (question) {
+            if (question === undefined) {
+                question = { text: '', correctIndex: '' };
+            }
+            var html = '<input type="text" class="question-text" placeholder="Question text" value="' + question.text + '"> ';
+            html += '<input type="text" class="question-correct" placeholder="Correct Answer" value="' + (question.correctIndex + 1) + '">';
+            html += '<button onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question"><img src="images/icons/delete-button.png"></button>';
+            html += '<span class="form-error quiz-question-error"></span>';
+            html += '<ol class="answer-list">';
+            html += '</ol>';
+            html += '<button class="btn btn-secondary" onclick="adminManager.addAnswer(this)">Add Answer</button>';
+            html += '<hr>';
+            return html;
         },
-        getSrc: function () {
-            return document.getElementById('image-src').value.trim();
+        addQuestion: function (question) {
+            var ol = document.getElementById('question-list');
+            var li = document.createElement('li');
+            li.setAttribute('class', 'question-item');
+            li.innerHTML = this.getQuestionHtml(question);
+            ol.appendChild(li);
+
+            if (question !== undefined) {
+                var quiz = this;
+                question.options.forEach(function (answer) {
+                    quiz.performAddAnswer(li, answer);
+                });
+            }
+        },
+        getAnswerHtml: function (answer) {
+            if (answer === undefined) {
+                answer = '';
+            }
+            var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '">';
+            html += '<button onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer"><img src="images/icons/delete-button.png"></button>';
+            html += '<span class="form-error quiz-answer-error"></span>';
+            return html;
+        },
+        addAnswer: function (btnEl) {
+            var questionEl = btnEl.parentNode;
+            this.performAddAnswer(questionEl);
+        },
+        performAddAnswer: function (questionEl, answer) {
+            var answerListEl = questionEl.getElementsByClassName('answer-list')[0];
+            var answerEl = document.createElement('li');
+            answerEl.setAttribute('class', 'answer-item');
+            answerEl.innerHTML = this.getAnswerHtml(answer);
+            answerListEl.append(answerEl);
+        },
+        removeQuestion: function (btnEl) {
+            var questionEl = btnEl.parentNode;
+            var questionListEl = questionEl.parentNode;
+            questionListEl.removeChild(questionEl);
+        },
+        removeAnswer: function (btnEl) {
+            var answerEl = btnEl.parentNode;
+            var answerListEl = answerEl.parentNode;
+            answerListEl.removeChild(answerEl);
+        },
+        getAnswers: function (questionEl) {
+            var answers = [];
+            var answerEls = questionEl.getElementsByClassName('answer-item');
+            for (var key in answerEls) {
+                if (answerEls.hasOwnProperty(key)) {
+                    var answerEl = answerEls[key];
+                    var text = answerEl.getElementsByClassName('answer-text')[0].value.trim();
+                    answers.push({
+                        text: text,
+                        el: answerEl
+                    });
+                }
+            }
+            return answers;
+        },
+        getQuestions: function () {
+            var questions = [];
+            var questionListEl = document.getElementById('question-list');
+            var questionEls = questionListEl.getElementsByClassName('question-item');
+            for (var key in questionEls) {
+                if (questionEls.hasOwnProperty(key)) {
+                    var questionEl = questionEls[key];
+                    var text = questionEl.getElementsByClassName('question-text')[0].value.trim();
+                    var correct = questionEl.getElementsByClassName('question-correct')[0].value.trim();
+                    var answers = this.getAnswers(questionEl);
+                    questions.push({
+                        text: text,
+                        correct: correct,
+                        el: questionEl,
+                        answers: answers
+                    });
+                }
+            }
+            return questions;
         }
     };
 
@@ -356,7 +500,7 @@ var adminManager = (function () {
         return crypto.getRandomValues(new Uint32Array(1)).join('');
     }
 
-    var getPageSelectHtml = function() {
+    var getPageSelectHtml = function () {
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
         html += '<option disabled>----</option>';
@@ -370,7 +514,7 @@ var adminManager = (function () {
         return html;
     }
 
-    var updatePageSelectControl = function() {
+    var updatePageSelectControl = function () {
         var html = getPageSelectHtml();
         document.getElementById('page-select-control').innerHTML = html;
     }
@@ -495,7 +639,7 @@ var adminManager = (function () {
             if (currentPage.validate()) {
                 currentPage.save();
                 message('Page saved!');
-                
+
                 app.refreshMenu(); // Tell app to redraw main menu.
                 updatePageSelectControl();
             }
@@ -529,6 +673,22 @@ var adminManager = (function () {
         Slideshow.deleteSlide(btnEl);
     }
 
+    var addQuestion = function () {
+        Quiz.addQuestion();
+    }
+
+    var addAnswer = function (btnEl) {
+        Quiz.addAnswer(btnEl);
+    }
+
+    var removeQuestion = function (btnEl) {
+        Quiz.removeQuestion(btnEl);
+    }
+
+    var removeAnswer = function (btnEl) {
+        Quiz.removeAnswer(btnEl);
+    }
+
     return {
         display: display,
         formChange: formChange,
@@ -536,6 +696,10 @@ var adminManager = (function () {
         save: save,
         deletePage: deletePage,
         addSlide: addSlide,
-        deleteSlide: deleteSlide
+        deleteSlide: deleteSlide,
+        addQuestion: addQuestion,
+        addAnswer: addAnswer,
+        removeAnswer: removeAnswer,
+        removeQuestion: removeQuestion
     };
 })();
