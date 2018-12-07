@@ -3,7 +3,7 @@ var app = (function () {
     // Starts the app, initializes the modules, and adds content handlers
     var start = function () {
         // Initialzie main menu.
-        loadMainMenu();
+        initializeMainMenu();
 
         // Initialize modules 
         content.initialize('main-content');
@@ -26,7 +26,7 @@ var app = (function () {
     }
 
     // Loads the main menu.
-    var loadMainMenu = function () {
+    var initializeMainMenu = function () {
         menu.addPage('home', 'Home');
         dataStore.findPages().forEach(function (page) {
             var hash = urlHelper.generateHash(page.type, page.id);
@@ -50,7 +50,7 @@ var app = (function () {
     // Refreshes the main menu to redraw it e.g. when a page is added or deleted by the admin manager.
     var refreshMenu = function () {
         menu.clear();
-        loadMainMenu();
+        initializeMainMenu();
     }
 
     return {
