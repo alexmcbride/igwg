@@ -70,8 +70,8 @@ var slideshowManager = (function () {
     var generateControlsHtml = function (currentIndex) {
         var output = '<div class="row">';
         output += '<div class="col-4">';
-        output += generateLink(getStartIndex(currentIndex), 'start', 'Start &laquo;') + '&nbsp;&nbsp;';
-        output += generateLink(getPreviousIndex(currentIndex), 'previous', 'Previous &laquo;') + '&nbsp;&nbsp;';
+        output += generateLink(getStartIndex(currentIndex), 'start', '&laquo; Start') + '&nbsp;&nbsp;';
+        output += generateLink(getPreviousIndex(currentIndex), 'previous', '&laquo; Previous') + '&nbsp;&nbsp;';
         output += '</div>';
         output += '<div class="col-4">';
         output += generateGoToSlide(currentIndex) + ' ';
