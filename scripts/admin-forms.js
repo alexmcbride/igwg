@@ -1,6 +1,5 @@
 /**
- * This module contains the forms for each page.
- * The form for each page type is represented by a class, which all implement the following interface:
+ * This module contains the forms for each page, represented by the following interface:
  * 
  * - form: gets the html to display the form for creating the page
  * - update: adds existing page information to the form
