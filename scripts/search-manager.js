@@ -24,7 +24,7 @@ var searchManager = (function () {
     // Displays the search results.
     var display = function () {
         var term = urlHelper.search();
-        if (term != null) {
+        if (term !== null) {
             var pages = dataStore.search(term);
             if (pages.length == 0) {
                 noResults();
