@@ -27,6 +27,7 @@ var adminManager = (function () {
             return html;
         },
         update: function (page) {
+            this.page = page;
             document.getElementById('post-title').value = page.title;
             document.getElementById('post-content').value = page.content;
         },
@@ -35,8 +36,9 @@ var adminManager = (function () {
             document.getElementById('post-content').value = '';
         },
         save: function () {
+            var page = this.page;
             dataStore.setPage({
-                id: createId(),
+                id: page !== undefined ? page.id : createId(),
                 type: "post",
                 title: this.getTitle(),
                 created: new Date().toISOString(),
@@ -97,6 +99,7 @@ var adminManager = (function () {
             return html;
         },
         update: function (page) {
+            this.page = page;
             document.getElementById('slideshow-title').value = page.title;
             var slideshow = this;
             page.images.forEach(function (image) {
@@ -105,9 +108,10 @@ var adminManager = (function () {
             });
         },
         save: function () {
+            var page = this.page;
             var images = this.getSlideObjects();
             dataStore.setPage({
-                id: createId(),
+                id: page !== undefined ? page.id : createId(),
                 type: "slideshow",
                 title: this.getTitle(),
                 images: images
@@ -195,6 +199,7 @@ var adminManager = (function () {
             return html;
         },
         update: function (page) {
+            this.page = page;
             document.getElementById('video-title').value = page.title;
             document.getElementById('video-src').value = page.src;
             document.getElementById('video-type').value = page.contentType;
@@ -205,8 +210,9 @@ var adminManager = (function () {
             document.getElementById('video-type').value = '';
         },
         save: function () {
+            var page = this.page;
             dataStore.setPage({
-                id: createId(),
+                id: page !== undefined ? page.id : createId(),
                 type: "video",
                 title: this.getTitle(),
                 src: this.getSrc(),
@@ -255,6 +261,7 @@ var adminManager = (function () {
             return html;
         },
         update: function (page) {
+            this.page = page;
             document.getElementById('image-title').value = page.title;
             document.getElementById('image-src').value = page.src;
         },
@@ -263,8 +270,9 @@ var adminManager = (function () {
             document.getElementById('image-src').value = '';
         },
         save: function () {
+            var page = this.page;
             dataStore.setPage({
-                id: createId(),
+                id: page !== undefined ? page.id : createId(),
                 type: "image",
                 title: this.getTitle(),
                 src: this.getSrc()
@@ -314,6 +322,7 @@ var adminManager = (function () {
             return html;
         },
         update: function (page) {
+            this.page = page;
             document.getElementById('quiz-title').value = page.title;
             document.getElementById('quiz-description').value = page.description;
             var quiz = this;
@@ -324,6 +333,7 @@ var adminManager = (function () {
         clear: function () {
             document.getElementById('quiz-title').value = '';
             document.getElementById('quiz-description').value = '';
+            document.getElementById('question-list').innerHTML = '';
         },
         save: function () {
             var questions = this.getQuestions().map(function (question) {
@@ -336,8 +346,9 @@ var adminManager = (function () {
                 };
             });
 
+            var page = this.page;
             dataStore.setPage({
-                id: createId(),
+                id: page !== undefined ? page.id : createId(),
                 type: "quiz",
                 title: document.getElementById('quiz-title').value.trim(),
                 description: document.getElementById('quiz-description').value.trim(),
@@ -418,7 +429,7 @@ var adminManager = (function () {
             if (answer === undefined) {
                 answer = '';
             }
-            var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '">';
+            var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
             html += '<button onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer"><img src="images/icons/delete-button.png"></button>';
             html += '<span class="form-error quiz-answer-error"></span>';
             return html;
