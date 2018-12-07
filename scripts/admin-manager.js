@@ -94,7 +94,7 @@ var adminManager = (function () {
             }
             var html = '<input type="text" placeholder="Title" class="slide-title" class="form-control" value="' + page.title + '"> ';
             html += '<input type="text" placeholder="URL" class="slide-url" class="form-control" value="' + page.src + '">';
-            html += '<button onclick="adminManager.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
+            html += '<button type="button" onclick="adminManager.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
             html += '<span class="form-error slideshow-slide-error"></span>';
             return html;
         },
@@ -333,7 +333,7 @@ var adminManager = (function () {
             html += '<div class="question-panel">';
             html += '<ol id="question-list">';
             html += '</ol>';
-            html += '<button class="btn btn-secondary" onclick="adminManager.addQuestion()">Add Question</button>';
+            html += '<button type="button" class="btn btn-secondary" onclick="adminManager.addQuestion()">Add Question</button>';
             html += '</div>';
 
             return html;
@@ -424,13 +424,13 @@ var adminManager = (function () {
             }
             var html = '<input type="text" class="question-text" placeholder="Question text" value="' + question.text + '"> ';
             html += '<input type="text" class="question-correct" placeholder="Correct Answer" value="' + (question.correctIndex + 1) + '">';
-            html += '<button onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question">';
+            html += '<button type="button" onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question">';
             html += '<img src="images/icons/delete-button.png">';
             html += '</button>';
             html += '<span class="form-error quiz-question-error"></span>';
             html += '<ol class="answer-list">';
             html += '</ol>';
-            html += '<button class="btn btn-secondary" onclick="adminManager.addAnswer(this)">Add Answer</button>';
+            html += '<button type="button" class="btn btn-secondary" onclick="adminManager.addAnswer(this)">Add Answer</button>';
             html += '<hr>';
             return html;
         },
@@ -454,7 +454,7 @@ var adminManager = (function () {
                 answer = '';
             }
             var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
-            html += '<button onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
+            html += '<button type="button" onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
             html += '<img src="images/icons/delete-button.png">'
             html += '</button>';
             html += '<span class="form-error quiz-answer-error"></span>';
