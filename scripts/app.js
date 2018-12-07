@@ -1,17 +1,16 @@
 // Module to start the app up.
 var app = (function () {
     // Starts the app, initializes the modules, and adds content handlers
-    var start = function () { 
+    var start = function () {
         // Initialzie main menu.
         loadMainMenu();
 
-        // Initialize modules
-        var mainContentEl = 'main-content';     
-        content.initialize(mainContentEl);
+        // Initialize modules 
+        content.initialize('main-content');
         searchManager.initialize('search-content');
         loginManager.initialize('login-content');
 
-        // Initialize content loader.
+        // Add content handlers for page types.
         contentLoader.addPage('home', page.home);
         contentLoader.addPage('post', page.post);
         contentLoader.addPage('image', page.image);
@@ -21,24 +20,19 @@ var app = (function () {
         contentLoader.addPage('login', page.login);
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
-        contentLoader.initialize('home', mainContentEl);
+
+        // Initialize content loader, which takes over from here.
+        contentLoader.initialize('home' /* defaultPage */);
     }
 
     // Loads the main menu.
     var loadMainMenu = function () {
         menu.addPage('home', 'Home');
-        getMenuPages().forEach(function (page) {
-            menu.addPage(page.route, page.title);
+        dataStore.findPages().forEach(function (page) {
+            var hash = urlHelper.generateHash(page.type, page.id);
+            menu.addPage(hash, page.title);
         });
         menu.display('menu-content');
-    }
-
-    // Gets list of main menu pages from data store.
-    var getMenuPages = function () {
-        var pages = dataStore.findPages();
-        return pages.map(function (page) {
-            return { route: urlHelper.url(page.type, page.id), title: page.title };
-        });
     }
 
     // Runs the app, tries to get the payload, then starts app.

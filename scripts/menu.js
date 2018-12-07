@@ -8,16 +8,16 @@ var menu = (function () {
     }
 
     // Adds page to menu.
-    var addPage = function (route, linkText) {
-        pageMap[route] = linkText;
+    var addPage = function (pageName, linkText) {
+        pageMap[pageName] = linkText;
     }
 
     // Generates HTML for the pages.
-    var generateHtml = function (pages) {
+    var generateHtml = function () {
         var html = '<ul>';
-        for (var key in pageMap) {
-            if (pageMap.hasOwnProperty(key)) {
-                html += '<li><a href="#' + key + '">' + pageMap[key] + '</a></li>';
+        for (var pageName in pageMap) {
+            if (pageMap.hasOwnProperty(pageName)) {
+                html += '<li><a href="#' + pageName + '">' + pageMap[pageName] + '</a></li>';
             }
         }
         return html + '</ul>';

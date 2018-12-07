@@ -7,7 +7,7 @@ var searchManager = (function () {
         html += '<ul>';
         pages.forEach(page => {
             html += '<li>';
-            html += '<a href="#' + urlHelper.url(page.type, page.id) + '">' + page.title + '</a>';
+            html += '<a href="#' + urlHelper.generateHash(page.type, page.id) + '">' + page.title + '</a>';
             html += '</li>';
         });
         html += '</ul>';

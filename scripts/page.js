@@ -43,6 +43,13 @@ var page = (function () {
         content.render(html);
     }
 
+    // A special page for when another page is not found. Aww.
+    var notFound = function () {
+        var html = '<h3>Not found</h3>';
+        html += "<p>Aww, that page wasn't found. :(</p>";
+        content.render(html);
+    }
+
     // The slideshow page.
     var slideshow = function (data) {
         slideshowManager.display(data);
@@ -51,13 +58,6 @@ var page = (function () {
     // The quiz page.
     var quiz = function (data) {
         quizManager.display(data);
-    }
-
-    // A special page for when another page is not found.
-    var notFound = function () {
-        var html = '<h3>Not found</h3>';
-        html += "<p>Aww, we couldn't find that page. :(</p>";
-        content.render(html);
     }
 
     // The login or logout pages.

@@ -109,7 +109,7 @@ var adminManager = (function () {
             html += '<input type="text" id="slideshow-title" class="form-control">';
             html += '<span class="form-error" id="slideshow-title-error"></span>';
             html += '</div><br>'
-            html += '<p>Add images to slideshow.</p>';
+            html += '<p>Slideshow Images</p>';
             html += '<ol id="slideshow-slides">';
             html += '</ol>';
             html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';

@@ -62,7 +62,7 @@ var urlHelper = (function () {
     }
 
     // Creates a URL for the specified page.
-    var url = function (page, pageId, dataId) {
+    var generateHash = function (page, pageId, dataId) {
         var url = page;
         if (pageId) {
             url += seperator + pageId;
@@ -78,7 +78,7 @@ var urlHelper = (function () {
         page: page,
         pageId: pageId,
         slide: slide,
-        url: url,
+        generateHash: generateHash,
         search: search
     };
 })();
