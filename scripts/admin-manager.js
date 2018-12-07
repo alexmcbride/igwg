@@ -1,6 +1,6 @@
 /**
  * Module for managing pages. This one is a bit messy, so could do with some refactoring. :)
- * The form for each page type is represented by a class, which have the following interface:
+ * The form for each page type is represented by a class, which implement the following interface:
  * 
  * - form: gets the html to display the form for creating the page
  * - update: adds existing page information to the form
