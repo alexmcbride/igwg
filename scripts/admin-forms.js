@@ -122,7 +122,7 @@ var adminForms = (function() {
         },
         save: function () {
             var page = this.page;
-            var images = this.getSlideObjects();
+            var images = this.getSlides();
             dataStore.setPage({
                 id: page !== undefined ? page.id : createId(),
                 type: "slideshow",
@@ -138,7 +138,7 @@ var adminForms = (function() {
                 success = false;
             }
 
-            this.getSlideObjects().forEach(function (slide) {
+            this.getSlides().forEach(function (slide) {
                 if (slide.title.length == 0) {
                     var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
                     errorEl.innerHTML = 'Title is required';
@@ -155,7 +155,7 @@ var adminForms = (function() {
         getTitle: function () {
             return document.getElementById('slideshow-title').value.trim();
         },
-        getSlideObjects: function () {
+        getSlides: function () {
             var list = document.getElementById('slideshow-slides');
             var slides = [];
             var children = list.childNodes;
@@ -331,14 +331,12 @@ var adminForms = (function() {
             html += '<input type="text" id="quiz-description" class="form-control">';
             html += '<span class="form-error" id="quiz-description-error"></span>';
             html += '</div>';
-
             html += '<p>Questions</p>'
             html += '<div class="question-panel">';
             html += '<ol id="question-list">';
             html += '</ol>';
             html += '<button type="button" class="btn btn-secondary" onclick="adminForms.addQuestion()">Add Question</button>';
             html += '</div>';
-
             return html;
         },
         update: function (page) {
@@ -355,8 +353,8 @@ var adminForms = (function() {
             document.getElementById('quiz-description').value = '';
             document.getElementById('question-list').innerHTML = '';
         },
-        save: function () {
-            var questions = this.getQuestions().map(function (question) {
+        getSavableQuestions: function() {
+            return this.getQuestions().map(function (question) {
                 return {
                     text: question.text,
                     correctIndex: parseInt(question.correct) - 1,
@@ -365,7 +363,9 @@ var adminForms = (function() {
                     })
                 };
             });
-
+        },
+        save: function () {
+            var questions = this.getSavableQuestions();
             var page = this.page;
             dataStore.setPage({
                 id: page !== undefined ? page.id : createId(),
