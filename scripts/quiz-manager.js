@@ -1,3 +1,6 @@
+/**
+ * Manager for managing quizes. 
+ */
 var quizManager = (function () {
     // Object to represent a quiz. Uses simple state machine pattern. There are three states - start, question, and 
     // finish. When update is called the current state is processed and the handler moves to the next. Data is 
