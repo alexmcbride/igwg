@@ -1,5 +1,6 @@
 var loginManager = (function () {
     var currentState = null;
+    var savedLoginEl = null;
 
     // Super-secure list of users :)
     var users = [];
@@ -62,10 +63,10 @@ var loginManager = (function () {
 
         var user = authenticate(username, password);
         if (user !== null) {
-            window.localStorage.setItem('loggedIn', JSON.stringify({username: user.username}));
+            window.localStorage.setItem('loggedIn', JSON.stringify({ username: user.username }));
             currentState = logoutState;
-            content.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now add, edit, and delete pages!</p>');
-            app.refreshMenu();
+            content.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>!</p>');
+            redisplayLogin();
         } else {
             showError('Username and password incorrect');
         }
@@ -75,7 +76,7 @@ var loginManager = (function () {
         window.localStorage.removeItem('loggedIn');
         currentState = loginState;
         update();
-        app.refreshMenu();
+        redisplayLogin();
         showError('You are now logged out');
     }
 
@@ -93,11 +94,34 @@ var loginManager = (function () {
     }
 
     var isLoggedIn = function () {
-        return currentUser() !== null;
+        return getCurrentUser() !== null;
     }
 
-    var currentUser = function() {
-        return JSON.parse(window.localStorage.getItem('loggedIn'));
+    var getCurrentUser = function () {
+        var user = window.localStorage.getItem('loggedIn');
+        if (user) {
+            return JSON.parse(user);
+        }
+        return null;
+    }
+
+    var getLoginElHtml = function () {
+        var user = getCurrentUser();
+        if (user == null) {
+            return '<a href="#login">Login</a>';
+        } else {
+            return 'Welcome, ' + user.username + '! | <a href="#admin">Manage Pages</a> | <a href="#login">Logout</a>';
+        }
+    }
+
+    var redisplayLogin = function() {
+        initialize(savedLoginEl);
+    }
+
+    var initialize = function (loginEl) {
+        savedLoginEl = loginEl;
+        var html = getLoginElHtml();
+        document.getElementById(loginEl).innerHTML = html;
     }
 
     return {
@@ -105,6 +129,7 @@ var loginManager = (function () {
         login: login,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        currentUser: currentUser,
+        currentUser: getCurrentUser,
+        initialize: initialize
     };
 })();

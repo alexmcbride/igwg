@@ -7,21 +7,17 @@
  */
 
 var app = (function () {
-    var defaultPage = 'home';
-    var jsonContentFile = 'data.json';
-    var mainContentEl = 'main-content';
-    var menuContentEl = 'menu-content';
-    var searchContentEl = 'search-content';
-
     var start = function () {
         // Intiialize content helper.
+        var mainContentEl = 'main-content';        
         content.initialize(mainContentEl);
 
         // Initialzie menu.
         loadMainMenu();
 
         // Initialize search box
-        searchManager.initialize(searchContentEl);
+        searchManager.initialize('search-content');
+        loginManager.initialize('login-content');
 
         // Initialize content loader.
         contentLoader.addPage('home', page.home);
@@ -33,7 +29,7 @@ var app = (function () {
         contentLoader.addPage('login', page.login);
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
-        contentLoader.initialize(defaultPage, mainContentEl);
+        contentLoader.initialize('home', mainContentEl);
     }
 
     var loadMainMenu = function () {
@@ -43,14 +39,7 @@ var app = (function () {
             menu.addPage(page.route, page.title);
         });
 
-        if (loginManager.isLoggedIn()) {
-            menu.addPage('admin', 'Add Page');
-            menu.addPage('login', 'Logout');
-        } else {
-            menu.addPage('login', 'Login');
-        }
-
-        menu.display(menuContentEl);
+        menu.display('menu-content');
     }
 
     var getMenuPages = function () {
@@ -68,7 +57,7 @@ var app = (function () {
             } else {
                 document.getElementById(mainContentEl).innerHTML = "Error: " + result.response;
             }
-        }, jsonContentFile);
+        }, 'data.json');
     }
 
     var refreshMenu = function () {
