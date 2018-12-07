@@ -185,7 +185,7 @@ var adminManager = (function () {
     // Generates HTML to display the admin form
     var generateHtml = function (pages) {
         var html = '<form id="admin-form">';
-        html += '<h2>Admin</h2>';
+        html += '<h2>Manage Pages</h2>';
 
         html += '<hr>';
         html += '<div class="form-group">';
@@ -265,6 +265,9 @@ var adminManager = (function () {
             // enable select input
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
+
+            currentPage = getPage('post');
+            document.getElementById('form-content').innerHTML = currentPage.form();
         } else {
             // disenable select input
             document.getElementById('form-select-box').style.display = 'none';
