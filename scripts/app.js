@@ -1,15 +1,13 @@
 // Module to start the app up.
 var app = (function () {
-    // Starts the app, initializes the modules, and add content handlers
-    var start = function () {
-        // Intiialize content helper.
-        var mainContentEl = 'main-content';        
-        content.initialize(mainContentEl);
-
-        // Initialzie menu.
+    // Starts the app, initializes the modules, and adds content handlers
+    var start = function () { 
+        // Initialzie main menu.
         loadMainMenu();
 
-        // Initialize search box
+        // Initialize modules
+        var mainContentEl = 'main-content';     
+        content.initialize(mainContentEl);
         searchManager.initialize('search-content');
         loginManager.initialize('login-content');
 
