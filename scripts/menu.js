@@ -24,7 +24,7 @@ var menu = (function () {
     }
 
     // Displays menu on HTML element specified.
-    var display = function (menuElementId) {
+    var initialize = function (menuElementId) {
         var html = generateHtml();
         document.getElementById(menuElementId).innerHTML = html;
         menuElement = menuElementId;
@@ -32,7 +32,7 @@ var menu = (function () {
 
     return {
         clear: clear,
-        display: display,
+        initialize: initialize,
         addPage: addPage
     };
 })();

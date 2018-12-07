@@ -32,7 +32,7 @@ var app = (function () {
             var hash = urlHelper.generateHash(page.type, page.id);
             menu.addPage(hash, page.title);
         });
-        menu.display('menu-content');
+        menu.initialize('menu-content');
     }
 
     // Runs the app, tries to get the payload, then starts app.
