@@ -38,7 +38,6 @@ var app = (function () {
         getMenuPages().forEach(function (page) {
             menu.addPage(page.route, page.title);
         });
-
         menu.display('menu-content');
     }
 

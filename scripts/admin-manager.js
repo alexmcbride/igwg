@@ -116,11 +116,10 @@ var adminManager = (function () {
         update: function (page) {
             this.page = page;
             document.getElementById('slideshow-title').value = page.title;
-            var slideshow = this;
             page.images.forEach(function (image) {
                 var html = slideshow.slideInputHtml(image);
                 slideshow.addSlide(html)
-            });
+            }.bind(this));
         },
         save: function () {
             var page = this.page;
@@ -342,10 +341,9 @@ var adminManager = (function () {
             this.page = page;
             document.getElementById('quiz-title').value = page.title;
             document.getElementById('quiz-description').value = page.description;
-            var quiz = this;
             page.questions.forEach(function (question) {
                 quiz.addQuestion(question);
-            });
+            }.bind(this));
         },
         clear: function () {
             document.getElementById('quiz-title').value = '';
@@ -447,10 +445,9 @@ var adminManager = (function () {
 
             // If question passed, populate answers.
             if (question !== undefined) {
-                var quiz = this;
                 question.options.forEach(function (answer) {
                     quiz.performAddAnswer(li, answer);
-                });
+                }.bind(this));
             }
         },
         getAnswerHtml: function (answer) {
@@ -747,6 +744,7 @@ var adminManager = (function () {
         addQuestion: addQuestion,
         addAnswer: addAnswer,
         removeAnswer: removeAnswer,
-        removeQuestion: removeQuestion
+        removeQuestion: removeQuestion,
+        createId: createId
     };
 })();

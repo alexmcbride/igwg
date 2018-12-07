@@ -51,7 +51,7 @@ var quizManager = (function () {
         if (results.length > 0) {
             html += '<ol>';
             results.forEach(function (result) {
-                html += '<li>' + result.name + ' (' + result.correct + ' Correct)</li>';
+                html += '<li>' + result.name + ' (' + result.correct + ' / ' + result.total + ' Correct)</li>';
             });
             html += '</ol>';
         } else {
@@ -61,13 +61,13 @@ var quizManager = (function () {
     }
 
     // Gets a ordered array of previous results.
-    Quiz.prototype.getOrderedResults = function() {
+    Quiz.prototype.getOrderedResults = function () {
         // Get list of results.
         var results = [];
         for (var key in this.pageData.answers) {
             var answer = this.pageData.answers[key];
             var correct = this.getNumberCorrect(answer.answers);
-            results.push({ name: answer.name, correct: correct });
+            results.push({ name: answer.name, correct: correct, total: this.pageData.questions.length });
         }
 
         // Sort descending
@@ -89,11 +89,10 @@ var quizManager = (function () {
         var question = this.getCurrentQuestion();
         var html = '<form class="question">';
         html += '<p>' + question.text + '</p>';
-        var pageData = this.pageData; // Make pageData local so don't have to use 'this' inside foreach function.
         question.options.forEach(function (option, index) {
             html += '<input type="radio" name="answer" id="answer' + index + '" onclick="quizManager.onQuestion(\'' + pageData.id + '\', ' + index + ')">';
             html += '<label for="answer' + index + '">' + option + '</label><br>';
-        });
+        }.bind(this));
         html += '<br>';
         html += '<input type="button" class="btn btn-primary" value="Answer" onclick="quizManager.onAnswer(\'' + this.pageData.id + '\')" disabled id="answer-btn">';
         html += '</form>';
@@ -165,8 +164,8 @@ var quizManager = (function () {
             this.currentState = this.startState;
             this.update();
         }
-    }    
-    
+    }
+
     // Checks if a user with this name already appears in results.
     Quiz.prototype.nameInResults = function (name) {
         for (var key in this.pageData.answers) {
