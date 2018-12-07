@@ -11,7 +11,7 @@ var dataStore = (function () {
         var indexes = [];
         var ids = pages.map(function (page) {
             window.localStorage.setItem(page.id, JSON.stringify(page));
-            indexes.push(createIndex(page.title.toLowerCase(), page.id));
+            indexes.push(createIndex(page.title, page.id));
             return page.id;
         });
         setIndexes(indexes);
