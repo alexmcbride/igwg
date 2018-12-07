@@ -1,12 +1,6 @@
-/**
- * Coursework 1 - Interactive Great War Guide
- * Student: Alex McBride (S1715224)
- * Date: 07/11/2018
- * Module: Client Side Web Development
- * App module that starts the application.
- */
-
+// Module to start the app up.
 var app = (function () {
+    // Starts the app, initializes the modules, and add content handlers
     var start = function () {
         // Intiialize content helper.
         var mainContentEl = 'main-content';        
@@ -32,8 +26,8 @@ var app = (function () {
         contentLoader.initialize('home', mainContentEl);
     }
 
+    // Loads the main menu.
     var loadMainMenu = function () {
-        menu.clear();
         menu.addPage('home', 'Home');
         getMenuPages().forEach(function (page) {
             menu.addPage(page.route, page.title);
@@ -41,6 +35,7 @@ var app = (function () {
         menu.display('menu-content');
     }
 
+    // Gets list of main menu pages from data store.
     var getMenuPages = function () {
         var pages = dataStore.findPages();
         return pages.map(function (page) {
@@ -48,6 +43,7 @@ var app = (function () {
         });
     }
 
+    // Runs the app, tries to get the payload, then starts app.
     var run = function () {
         // Initialize the data store
         dataStore.initialize(function (result) {
@@ -59,7 +55,9 @@ var app = (function () {
         }, 'data.json');
     }
 
+    // Refreshes the main menu to redraw it e.g. when a page is added or deleted by the admin manager.
     var refreshMenu = function () {
+        menu.clear();
         loadMainMenu();
     }
 

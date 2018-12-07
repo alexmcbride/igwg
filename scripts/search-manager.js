@@ -1,5 +1,6 @@
 // Module to encapsulate searches.
 var searchManager = (function () {
+    // Renders the search results to the main content.
     var results = function (text, pages) {
         var html = '<h2>Search Results</h2>';
         html += '<p>Results for "' + text + '"...</p>';
@@ -13,12 +14,14 @@ var searchManager = (function () {
         content.render(html);
     }
 
+    // Renders the 'no results' message to main content.
     var noResults = function() {
         var html = '<h2>Search Results</h2>';
         html += '<p>There are no results to display</p>';
         content.render(html);
     }
 
+    // Displays the search results.
     var display = function () {
         var term = urlHelper.search();
         if (term != null) {
@@ -34,6 +37,7 @@ var searchManager = (function () {
         }
     }
 
+    // Called when user clicks go button.
     var go = function () {
         var term = document.getElementById('search-input').value.trim();
         if (term.length > 0) {
@@ -41,6 +45,7 @@ var searchManager = (function () {
         }
     }
 
+    // Initialize searchManager to draw search-box to specified page element.
     var initialize = function (searchElement) {
         var html = '<div class="input-group mb-3">';
         html += '<input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" id="search-input">';

@@ -1,16 +1,18 @@
-//a menu manager module that allows the user to navigate around your spa
-
+// Draws the main menu.
 var menu = (function () {
     var pageMap = [];
 
+    // Clears any previous menu options added.
     var clear = function() {
         pageMap = [];
     }
 
+    // Adds page to menu.
     var addPage = function (route, linkText) {
         pageMap[route] = linkText;
     }
 
+    // Generates HTML for the pages.
     var generateHtml = function (pages) {
         var html = '<ul>';
         for (var key in pageMap) {
@@ -21,6 +23,7 @@ var menu = (function () {
         return html + '</ul>';
     }
 
+    // Displays menu on HTML element specified.
     var display = function (menuElementId) {
         var html = generateHtml();
         document.getElementById(menuElementId).innerHTML = html;

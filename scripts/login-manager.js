@@ -1,4 +1,6 @@
-var loginManager = (function () {
+// Module to manage logging in and out of the site. As with other similar modules it uses a simple state 
+// pattern, where current state function is stored in currentState.
+var loginManager = (function () {    
     var currentState = null;
     var savedLoginEl = null;
 
@@ -8,6 +10,7 @@ var loginManager = (function () {
     users['Alex'] = { username: 'Alex', password: 'password1' };
     users['Jim'] = { username: 'Jim', password: 'password1' };
 
+    // Gets login form HTML.
     var loginState = function () {
         var html = '<h2>Login</h2>';
         html += '<form>';
@@ -27,6 +30,7 @@ var loginManager = (function () {
         return html;
     }
 
+    // Gets the logout form HTML.
     var logoutState = function () {
         var html = '<h2>Logout</h2>';
         html += '<form>';
@@ -36,17 +40,20 @@ var loginManager = (function () {
         return html;
     }
 
+    // Hides the main error element.
     var hideError = function () {
         var el = document.getElementById('error');
         el.style.display = 'none';
     }
 
+    // Shows the main error element.
     var showError = function (error) {
         var el = document.getElementById('error');
         el.innerHTML = error;
         el.style.display = 'block';
     }
 
+    // Checks that the specified username and password are authentic.
     var authenticate = function (username, password) {
         if (users[username] !== undefined) {
             if (users[username].password === password) {
@@ -56,6 +63,7 @@ var loginManager = (function () {
         return null;
     }
 
+    // Called when the user clicks the login button.
     var login = function () {
         hideError();
         var username = document.getElementById('username').value;
@@ -72,6 +80,7 @@ var loginManager = (function () {
         }
     }
 
+    // Called when the user clicks the logout button.
     var logout = function () {
         window.localStorage.removeItem('loggedIn');
         currentState = loginState;
@@ -80,11 +89,13 @@ var loginManager = (function () {
         showError('You are now logged out');
     }
 
+    // Gets HTML for the current state and draws it on the main content element.
     var update = function (error) {
         var html = currentState(error);
         content.render(html);
     }
 
+    // Displays the current loginManager state.
     var display = function () {
         if (currentState == null) {
             currentState = isLoggedIn() ? logoutState : loginState;
@@ -93,10 +104,12 @@ var loginManager = (function () {
         update();
     }
 
+    // Gets if the user is logged in.
     var isLoggedIn = function () {
         return getCurrentUser() !== null;
     }
 
+    // Gets the current user object from storage, or null if not logged in.
     var getCurrentUser = function () {
         var user = window.localStorage.getItem('loggedIn');
         if (user) {
@@ -105,6 +118,7 @@ var loginManager = (function () {
         return null;
     }
 
+    // Gets HTML for the login element.
     var getLoginElHtml = function () {
         var user = getCurrentUser();
         if (user == null) {
@@ -114,10 +128,12 @@ var loginManager = (function () {
         }
     }
 
+    // Refreshes the login element e.g. if login state changes
     var redisplayLogin = function() {
         initialize(savedLoginEl);
     }
 
+    // Initialize the loginManager are draw the login options to the element specified.
     var initialize = function (loginEl) {
         savedLoginEl = loginEl;
         var html = getLoginElHtml();
