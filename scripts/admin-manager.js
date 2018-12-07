@@ -1,6 +1,21 @@
+/**
+ * Module for managing pages. This one is a bit messy, so could do with some refactoring. :)
+ * The form for each page type is represented by a class, which have the following interface:
+ * 
+ * - form: gets the html to display the form for creating the page
+ * - update: adds existing page information to the form
+ * - clear: clears a form, removing data
+ * - save: saves form to datastore
+ * - validates: checks that a form is valid
+ * 
+ * When the user changes the drop down, the currentPage is switched to the required object, 
+ * which handles all input.
+ * 
+ *  */
 var adminManager = (function () {
     var currentPage = null;
 
+    // Helper for validating required input.
     var validateRequired = function (id, name) {
         var title = document.getElementById(id).value.trim();
         if (title.length == 0) {
@@ -176,7 +191,7 @@ var adminManager = (function () {
         }
     };
 
-    // Required: form, update, save, validate
+    // Class to manage adding video.
     var Video = {
         form: function () {
             var html = '<div class="video-form">';
@@ -244,6 +259,7 @@ var adminManager = (function () {
         },
     };
 
+    // Class to help adding images.
     var Image = {
         form: function () {
             var html = '<div class="image-form">';
@@ -297,6 +313,7 @@ var adminManager = (function () {
         }
     };
 
+    // Class to help adding quizes
     var Quiz = {
         form: function () {
             var html = '<div class="quiz-form">';
@@ -361,35 +378,39 @@ var adminManager = (function () {
         validate: function () {
             var success = true;
 
-            if (!validateRequired('quiz-title', 'Title')) {
+            if (!validateRequired('quiz-title', 'Title') || !validateRequired('quiz-description', 'Description')) {
                 success = false;
             }
 
-            if (!validateRequired('quiz-description', 'Description')) {
-                success = false;
+            function questionError(msg) {
+                question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = msg;
+            }
+
+            function answerError(msg) {
+                question.el.getElementsByClassName('quiz-answer-error')[0].innerHTML = msg;
             }
 
             var questions = this.getQuestions();
             questions.forEach(function (question) {
                 if (question.text.length === 0) {
-                    question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Question is required';
+                    questionError('Question is required');
                     success = false;
                 } else if (question.correct.length === 0) {
-                    question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is required';
+                    questionError('Correct is required');
                     success = false;
                 } else {
                     var correct = parseInt(question.correct);
                     if (isNaN(correct)) {
-                        question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is not a number';
+                        questionError('Correct is not a number');
                         success = false;
                     } else if (correct < 1 || correct > question.answers.length) {
-                        question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = 'Correct is out of range';
+                        questionError('Correct is out of range');
                         success = false;
                     }
                 }
                 question.answers.forEach(function (answer) {
                     if (answer.text.length === 0) {
-                        answer.el.getElementsByClassName('quiz-answer-error')[0].innerHTML = 'Answer is required';
+                        answerError('Answer is required');
                         success = false;
                     }
                 });
@@ -403,7 +424,9 @@ var adminManager = (function () {
             }
             var html = '<input type="text" class="question-text" placeholder="Question text" value="' + question.text + '"> ';
             html += '<input type="text" class="question-correct" placeholder="Correct Answer" value="' + (question.correctIndex + 1) + '">';
-            html += '<button onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question"><img src="images/icons/delete-button.png"></button>';
+            html += '<button onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question">';
+            html += '<img src="images/icons/delete-button.png">';
+            html += '</button>';
             html += '<span class="form-error quiz-question-error"></span>';
             html += '<ol class="answer-list">';
             html += '</ol>';
@@ -418,6 +441,7 @@ var adminManager = (function () {
             li.innerHTML = this.getQuestionHtml(question);
             ol.appendChild(li);
 
+            // If question passed, populate answers.
             if (question !== undefined) {
                 var quiz = this;
                 question.options.forEach(function (answer) {
@@ -430,7 +454,9 @@ var adminManager = (function () {
                 answer = '';
             }
             var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
-            html += '<button onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer"><img src="images/icons/delete-button.png"></button>';
+            html += '<button onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
+            html += '<img src="images/icons/delete-button.png">'
+            html += '</button>';
             html += '<span class="form-error quiz-answer-error"></span>';
             return html;
         },
@@ -511,6 +537,7 @@ var adminManager = (function () {
         return crypto.getRandomValues(new Uint32Array(1)).join('');
     }
 
+    // Generates HTML for page select dropdown
     var getPageSelectHtml = function () {
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
@@ -525,6 +552,7 @@ var adminManager = (function () {
         return html;
     }
 
+    // Causes page select dropdown to be redrawn.
     var updatePageSelectControl = function () {
         var html = getPageSelectHtml();
         document.getElementById('page-select-control').innerHTML = html;
@@ -684,18 +712,22 @@ var adminManager = (function () {
         Slideshow.deleteSlide(btnEl);
     }
 
+    // Adds a question to the current page.
     var addQuestion = function () {
         Quiz.addQuestion();
     }
 
+    // Adds an answer to the current question.
     var addAnswer = function (btnEl) {
         Quiz.addAnswer(btnEl);
     }
 
+    // Removes a question from the page.
     var removeQuestion = function (btnEl) {
         Quiz.removeQuestion(btnEl);
     }
 
+    // Removes a question from the current question.
     var removeAnswer = function (btnEl) {
         Quiz.removeAnswer(btnEl);
     }
