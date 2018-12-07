@@ -90,7 +90,7 @@ var quizManager = (function () {
         var html = '<form class="question">';
         html += '<p>' + question.text + '</p>';
         question.options.forEach(function (option, index) {
-            html += '<input type="radio" name="answer" id="answer' + index + '" onclick="quizManager.onQuestion(\'' + pageData.id + '\', ' + index + ')">';
+            html += '<input type="radio" name="answer" id="answer' + index + '" onclick="quizManager.onQuestion(\'' + this.pageData.id + '\', ' + index + ')">';
             html += '<label for="answer' + index + '">' + option + '</label><br>';
         }.bind(this));
         html += '<br>';
