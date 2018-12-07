@@ -27,7 +27,6 @@ var menu = (function () {
     var initialize = function (menuElementId) {
         var html = generateHtml();
         document.getElementById(menuElementId).innerHTML = html;
-        menuElement = menuElementId;
     }
 
     return {
