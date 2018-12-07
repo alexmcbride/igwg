@@ -8,7 +8,7 @@ var adminManager = (function () {
     // Displays the current admin manager state.
     var display = function () {
         if (loginManager.isLoggedIn()) {
-            if (currentPage == null) {
+            if (currentPage === null) {
                 currentPage = getPage('post');;
             }
 
@@ -29,12 +29,9 @@ var adminManager = (function () {
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
         html += '<option disabled>----</option>';
-
-        var pages = dataStore.findPages();
-        pages.forEach(function (page) {
+        dataStore.findPages().forEach(function (page) {
             html += '<option value="' + page.id + '">' + page.title + ' (' + page.type + ')</option>';
         });
-
         html += '</select>';
         return html;
     }
@@ -127,15 +124,15 @@ var adminManager = (function () {
             // enable select input
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
-
+            
             currentPage = getPage('post');
             document.getElementById('form-content').innerHTML = currentPage.form();
         } else {
             // disable select input
             document.getElementById('form-select-box').style.display = 'none';
             document.getElementById('deleteButton').style.display = 'inline';
-            var page = dataStore.findPage(pageId);
 
+            var page = dataStore.findPage(pageId);
             currentPage = getPage(page.type);
             document.getElementById('form-content').innerHTML = currentPage.form();
             currentPage.update(page);

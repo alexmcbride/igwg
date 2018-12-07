@@ -1,5 +1,5 @@
 /**
- * This module contains the forms for each page, represented by the following interface:
+ * This module contains a class for each page form, which all have the following implicit interface methods:
  * 
  * - form: gets the html to display the form for creating the page
  * - update: adds existing page information to the form
@@ -7,8 +7,7 @@
  * - save: saves form to datastore
  * - validates: checks that a form is valid
  * 
- * When the user changes the drop down, the currentPage is switched to the required object, which
- * handles all input. Again, this follows the simple state function pattern used in many of the managers.
+ * These are called from admin-manager.js.
  */
 var adminForms = (function() {
     // Helper for validating required input.
