@@ -7,7 +7,7 @@ var page = (function () {
         html += '<p class="lead">Welcome to the interactive guide to the first world war. It is the centenary of the great war and this web site has been created to commemorate it.</p>';
         html += '<hr class="my-4">';
         html += '<p>Here you will find information about the war, slideshows, videos, and quizes. All designed to help you understand what happened and why.</p>';
-        html += '<a class="btn btn-primary btn-lg" href="#post/1" role="button">Start your journey!</a>';
+        html += '<a class="btn btn-primary btn-lg" href="#post/580559509" role="button">Start your journey!</a>';
         html += '</div>';
 
         content.render(html);
