@@ -17,7 +17,6 @@ var page = (function () {
         var html = '<div class="post">' +
             '<h3>' + data.title + '</h3>' +
             '<p>' + data.content + '</p>' +
-            '<p>Posted on ' + data.created + '</p>' +
             '</div>';
         content.render(html);
     }

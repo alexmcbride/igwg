@@ -378,7 +378,11 @@ var adminManager = (function () {
         validate: function () {
             var success = true;
 
-            if (!validateRequired('quiz-title', 'Title') || !validateRequired('quiz-description', 'Description')) {
+            if (!validateRequired('quiz-title', 'Title')) {
+                success = false;
+            }
+
+            if (!validateRequired('quiz-description', 'Description')) {
                 success = false;
             }
 
