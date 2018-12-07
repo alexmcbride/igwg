@@ -28,6 +28,7 @@ var adminManager = (function () {
     // Class to represent adding post.
     var Post = {
         form: function () {
+            delete this.page;
             var html = '<div class="post-form">';
             html += '<h3>Post</h3>';
             html += '<label for="post-title">Title</label><br>';
@@ -47,6 +48,7 @@ var adminManager = (function () {
             document.getElementById('post-content').value = page.content;
         },
         clear: function () {
+            delete this.page;
             document.getElementById('post-title').value = '';
             document.getElementById('post-content').value = '';
         },
@@ -99,6 +101,7 @@ var adminManager = (function () {
             return html;
         },
         form: function () {
+            delete this.page;
             var html = '<div class="slideshow-form">';
             html += '<h3>Slideshow</h3>';
             html += '<div clas="form-group">';
@@ -193,6 +196,7 @@ var adminManager = (function () {
     // Class to manage adding video.
     var Video = {
         form: function () {
+            delete this.page;
             var html = '<div class="video-form">';
             html += '<h3>Video</h3>';
             html += '<div class="form-group">';
@@ -219,6 +223,7 @@ var adminManager = (function () {
             document.getElementById('video-type').value = page.contentType;
         },
         clear: function () {
+            delete this.page;
             document.getElementById('video-title').value = '';
             document.getElementById('video-src').value = '';
             document.getElementById('video-type').value = '';
@@ -261,6 +266,7 @@ var adminManager = (function () {
     // Class to help adding images.
     var Image = {
         form: function () {
+            delete this.page;
             var html = '<div class="image-form">';
             html += '<h3>Image</h3>';
             html += '<div class="form-group">';
@@ -281,6 +287,7 @@ var adminManager = (function () {
             document.getElementById('image-src').value = page.src;
         },
         clear: function () {
+            delete this.page;
             document.getElementById('image-title').value = '';
             document.getElementById('image-src').value = '';
         },
@@ -315,6 +322,7 @@ var adminManager = (function () {
     // Class to help adding quizes
     var Quiz = {
         form: function () {
+            delete this.page;
             var html = '<div class="quiz-form">';
             html += '<h3>Quiz</h3>';
             html += '<div class="form-group">';
@@ -346,6 +354,7 @@ var adminManager = (function () {
             }.bind(this));
         },
         clear: function () {
+            delete this.page;
             document.getElementById('quiz-title').value = '';
             document.getElementById('quiz-description').value = '';
             document.getElementById('question-list').innerHTML = '';
@@ -692,14 +701,17 @@ var adminManager = (function () {
             throw 'Current page not set';
         } else {
             var pageId = document.getElementById('page-select').value;
-            dataStore.removePage(pageId);
+            var page = dataStore.findPage(pageId);
+            if (confirm("Remove page '" + page.title + "'?")) {
+                dataStore.removePage(pageId);
 
-            document.getElementById('page-select').value = 'create';
-            performFormChange('post');
-            document.getElementById('form-select-box').style.display = 'block';
+                document.getElementById('page-select').value = 'create';
+                performFormChange('post');
+                document.getElementById('form-select-box').style.display = 'block';
 
-            app.refreshMenu();
-            updatePageSelectControl();
+                app.refreshMenu();
+                updatePageSelectControl();
+            }
         }
     }
 
