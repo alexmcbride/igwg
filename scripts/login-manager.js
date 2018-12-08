@@ -28,7 +28,7 @@ var loginManager = (function () {
         html += '<input type="button" value="Login" onclick="loginManager.login()" class="btn btn-primary">';
         html += '</form>';
         return html;
-    }
+    };
 
     // Gets the logout form HTML.
     var logoutState = function () {
@@ -38,20 +38,20 @@ var loginManager = (function () {
         html += '<input type="button" value="Yes" onclick="loginManager.logout()" class="btn btn-primary">';
         html += '</form>';
         return html;
-    }
+    };
 
     // Hides the main error element.
     var hideError = function () {
         var el = document.getElementById('error');
         el.style.display = 'none';
-    }
+    };
 
     // Shows the main error element.
     var showError = function (error) {
         var el = document.getElementById('error');
         el.innerHTML = error;
         el.style.display = 'block';
-    }
+    };
 
     // Checks that the specified username and password are authentic.
     var authenticate = function (username, password) {
@@ -61,7 +61,7 @@ var loginManager = (function () {
             }
         }
         return null;
-    }
+    };
 
     // Called when the user clicks the login button.
     var login = function () {
@@ -78,7 +78,7 @@ var loginManager = (function () {
         } else {
             showError('Username and password incorrect');
         }
-    }
+    };
 
     // Called when the user clicks the logout button.
     var logout = function () {
@@ -87,13 +87,13 @@ var loginManager = (function () {
         update();
         redisplayLogin();
         showError('You are now logged out');
-    }
+    };
 
     // Gets HTML for the current state and draws it on the main content element.
     var update = function (error) {
         var html = currentState(error);
         content.render(html);
-    }
+    };
 
     // Displays the current loginManager state.
     var display = function () {
@@ -102,12 +102,12 @@ var loginManager = (function () {
         }
 
         update();
-    }
+    };
 
     // Gets if the user is logged in.
     var isLoggedIn = function () {
         return getCurrentUser() !== null;
-    }
+    };
 
     // Gets the current user object from storage, or null if not logged in.
     var getCurrentUser = function () {
@@ -116,7 +116,7 @@ var loginManager = (function () {
             return JSON.parse(user);
         }
         return null;
-    }
+    };
 
     // Gets HTML for the login element.
     var getLoginElHtml = function () {
@@ -126,26 +126,24 @@ var loginManager = (function () {
         } else {
             return 'Welcome, ' + user.username + '! | <a href="#admin">Manage Pages</a> | <a href="#login">Logout</a>';
         }
-    }
+    };
 
     // Refreshes the login element e.g. if login state changes
     var redisplayLogin = function() {
         initialize(savedLoginEl);
-    }
+    };
 
     // Initialize the loginManager are draw the login options to the element specified.
     var initialize = function (loginEl) {
         savedLoginEl = loginEl;
-        var html = getLoginElHtml();
-        document.getElementById(loginEl).innerHTML = html;
-    }
+        document.getElementById(loginEl).innerHTML = getLoginElHtml();
+    };
 
     return {
         display: display,
         login: login,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        currentUser: getCurrentUser,
         initialize: initialize
     };
 })();

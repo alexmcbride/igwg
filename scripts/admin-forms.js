@@ -4,7 +4,7 @@
  * - form: gets the html to display the form for creating the page
  * - update: adds existing page information to the form
  * - clear: clears a form, removing data
- * - save: saves form to datastore
+ * - save: saves form to data store
  * - validates: checks that a form is valid
  * 
  * These are called from admin-manager.js.
@@ -13,12 +13,12 @@ var adminForms = (function () {
     // Helper for validating required input.
     var validateRequired = function (id, name) {
         var title = document.getElementById(id).value.trim();
-        if (title.length == 0) {
+        if (title.length === 0) {
             document.getElementById(id + '-error').innerHTML = name + ' is required';
             return false;
         }
         return true;
-    }
+    };
 
     // Class to represent adding post.
     var Post = {
@@ -50,7 +50,7 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : createId(),
+                id: page !== undefined ? page.id : adminManager.createId(),
                 type: "post",
                 title: this.getTitle(),
                 created: new Date().toISOString(),
@@ -80,7 +80,7 @@ var adminForms = (function () {
                 return value.trim();
             }
             return '';
-        },
+        }
     };
 
     // Class to manage adding slideshow.
@@ -100,16 +100,16 @@ var adminForms = (function () {
             delete this.page;
             var html = '<div class="slideshow-form">';
             html += '<h3>Slideshow</h3>';
-            html += '<div clas="form-group">';
+            html += '<div class="form-group">';
             html += '<label for="slideshow-title">Title</label><br>';
             html += '<input type="text" id="slideshow-title" class="form-control">';
             html += '<span class="form-error" id="slideshow-title-error"></span>';
-            html += '</div><br>'
+            html += '</div><br>';
             html += '<p>Slideshow Images</p>';
             html += '<ol id="slideshow-slides">';
             html += '</ol>';
             html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';
-            html += '</div>'
+            html += '</div>';
             return html;
         },
         update: function (page) {
@@ -124,7 +124,7 @@ var adminForms = (function () {
             var page = this.page;
             var images = this.getSlides();
             dataStore.setPage({
-                id: page !== undefined ? page.id : createId(),
+                id: page !== undefined ? page.id : adminManager.createId(),
                 type: "slideshow",
                 title: this.getTitle(),
                 images: images
@@ -139,13 +139,11 @@ var adminForms = (function () {
             }
 
             this.getSlides().forEach(function (slide) {
-                if (slide.title.length == 0) {
-                    var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
-                    errorEl.innerHTML = 'Title is required';
+                if (slide.title.length === 0) {
+                    slide.el.getElementsByClassName('slideshow-slide-error')[0].innerHTML = 'Title is required';
                     success = false;
-                } else if (slide.url.length == 0) {
-                    var errorEl = slide.el.getElementsByClassName('slideshow-slide-error')[0];
-                    errorEl.innerHTML = 'URL is required';
+                } else if (slide.url.length === 0) {
+                    slide.el.getElementsByClassName('slideshow-slide-error')[0].innerHTML = 'URL is required';
                     success = false;
                 }
             });
@@ -227,7 +225,7 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : createId(),
+                id: page !== undefined ? page.id : adminManager.createId(),
                 type: "video",
                 title: this.getTitle(),
                 src: this.getSrc(),
@@ -256,7 +254,7 @@ var adminForms = (function () {
         },
         getContentType: function () {
             return document.getElementById('video-type').value.trim();
-        },
+        }
     };
 
     // Class to help adding images.
@@ -290,7 +288,7 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : createId(),
+                id: page !== undefined ? page.id : adminManager.createId(),
                 type: "image",
                 title: this.getTitle(),
                 src: this.getSrc()
@@ -315,7 +313,7 @@ var adminForms = (function () {
         }
     };
 
-    // Class to help adding quizes
+    // Class to help adding quizzes
     var Quiz = {
         form: function () {
             delete this.page;
@@ -331,7 +329,7 @@ var adminForms = (function () {
             html += '<input type="text" id="quiz-description" class="form-control">';
             html += '<span class="form-error" id="quiz-description-error"></span>';
             html += '</div>';
-            html += '<p>Questions</p>'
+            html += '<p>Questions</p>';
             html += '<div class="question-panel">';
             html += '<ol id="question-list">';
             html += '</ol>';
@@ -368,7 +366,7 @@ var adminForms = (function () {
             var questions = this.getSavableQuestions();
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : createId(),
+                id: page !== undefined ? page.id : adminManager.createId(),
                 type: "quiz",
                 title: document.getElementById('quiz-title').value.trim(),
                 description: document.getElementById('quiz-description').value.trim(),
@@ -463,7 +461,7 @@ var adminForms = (function () {
             }
             var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
             html += '<button type="button" onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
-            html += '<img src="images/icons/delete-button.png">'
+            html += '<img src="images/icons/delete-button.png">';
             html += '</button>';
             html += '<span class="form-error quiz-answer-error"></span>';
             return html;

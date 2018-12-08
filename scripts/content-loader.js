@@ -5,7 +5,7 @@ var contentLoader = (function () {
     // Adds page to the map for particular route.
     var addPage = function (pageName, pageHandler) {
         pageMap[pageName] = pageHandler;
-    }
+    };
 
     // Gets a handler for a specific route from the map.
     var getPageHandler = function (pageName) {
@@ -14,7 +14,7 @@ var contentLoader = (function () {
         } else {
             return pageMap[pageName];
         }
-    }
+    };
 
     // Loads the specified route, and attempts to load the content from that route if present.
     var load = function (pageName, pageId) {
@@ -31,14 +31,14 @@ var contentLoader = (function () {
         } else {
             pageHandler();
         }
-    }
+    };
 
     // Called when the hash location changes.
     var locationChanged = function () {
         var pageName = urlHelper.page();
         var pageId = urlHelper.pageId();
         load(pageName, pageId);
-    }
+    };
 
     // Runs the content loader, which draws the main content, and watches for location changes.
     var initialize = function (defaultPage) {
@@ -49,7 +49,7 @@ var contentLoader = (function () {
         }
 
         window.onhashchange = locationChanged;
-    }
+    };
 
     return {
         addPage: addPage,

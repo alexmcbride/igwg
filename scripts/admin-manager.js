@@ -9,7 +9,7 @@ var adminManager = (function () {
     var display = function () {
         if (loginManager.isLoggedIn()) {
             if (currentPage === null) {
-                currentPage = getPage('post');;
+                currentPage = getPage('post');
             }
 
             var html = generateHtml();
@@ -17,14 +17,14 @@ var adminManager = (function () {
         } else {
             content.render('<p>You must be logged in to view this page</p>');
         }
-    }
+    };
 
     // Generates a random ID for pages.
     var createId = function () {
         return crypto.getRandomValues(new Uint32Array(1)).join('');
-    }
+    };
 
-    // Generates HTML for page select dropdown
+    // Generates HTML for page select drop down
     var getPageSelectHtml = function () {
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
@@ -34,13 +34,12 @@ var adminManager = (function () {
         });
         html += '</select>';
         return html;
-    }
+    };
 
-    // Causes page select dropdown to be redrawn.
+    // Causes page select drop down to be redrawn.
     var updatePageSelectControl = function () {
-        var html = getPageSelectHtml();
-        document.getElementById('page-select-control').innerHTML = html;
-    }
+        document.getElementById('page-select-control').innerHTML = getPageSelectHtml();
+    };
 
     // Generates HTML to display the admin form
     var generateHtml = function () {
@@ -79,7 +78,7 @@ var adminManager = (function () {
         html += '</div>';
         html += '</form>';
         return html;
-    }
+    };
 
     // Gets the current state based on the type string.
     var getPage = function (type) {
@@ -96,13 +95,13 @@ var adminManager = (function () {
                 return adminForms.Image;
         }
         return null;
-    }
+    };
 
     // Called when the form select input changes, switches page to selected type
     var formChange = function () {
         var pageType = document.getElementById('form-select').value;
         performFormChange(pageType);
-    }
+    };
 
     // Changes to show form for page type
     var performFormChange = function (pageType) {
@@ -111,16 +110,15 @@ var adminManager = (function () {
             throw 'Form type not found';
         } else {
             currentPage = page;
-            var html = currentPage.form();
-            document.getElementById('form-content').innerHTML = html;
+            document.getElementById('form-content').innerHTML = currentPage.form();
             message('');
         }
-    }
+    };
 
     // Called when the page select input changes, switches page to selected
     var pageChange = function () {
         var pageId = document.getElementById('page-select').value;
-        if (pageId == 'create') {
+        if (pageId === 'create') {
             // enable select input
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
@@ -137,12 +135,12 @@ var adminManager = (function () {
             document.getElementById('form-content').innerHTML = currentPage.form();
             currentPage.update(page);
         }
-    }
+    };
 
     // Shortcut for displaying status message.
     var message = function (msg) {
         document.getElementById('message').innerHTML = msg;
-    }
+    };
 
     // Clears all form error messages.
     var clearFormErrors = function () {
@@ -150,7 +148,7 @@ var adminManager = (function () {
         for (var child in children) {
             children[child].innerHTML = '';
         }
-    }
+    };
 
     // Called to save the current page state.
     var save = function () {
@@ -167,7 +165,7 @@ var adminManager = (function () {
                 updatePageSelectControl();
             }
         }
-    }
+    };
 
     // Removes page from local storage.
     var deletePage = function () {
@@ -187,37 +185,37 @@ var adminManager = (function () {
                 updatePageSelectControl();
             }
         }
-    }
+    };
 
     // Adds a slide to the current slideshow.
     var addSlide = function () {
         currentPage.addSlide();
-    }
+    };
 
     // Removes a slide from the current slideshow.
     var deleteSlide = function (btnEl) {
         currentPage.deleteSlide(btnEl);
-    }
+    };
 
     // Adds a question to the current page.
     var addQuestion = function () {
         currentPage.addQuestion();
-    }
+    };
 
     // Adds an answer to the current question.
     var addAnswer = function (btnEl) {
         currentPage.addAnswer(btnEl);
-    }
+    };
 
     // Removes a question from the page.
     var removeQuestion = function (btnEl) {
         currentPage.removeQuestion(btnEl);
-    }
+    };
 
     // Removes a question from the current question.
     var removeAnswer = function (btnEl) {
         currentPage.removeAnswer(btnEl);
-    }
+    };
 
     return {
         display: display,

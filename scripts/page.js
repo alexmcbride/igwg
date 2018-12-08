@@ -7,11 +7,11 @@ var page = (function () {
         html += '<h1 class="display-4">Welcome</h1>';
         html += '<p class="lead">Welcome to the interactive guide to the first world war. It is the centenary of the great war and this web site has been created to commemorate it.</p>';
         html += '<hr class="my-4">';
-        html += '<p>Here you will find information about the war, slideshows, videos, and quizes. All designed to help you understand what happened and why.</p>';
+        html += '<p>Here you will find information about the war, slide shows, videos, and quizzes. All designed to help you understand what happened and why.</p>';
         html += '<a class="btn btn-primary btn-lg" href="#post/580559509" role="button">Start your journey!</a>';
         html += '</div>';
         content.render(html);
-    }
+    };
 
     // The single post page.
     var post = function (data) {
@@ -20,7 +20,7 @@ var page = (function () {
             '<p>' + data.content + '</p>' +
             '</div>';
         content.render(html);
-    }
+    };
 
     // The single image page.
     var image = function (data) {
@@ -29,7 +29,7 @@ var page = (function () {
             '<p><img src="' + data.src + '" alt="' + data.title + '"></p>' +
             '</div>';
         content.render(html);
-    }
+    };
 
     // The single video page.
     var video = function (data) {
@@ -41,39 +41,39 @@ var page = (function () {
             '</video>' +
             '</div>';
         content.render(html);
-    }
+    };
 
     // A special page for when another page is not found. Aww.
     var notFound = function () {
         var html = '<h3>Not found</h3>';
         html += "<p>Aww, that page wasn't found. :(</p>";
         content.render(html);
-    }
+    };
 
     // The slideshow page.
     var slideshow = function (data) {
         slideshowManager.display(data);
-    }
+    };
 
     // The quiz page.
     var quiz = function (data) {
         quizManager.display(data);
-    }
+    };
 
     // The login or logout pages.
     var login = function () {
         loginManager.display();
-    }
+    };
 
     // The manage page pages.
     var admin = function () {
         adminManager.display();
-    }
+    };
 
     // The search results page.
     var search = function () {
         searchManager.display();
-    }
+    };
 
     return {
         home: home,

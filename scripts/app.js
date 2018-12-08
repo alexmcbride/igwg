@@ -2,7 +2,7 @@
 var app = (function () {
     // Starts the app, initializes the modules, and adds content handlers
     var start = function () {
-        // Initialzie main menu.
+        // Initialize main menu.
         initializeMainMenu();
 
         // Initialize modules 
@@ -23,7 +23,7 @@ var app = (function () {
 
         // Initialize content loader, which takes over from here.
         contentLoader.initialize('home' /* defaultPage */);
-    }
+    };
 
     // Loads the main menu.
     var initializeMainMenu = function () {
@@ -33,7 +33,7 @@ var app = (function () {
             menu.addPage(hash, page.title);
         });
         menu.initialize('menu-content');
-    }
+    };
 
     // Runs the app, tries to get the payload, then starts app.
     var run = function () {
@@ -42,20 +42,20 @@ var app = (function () {
             if (result.success) {
                 start();
             } else {
-                document.getElementById(mainContentEl).innerHTML = "Error: " + result.response;
+                document.getElementById('main-content').innerHTML = "Error: " + result.response;
             }
         }, 'data.json');
-    }
+    };
 
     // Refreshes the main menu to redraw it e.g. when a page is added or deleted by the admin manager.
     var refreshMenu = function () {
         menu.clear();
         initializeMainMenu();
-    }
+    };
 
     return {
         run: run,
-        refreshMenu
+        refreshMenu: refreshMenu
     };
 })();
 

@@ -5,12 +5,12 @@ var menu = (function () {
     // Clears any previous menu options added.
     var clear = function() {
         pageMap = [];
-    }
+    };
 
     // Adds page to menu.
     var addPage = function (pageName, linkText) {
         pageMap[pageName] = linkText;
-    }
+    };
 
     // Generates HTML for the pages.
     var generateHtml = function () {
@@ -21,13 +21,12 @@ var menu = (function () {
             }
         }
         return html + '</ul>';
-    }
+    };
 
     // Displays menu on HTML element specified.
     var initialize = function (menuElementId) {
-        var html = generateHtml();
-        document.getElementById(menuElementId).innerHTML = html;
-    }
+        document.getElementById(menuElementId).innerHTML = generateHtml();
+    };
 
     return {
         clear: clear,

@@ -5,28 +5,28 @@ var searchManager = (function () {
         var html = '<h2>Search Results</h2>';
         html += '<p>Results for "' + text + '"...</p>';
         html += '<ul>';
-        pages.forEach(page => {
+        pages.forEach( function(page) {
             html += '<li>';
             html += '<a href="#' + urlHelper.generateHash(page.type, page.id) + '">' + page.title + '</a>';
             html += '</li>';
         });
         html += '</ul>';
         content.render(html);
-    }
+    };
 
     // Renders the 'no results' message to main content.
     var noResults = function() {
         var html = '<h2>Search Results</h2>';
         html += '<p>There are no results to display</p>';
         content.render(html);
-    }
+    };
 
     // Displays the search results.
     var display = function () {
         var term = urlHelper.search();
         if (term !== null) {
             var pages = dataStore.search(term);
-            if (pages.length == 0) {
+            if (pages.length === 0) {
                 noResults();
             } else {
                 results(term, pages);
@@ -35,7 +35,7 @@ var searchManager = (function () {
         } else {
             console.log('Search: nothing entered');
         }
-    }
+    };
 
     // Called when user clicks go button.
     var go = function () {
@@ -43,7 +43,7 @@ var searchManager = (function () {
         if (term.length > 0) {
             location.hash = '#search?term=' + term;
         }
-    }
+    };
 
     // Initialize searchManager to draw search-box to specified page element.
     var initialize = function (searchElement) {
@@ -54,7 +54,7 @@ var searchManager = (function () {
         html += '</div>';
         html += '</div>';
         document.getElementById(searchElement).innerHTML = html;
-    }
+    };
 
     return {
         initialize: initialize,

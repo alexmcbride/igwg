@@ -6,12 +6,12 @@ var content = (function () {
     // Sets the main content element.
     var initialize = function(contentEl) {
         content = contentEl;
-    }
+    };
 
     // Puts the HTML onto the main content.
     var render = function (html) {
         document.getElementById(content).innerHTML = html;
-    }
+    };
 
     return {
         render: render,

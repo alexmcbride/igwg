@@ -1,6 +1,6 @@
-// Provides an interface for the data stored in local storage.
+/* Provides an interface for the data stored in local storage.*/
 var dataStore = (function () {
-    var version = 42; // Increment this when schema changes to cause local storage to be overidden.
+    var version = 42; // Increment this when schema changes to cause local storage to be overridden.
 
     // Saves array of pages to storage.
     var saveLocalStorage = function (pages) {
@@ -16,14 +16,14 @@ var dataStore = (function () {
         });
         setIndexes(indexes);
 
-        // To have a list of retrieveable pages we store the IDs as a comma-seperated list.
+        // To have a list of retrievable pages we store the IDs as a comma-separated list.
         window.localStorage.setItem('ids', ids.join(','));
 
         // Set the version so we know when it changes.
         window.localStorage.setItem('version', version.toString());
-    }
+    };
 
-    // Initializes the data and loads the json payload if nessesary.
+    // Initializes the data and loads the json payload if necessary.
     var initialize = function (callback, file) {
         // Check if the payload has changed
         var localVersion = parseInt(window.localStorage.getItem('version'));
@@ -40,29 +40,29 @@ var dataStore = (function () {
             // Payload already in storage so smile and go with it.
             callback({ success: true });
         }
-    }
+    };
 
     // Gets an array of all pages.
     var findPages = function () {
         return getPageIds().map(function (id) {
             return JSON.parse(window.localStorage.getItem(id));
         });
-    }
+    };
 
     // Gets a page with a specific id.
     var findPage = function (postId) {
         return JSON.parse(window.localStorage.getItem(postId));
-    }
+    };
 
     // Gets an array of all page ids.
     var getPageIds = function () {
         return window.localStorage.getItem('ids').split(',');
-    }
+    };
 
     // Sets the array of page ids into local storage
     var setPageIds = function (ids) {
         window.localStorage.setItem('ids', ids.join(','));
-    }
+    };
 
     // Adds a single id to the list.
     var addToPageIds = function (id) {
@@ -71,7 +71,7 @@ var dataStore = (function () {
             ids.push(id);
         }
         setPageIds(ids);
-    }
+    };
 
     // Adds a page to local storage, updates list of ids and indexes.
     var setPage = function (page) {
@@ -80,7 +80,7 @@ var dataStore = (function () {
         addToPageIds(page.id);
         addIndex(page.title, page.id);
         return page;
-    }
+    };
 
     // Removes a page from local storage.
     var removePage = function (pageId) {
@@ -93,14 +93,16 @@ var dataStore = (function () {
         var indexes = getIndexes();
         var index;
         for (var key in indexes) {
-            if (indexes[key].id === pageId) {
-                index = key;
-                continue;
+            if (indexes.hasOwnProperty(key)) {
+                if (indexes[key].id === pageId) {
+                    index = key;
+                    break;
+                }
             }
         }
         indexes.splice(index, 1);
         setIndexes(indexes);
-    }
+    };
 
     // Gets list of indexes from storage or returns empty array.
     var getIndexes = function () {
@@ -109,35 +111,35 @@ var dataStore = (function () {
             return [];
         }
         return JSON.parse(json);
-    }
+    };
 
     // Converts the indexes list to string and stores in storage.
     var setIndexes = function (indexes) {
         window.localStorage.setItem('indexes', JSON.stringify(indexes));
-    }
+    };
 
     // Creates an index object.
     var createIndex = function (text, id) {
         return { text: text.toLowerCase(), id: id };
-    }
+    };
 
     // Adds an index to the list.
     var addIndex = function (text, id) {
         var indexes = getIndexes();
         indexes.push(createIndex(text, id));
         setIndexes(indexes);
-    }
+    };
 
-    // Search indexes for occurances of value, returns list of pages.
+    // Search indexes for occurrences of value, returns list of pages.
     var search = function (value) {
-        var value = value.toLowerCase();
+        value = value.toLowerCase();
         var indexes = getIndexes();
         return indexes.filter(function (index) {
             return index.text.indexOf(value) > -1;
         }).map(function (index) {
             return findPage(index.id);
         });
-    }
+    };
 
     return {
         findPage: findPage,
