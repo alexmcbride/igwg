@@ -24,13 +24,23 @@ var adminManager = (function () {
         return crypto.getRandomValues(new Uint32Array(1)).join('');
     };
 
+    var getSelectedValue = function () {
+        var el = document.getElementById('page-select');
+        if (el !== null) {
+            return el.value;
+        }
+        return null;
+    }
+
     // Generates HTML for page select drop down
     var getPageSelectHtml = function () {
+        var value = getSelectedValue();
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
         html += '<option disabled>----</option>';
         dataStore.findPages().forEach(function (page) {
-            html += '<option value="' + page.id + '">' + page.title + ' (' + page.type + ')</option>';
+            var selected = page.id === value ? ' selected' : '';
+            html += '<option value="' + page.id + '"' + selected + '>' + page.title + ' (' + page.type + ')</option>';
         });
         html += '</select>';
         return html;
@@ -122,7 +132,7 @@ var adminManager = (function () {
             // enable select input
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
-            
+
             currentPage = getPage('post');
             document.getElementById('form-content').innerHTML = currentPage.form();
         } else {

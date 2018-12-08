@@ -8,7 +8,7 @@
     {
         "id": "2927272260",
         "type": "image",
-        "title": "Tommys in the tenches",
+        "title": "Tommys in the trenches",
         "src": "images/features-worldwarone-4theastlancstroops1917-lrg.jpg"
     },
     {
@@ -65,7 +65,7 @@
                 "text": "Why did the war start?",
                 "correctIndex": 2,
                 "options": [
-                    "A duke shot an osterich cause he was hungry",
+                    "A duke shot an ostrich cause he was hungry",
                     "The vile hun and their vast empire",
                     "It was easier than not having a war"
                 ]

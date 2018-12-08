@@ -20,6 +20,10 @@ var adminForms = (function () {
         return true;
     };
 
+    var getOrCreateId = function(page) {
+        return page === undefined ? adminManager.createId() : page.id;
+    }
+
     // Class to represent adding post.
     var Post = {
         form: function () {
@@ -50,13 +54,12 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : adminManager.createId(),
+                id: getOrCreateId(page),
                 type: "post",
                 title: this.getTitle(),
                 created: new Date().toISOString(),
                 content: this.getContent()
             });
-            this.clear();
         },
         validate: function () {
             var success = true;
@@ -112,6 +115,11 @@ var adminForms = (function () {
             html += '</div>';
             return html;
         },
+        clear: function () {
+            delete this.page;
+            document.getElementById('slideshow-title').value = '';
+            document.getElementById('slideshow-slides').innerHTML = '';
+        },        
         update: function (page) {
             this.page = page;
             document.getElementById('slideshow-title').value = page.title;
@@ -129,7 +137,6 @@ var adminForms = (function () {
                 title: this.getTitle(),
                 images: images
             });
-            document.getElementById('slideshow-title').value = '';
         },
         validate: function () {
             var success = true;
@@ -142,7 +149,7 @@ var adminForms = (function () {
                 if (slide.title.length === 0) {
                     slide.el.getElementsByClassName('slideshow-slide-error')[0].innerHTML = 'Title is required';
                     success = false;
-                } else if (slide.url.length === 0) {
+                } else if (slide.src.length === 0) {
                     slide.el.getElementsByClassName('slideshow-slide-error')[0].innerHTML = 'URL is required';
                     success = false;
                 }
@@ -161,10 +168,10 @@ var adminForms = (function () {
                 if (children.hasOwnProperty(child)) {
                     var item = list.childNodes[child];
                     var title = item.getElementsByClassName('slide-title')[0].value.trim();
-                    var url = item.getElementsByClassName('slide-url')[0].value.trim();
+                    var src = item.getElementsByClassName('slide-url')[0].value.trim();
                     slides.push({
                         title: title,
-                        url: url,
+                        src: src,
                         el: item
                     });
                 }
@@ -225,13 +232,12 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : adminManager.createId(),
+                id: getOrCreateId(page),
                 type: "video",
                 title: this.getTitle(),
                 src: this.getSrc(),
                 contentType: this.getContentType()
             });
-            this.clear();
         },
         validate: function () {
             var success = true;
@@ -288,12 +294,11 @@ var adminForms = (function () {
         save: function () {
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : adminManager.createId(),
+                id: getOrCreateId(page),
                 type: "image",
                 title: this.getTitle(),
                 src: this.getSrc()
             });
-            this.clear();
         },
         validate: function () {
             var success = true;
@@ -366,7 +371,7 @@ var adminForms = (function () {
             var questions = this.getSavableQuestions();
             var page = this.page;
             dataStore.setPage({
-                id: page !== undefined ? page.id : adminManager.createId(),
+                id: getOrCreateId(page),
                 type: "quiz",
                 title: document.getElementById('quiz-title').value.trim(),
                 description: document.getElementById('quiz-description').value.trim(),
@@ -374,7 +379,6 @@ var adminForms = (function () {
                 currentAnswers: [],
                 answers: []
             });
-            this.clear();
         },
         validate: function () {
             var success = true;
@@ -461,7 +465,7 @@ var adminForms = (function () {
             }
             var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
             html += '<button type="button" onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
-            html += '<img src="images/icons/delete-button.png">';
+            html += '<img src="images/icons/delete-button.png" alt="Delete">';
             html += '</button>';
             html += '<span class="form-error quiz-answer-error"></span>';
             return html;
