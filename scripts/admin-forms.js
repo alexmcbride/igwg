@@ -9,7 +9,7 @@
  * 
  * These are called from admin-manager.js.
  */
-var adminForms = (function() {
+var adminForms = (function () {
     // Helper for validating required input.
     var validateRequired = function (id, name) {
         var title = document.getElementById(id).value.trim();
@@ -89,9 +89,10 @@ var adminForms = (function() {
             if (page === undefined) {
                 page = { title: '', src: '' };
             }
-            var html = '<input type="text" placeholder="Title" class="slide-title" class="form-control" value="' + page.title + '"> ';
+            var html = '';
+            html += '<input type="text" placeholder="Title" class="slide-title" class="form-control" value="' + page.title + '"> ';
             html += '<input type="text" placeholder="URL" class="slide-url" class="form-control" value="' + page.src + '">';
-            html += '<button type="button" onclick="adminForms.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
+            html += '<button type="button" onclick="adminManager.deleteSlide(this)" class="btn btn-light btn-image" title="Remove Slide"><img src="images/icons/delete-button.png"></button>';
             html += '<span class="form-error slideshow-slide-error"></span>';
             return html;
         },
@@ -107,7 +108,7 @@ var adminForms = (function() {
             html += '<p>Slideshow Images</p>';
             html += '<ol id="slideshow-slides">';
             html += '</ol>';
-            html += '<input type="button" value="Add Slide" onclick="adminForms.addSlide()" class="btn btn-secondary">';
+            html += '<input type="button" value="Add Slide" onclick="adminManager.addSlide()" class="btn btn-secondary">';
             html += '</div>'
             return html;
         },
@@ -334,7 +335,7 @@ var adminForms = (function() {
             html += '<div class="question-panel">';
             html += '<ol id="question-list">';
             html += '</ol>';
-            html += '<button type="button" class="btn btn-secondary" onclick="adminForms.addQuestion()">Add Question</button>';
+            html += '<button type="button" class="btn btn-secondary" onclick="adminManager.addQuestion()">Add Question</button>';
             html += '</div>';
             return html;
         },
@@ -352,7 +353,7 @@ var adminForms = (function() {
             document.getElementById('quiz-description').value = '';
             document.getElementById('question-list').innerHTML = '';
         },
-        getSavableQuestions: function() {
+        getSavableQuestions: function () {
             return this.getQuestions().map(function (question) {
                 return {
                     text: question.text,
@@ -388,35 +389,35 @@ var adminForms = (function() {
                 success = false;
             }
 
-            function questionError(msg) {
+            function questionError(question, msg) {
                 question.el.getElementsByClassName('quiz-question-error')[0].innerHTML = msg;
             }
 
-            function answerError(msg) {
+            function answerError(question, msg) {
                 question.el.getElementsByClassName('quiz-answer-error')[0].innerHTML = msg;
             }
 
             var questions = this.getQuestions();
             questions.forEach(function (question) {
                 if (question.text.length === 0) {
-                    questionError('Question is required');
+                    questionError(question, 'Question is required');
                     success = false;
                 } else if (question.correct.length === 0) {
-                    questionError('Correct is required');
+                    questionError(question, 'Correct is required');
                     success = false;
                 } else {
                     var correct = parseInt(question.correct);
                     if (isNaN(correct)) {
-                        questionError('Correct is not a number');
+                        questionError(question, 'Correct is not a number');
                         success = false;
                     } else if (correct < 1 || correct > question.answers.length) {
-                        questionError('Correct is out of range');
+                        questionError(question, 'Correct is out of range');
                         success = false;
                     }
                 }
                 question.answers.forEach(function (answer) {
                     if (answer.text.length === 0) {
-                        answerError('Answer is required');
+                        answerError(question, 'Answer is required');
                         success = false;
                     }
                 });
@@ -427,16 +428,18 @@ var adminForms = (function() {
         getQuestionHtml: function (question) {
             if (question === undefined) {
                 question = { text: '', correctIndex: '' };
+            } else {
+                question.correctIndex++;
             }
-            var html = '<input type="text" class="question-text" placeholder="Question text" value="' + question.text + '"> ';
-            html += '<input type="text" class="question-correct" placeholder="Correct Answer" value="' + (question.correctIndex + 1) + '">';
-            html += '<button type="button" onclick="adminForms.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question">';
+            var html = '<input type="text" style="width: 150px;" class="question-text" placeholder="Question text" value="' + question.text + '"> ';
+            html += '<input type="text" class="question-correct" placeholder="Correct Index" value="' + question.correctIndex + '">';
+            html += '<button type="button" onclick="adminManager.removeQuestion(this)" class="btn btn-light btn-image" title="Remove Question">';
             html += '<img src="images/icons/delete-button.png">';
             html += '</button>';
             html += '<span class="form-error quiz-question-error"></span>';
-            html += '<ol class="answer-list">';
+            html += '<ol class="answer-list" style="margin-top: 10px;">';
             html += '</ol>';
-            html += '<button type="button" class="btn btn-secondary" onclick="adminForms.addAnswer(this)">Add Answer</button>';
+            html += '<button type="button" class="btn btn-secondary" onclick="adminManager.addAnswer(this)" style="margin-top: 10px;">Add Answer</button>';
             html += '<hr>';
             return html;
         },
@@ -459,7 +462,7 @@ var adminForms = (function() {
                 answer = '';
             }
             var html = '<input type="text" class="answer-text" placeholder="Answer text" value="' + answer + '" style="width: 300px;">';
-            html += '<button type="button" onclick="adminForms.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
+            html += '<button type="button" onclick="adminManager.removeAnswer(this)" class="btn btn-light btn-image" title="Remove Answer">';
             html += '<img src="images/icons/delete-button.png">'
             html += '</button>';
             html += '<span class="form-error quiz-answer-error"></span>';

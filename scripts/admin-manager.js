@@ -191,32 +191,32 @@ var adminManager = (function () {
 
     // Adds a slide to the current slideshow.
     var addSlide = function () {
-        Slideshow.addSlide();
+        currentPage.addSlide();
     }
 
     // Removes a slide from the current slideshow.
     var deleteSlide = function (btnEl) {
-        Slideshow.deleteSlide(btnEl);
+        currentPage.deleteSlide(btnEl);
     }
 
     // Adds a question to the current page.
     var addQuestion = function () {
-        Quiz.addQuestion();
+        currentPage.addQuestion();
     }
 
     // Adds an answer to the current question.
     var addAnswer = function (btnEl) {
-        Quiz.addAnswer(btnEl);
+        currentPage.addAnswer(btnEl);
     }
 
     // Removes a question from the page.
     var removeQuestion = function (btnEl) {
-        Quiz.removeQuestion(btnEl);
+        currentPage.removeQuestion(btnEl);
     }
 
     // Removes a question from the current question.
     var removeAnswer = function (btnEl) {
-        Quiz.removeAnswer(btnEl);
+        currentPage.removeAnswer(btnEl);
     }
 
     return {
