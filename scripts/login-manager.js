@@ -124,7 +124,7 @@ var loginManager = (function () {
         if (user == null) {
             return '<a href="#login">Login</a>';
         } else {
-            return 'Welcome, ' + user.username + '! | <a href="#admin">Manage Pages</a> | <a href="#login">Logout</a>';
+            return 'Welcome, ' + user.username + '! | <a href="#admin">Manage Pages</a> | <a href="#logout">Logout</a>';
         }
     };
 

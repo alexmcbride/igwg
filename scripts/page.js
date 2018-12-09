@@ -60,8 +60,13 @@ var page = (function () {
         quizManager.display(data);
     };
 
-    // The login or logout pages.
+    // The login page.
     var login = function () {
+        loginManager.display();
+    };
+
+    // The logout page.
+    var logout = function () {
         loginManager.display();
     };
 
@@ -84,6 +89,7 @@ var page = (function () {
         quiz: quiz,
         notFound: notFound,
         login: login,
+        logout: logout,
         admin: admin,
         search: search
     }

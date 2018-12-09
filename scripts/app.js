@@ -18,6 +18,7 @@ var app = (function () {
         contentLoader.addPage('slideshow', page.slideshow);
         contentLoader.addPage('quiz', page.quiz);
         contentLoader.addPage('login', page.login);
+        contentLoader.addPage('logout', page.logout);
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
 
