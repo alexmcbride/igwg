@@ -123,11 +123,23 @@ var dataStore = (function () {
         return { text: text.toLowerCase(), id: id };
     };
 
+    // Checks if an index with that id exists.
+    var indexExists = function (indexes, id) {
+        for (var key in indexes) {
+            if (indexes[key].id === id) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     // Adds an index to the list.
     var addIndex = function (text, id) {
         var indexes = getIndexes();
-        indexes.push(createIndex(text, id));
-        setIndexes(indexes);
+        if (!indexExists(indexes, id)) {
+            indexes.push(createIndex(text, id));
+            setIndexes(indexes);
+        }
     };
 
     // Search indexes for occurrences of value, returns list of pages.
