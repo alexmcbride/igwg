@@ -52,11 +52,24 @@ var quizManager = (function () {
         html += '<h3>Previous Results</h3>';
         var results = this.getOrderedResults();
         if (results.length > 0) {
-            html += '<ol>';
-            results.forEach(function (result) {
-                html += '<li>' + result.name + ' (' + result.correct + ' out of ' + result.total + ' Correct)</li>';
+            html += '<div class="row">';
+            html += '<div class="col-1"><strong>#</strong></div>';
+            html += '<div class="col-3"><strong>Name</strong></div>';
+            html += '<div class="col"><strong>Correct</strong></div>';
+            html += '</div>';
+            results.forEach(function (result, index) {
+                html += '<div class="row">';
+                html += '<div class="col-1">';
+                html += (index + 1);
+                html += '</div>';
+                html += '<div class="col-3">';
+                html += result.name;
+                html += '</div>';
+                html += '<div class="col">';
+                html += result.correct + ' out of ' + result.total;
+                html += '</div>';
+                html += '</div>';
             });
-            html += '</ol>';
         } else {
             html += '<p>There are no results to show.</p>';
         }
@@ -102,6 +115,7 @@ var quizManager = (function () {
         html += '</form>';
         return html;
     };
+
 
     // Handles the results state (shows user score and lets put in name).
     Quiz.prototype.resultsState = function () {
