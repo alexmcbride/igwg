@@ -49,7 +49,7 @@ var quizManager = (function () {
     Quiz.prototype.startState = function () {
         var html = '<p>' + this.pageData.description + '</p>';
         html += '<p><button class="btn btn-primary" onclick="quizManager.onStart(\'' + this.pageData.id + '\')">Start Quiz!</button></p>';
-        html += '<h2>Previous Results</h2>';
+        html += '<h3>Previous Results</h3>';
         var results = this.getOrderedResults();
         if (results.length > 0) {
             html += '<ol>';
@@ -66,12 +66,13 @@ var quizManager = (function () {
     // Gets a ordered array of previous results.
     Quiz.prototype.getOrderedResults = function () {
         // Get list of results.
-        var results = [];
-        for (var key in this.pageData.answers) {
-            var answer = this.pageData.answers[key];
-            var correct = this.getNumberCorrect(answer.answers);
-            results.push({ name: answer.name, correct: correct, total: this.pageData.questions.length });
-        }
+        var results = this.pageData.answers.map(function (answer) {
+            return {
+                name: answer.name,
+                correct: this.getNumberCorrect(answer.answers),
+                total: this.pageData.questions.length
+            };
+        }.bind(this));
 
         // Sort descending
         results.sort(function (a, b) {
