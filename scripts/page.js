@@ -3,7 +3,7 @@
 var page = (function () {
     // The home page.
     var home = function () {
-        var html = '<div class="jumbotron">';
+        var html = '<div class="jumbotron home-bg">';
         html += '<h1 class="display-4">Welcome</h1>';
         html += '<p class="lead">Welcome to the interactive guide to the first world war. It is the centenary of the great war and this web site has been created to commemorate it.</p>';
         html += '<hr class="my-4">';

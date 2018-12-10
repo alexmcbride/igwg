@@ -18,3 +18,18 @@ header {
 #main-content p {
     text-align: justify;
 }
+
+.home-bg {
+    background-image: url('../images/header-bg2.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 150px;
+    padding-top: 20px;
+}
+
+.header-bg {
+    background-image: url('../images/icons/poppy.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 120px;
+}
