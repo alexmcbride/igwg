@@ -107,11 +107,40 @@ var quizManager = (function () {
     Quiz.prototype.resultsState = function () {
         var correct = this.getNumberCorrect(this.pageData.currentAnswers);
         var total = this.pageData.questions.length;
-        var html = '<p>You completed the quiz!</p>';
-        html += '<p>You got ' + correct + ' out of ' + total + ' correct!</p>';
+        var html = '<p>You completed the quiz! You got ' + correct + ' out of ' + total + ' correct!</p>';
+
+        function questionResult(question, correct) {
+            html += '<div class="row alert alert-' + (correct ? 'success' : 'danger') + '" style="margin: 0 0 10px;">';
+            html += '<div class="col-8">';
+            html += '<strong>' + question.text + '</strong><br>';
+            if (correct) {
+                html += 'Correct! The answer was: ' + question.options[question.correctIndex] + '';
+            } else {
+                html += 'Sorry. The correct answer was: ' + question.options[question.correctIndex] + '';
+            }
+            html += '</div>'
+            html += '<div class="col-4 text-right">';
+            html += '<img src="images/icons/' + (correct ? 'checked' : 'error') + '.png" alt="Correct">';
+            html += '</div>'
+            html += '</div>'
+        }
+
+        html += '<ol>';
+        this.pageData.currentAnswers.forEach(function (answer) {
+            var question = this.pageData.questions[answer.question];
+            if (question.correctIndex === answer.answer) {
+                questionResult(question, true);
+            } else {
+                questionResult(question, false);
+            }
+        }.bind(this));
+        html += '</ol>';
+
+        html += '<hr>';
         html += '<form>';
         html += '<div class="form-group">';
-        html += '<label for="name">Please enter your name:</label><br>';
+        html += '<h4>Save Your Score</h4>';
+        html += '<label for="name">Please enter your name to save your score and complete the quiz:</label><br>';
         html += '<input type="text" id="name" class="form-control">';
         html += '</div>';
         html += '<input type="button" class="btn btn-primary" value="Complete the quiz!" onclick="quizManager.onComplete(\'' + this.pageData.id + '\')">';
@@ -133,8 +162,8 @@ var quizManager = (function () {
     };
 
     // Adds answer to local storage
-    Quiz.prototype.addCurrentAnswer = function (question, answer) {
-        this.pageData.currentAnswers.push({ answer: answer, question: question });
+    Quiz.prototype.addCurrentAnswer = function (questionIndex, answerIndex) {
+        this.pageData.currentAnswers.push({ answer: answerIndex, question: questionIndex });
         dataStore.setPage(this.pageData);
     };
 
