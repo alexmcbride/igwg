@@ -3,71 +3,74 @@
         "id": "580559509",
         "type": "post",
         "title": "History of WWI",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor metus eu tellus tincidunt efficitur. In egestas luctus fermentum. Proin ac placerat mi. Etiam tristique eros ac bibendum blandit. Donec mattis finibus nibh in imperdiet. Aliquam imperdiet eros odio, non bibendum diam varius et. Duis dapibus egestas eros. Nullam sed fringilla turpis. Nulla rhoncus diam eu tincidunt scelerisque."
-    },
-    {
-        "id": "2927272260",
-        "type": "image",
-        "title": "Tommys in the trenches",
-        "src": "images/features-worldwarone-4theastlancstroops1917-lrg.jpg"
+        "content": "The first world war, or great war as it’s often known, started in 1914. There were many complex, multifaceted causes of the war, but generally its agreed by most historians that the war started when Archduke Franz Ferdinand, heir to the Austro-Hungarian throne, was assassinated. This was the trigger that caused the war to begin, and several European powers who had not been on great terms anyway, were brought into conflict.\n\nSo, who fought in the war? On one side were the allied powers, comprising Britain, France, USA, Russia, Japan, and Romania, who were at war with the central powers, comprising Germany, Hungary, Bulgaria, and the Ottoman Empire. \n\nThe first world war was the first large scale war to be fought using modern, mechanised warfare and as such as was one of the bloodiest conflicts in human history, with 16 million soldiers and civilians having perished before its end in 1918. Modern mechanisms of death, such as tanks, machine-guns, and aircraft, faced off against more traditional forms of war, including infantry advances, and mounted combat. While the war has gained a reputation for pointless, unmitigated slaughter, it also was saw a great deal of heroism, as well as technological advances.\n\nSome historians claim that ways the war itself never really ended, as the causes of the second world war can be traced directly to the first."
     },
     {
         "id": "1996971593",
         "type": "slideshow",
-        "title": "The war in images",
+        "title": "War in images",
         "images": [
             {
-                "title": "Slide 1",
-                "src": "images/slide1.jpg"
+                "title": "A soldier uses a periscope to look over the top of a trench",
+                "src": "images/slide4.jpg"
             },
             {
-                "title": "Slide 2",
-                "src": "images/slide2.jpg"
+                "title": "British troops operate an 18-pound artillery gun",
+                "src": "images/slide5.jpg"
             },
             {
-                "title": "Slide 3",
-                "src": "images/slide3.jpg"
+                "title": "Female munitions working resting during lunch break",
+                "src": "images/slide6.jpg"
+            },
+            {
+                "title": "Lance Corporal A. K. Croker of the Lancashire Hussars",
+                "src": "images/slide7.jpg"
             }
         ]
     },
     {
         "id": "3458830900",
         "type": "video",
-        "title": "Archive Footage",
-        "src": "videos/SampleVideo_1280x720_5mb.mp4",
+        "title": "Basic training",
+        "description": "This video from the US army, shows induction and basic training of soldiers during the first world war.",
+        "src": "videos/basic_training.mp4",
         "contentType": "video/mp4"
     },  
     {
         "id": "2869511261",
         "type": "quiz",
         "title": "The Great War Quiz",
-        "description": "This is a quick and simple quiz about world war one. The first ever war.",
+        "description": "Try out your knowledge and see what you know in our quick and fun world war one quiz!",
         "questions": [
             {
-                "text": "Why did the chicken cross the road?",
-                "correctIndex": 0,
-                "options": [
-                    "To get to the other side?",
-                    "To get to THIS side?",
-                    "To die and go to heaven?",
-                    "To sniff a cat made of jam?"
-                ]
-            },
-            {
-                "text": "How are you?",
-                "correctIndex": 0,
-                "options": [
-                    "Fine",
-                    "Not fine"
-                ]
-            },
-            {
-                "text": "Why did the war start?",
+                "text": "When was the first world war?",
                 "correctIndex": 2,
                 "options": [
-                    "A duke shot an ostrich cause he was hungry",
-                    "The vile hun and their vast empire",
-                    "It was easier than not having a war"
+                    "1910 - 1920",
+                    "1899 - 1904",
+                    "1914 - 1918",
+                    "1939 - 1945"
+                ]
+            },
+            {
+                "text": "Roughly how many people died in the great war?",
+                "correctIndex": 0,
+                "options": [
+                    "16,000,000",
+                    "5,000,000",
+                    "1,200,000",
+                    "40,000,000"
+                ]
+            },
+            {
+                "text": "Whose death is said to have triggered the war?",
+                "correctIndex": 3,
+                "options": [
+                    "Queen Victoria",
+                    "Kaiser Wilhelm",
+                    "George V",
+                    "Archduke Franz Ferdinand",
+                    "Charlie Chaplin"
                 ]
             }
         ],

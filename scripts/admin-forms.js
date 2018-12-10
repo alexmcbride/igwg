@@ -215,6 +215,7 @@ var adminForms = (function () {
             html += '<input type="text" id="video-type" class="form-control">';
             html += '<span class="form-error" id="video-type-error"></span>';
             html += '</div>';
+            html += '</div>';
             return html;
         },
         update: function (page) {

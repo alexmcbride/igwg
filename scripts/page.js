@@ -13,11 +13,15 @@ var page = (function () {
         content.render(html);
     };
 
+    var replaceNewlines = function (str) {
+        return str.split('\n').join('<br>');
+    };
+
     // The single post page.
     var post = function (data) {
         var html = '<div class="post">' +
             '<h3>' + data.title + '</h3>' +
-            '<p>' + data.content + '</p>' +
+            '<p>' + replaceNewlines(data.content) + '</p>' +
             '</div>';
         content.render(html);
     };
@@ -35,6 +39,7 @@ var page = (function () {
     var video = function (data) {
         var html = '<div class="video">' +
             '<h3>' + data.title + '</h3>' +
+            '<p>' + data.description + '</p>' +
             '<video width="640" height="480" controls>' +
             '<source src="' + data.src + '" type="' + data.contentType + '">' +
             'Your browser does not support this video' +

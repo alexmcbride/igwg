@@ -93,7 +93,7 @@ var slideshowManager = (function () {
         } else {
             var html = '<div class="slideshow">' +
                 '<h3>' + pageData.title + '</h3>' +
-                '<h4>' + slide.title + '</h4>' +
+                '<p>' + slide.title + '</p>' +
                 '<div class="text-center">' + 
                 '<img src="' + slide.src + '" alt="' + slide.title + '" height="350px">' + 
                 '</div><br>';

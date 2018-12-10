@@ -14,3 +14,7 @@ header {
 .form-error {
     color: #c00;
 }
+
+#main-content p {
+    text-align: justify;
+}

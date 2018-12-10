@@ -54,7 +54,7 @@ var quizManager = (function () {
         if (results.length > 0) {
             html += '<ol>';
             results.forEach(function (result) {
-                html += '<li>' + result.name + ' (' + result.correct + ' / ' + result.total + ' Correct)</li>';
+                html += '<li>' + result.name + ' (' + result.correct + ' out of ' + result.total + ' Correct)</li>';
             });
             html += '</ol>';
         } else {
