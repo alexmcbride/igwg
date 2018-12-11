@@ -126,7 +126,7 @@ var dataStore = (function () {
     // Checks if an index with that id exists.
     var indexExists = function (indexes, id) {
         for (var key in indexes) {
-            if (indexes[key].id === id) {
+            if (indexes.hasOwnProperty(key) && indexes[key].id === id) {
                 return true;
             }
         }

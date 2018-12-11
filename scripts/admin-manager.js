@@ -30,7 +30,7 @@ var adminManager = (function () {
             return el.value;
         }
         return null;
-    }
+    };
 
     // Generates HTML for page select drop down
     var getPageSelectHtml = function () {

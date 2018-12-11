@@ -132,11 +132,11 @@ var quizManager = (function () {
             } else {
                 html += 'Sorry. The correct answer was: ' + question.options[question.correctIndex] + '';
             }
-            html += '</div>'
+            html += '</div>';
             html += '<div class="col-4 text-right">';
             html += '<img src="images/icons/' + (correct ? 'checked' : 'error') + '.png" alt="Correct">';
-            html += '</div>'
-            html += '</div>'
+            html += '</div>';
+            html += '</div>';
         }
 
         html += '<ol>';
