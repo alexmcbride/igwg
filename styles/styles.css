@@ -33,3 +33,7 @@ header {
     background-position: left center;
     padding-left: 120px;
 }
+
+h1 small {
+    font-size: 70%;
+}
