@@ -12,8 +12,7 @@ var loginManager = (function () {
 
     // Gets login form HTML.
     var loginState = function () {
-        var html = '<div class="row">';
-        html += '<div class="col-6 offset-3">';
+        var html = '';
         html += '<h2>Login</h2>';
         html += '<form>';
         html += '<p>Please enter your username and password to login to the site.</p>';
@@ -29,8 +28,6 @@ var loginManager = (function () {
         html += '</div>';
         html += '<input type="button" value="Login" onclick="loginManager.login()" class="btn btn-primary">';
         html += '</form>';
-        html += '</div>';
-        html += '</div>';
         return html;
     };
 

@@ -2,7 +2,7 @@
     {
         "id": "580559509",
         "type": "post",
-        "title": "History of WWI",
+        "title": "Why did the war start?",
         "content": "The first world war, or great war as it’s often known, started in 1914. There were many complex, multifaceted causes of the war, but generally its agreed by most historians that the war started when Archduke Franz Ferdinand, heir to the Austro-Hungarian throne, was assassinated. This was the trigger that caused the war to begin, and several European powers who had not been on great terms anyway, were brought into conflict.\n\nSo, who fought in the war? On one side were the allied powers, comprising Britain, France, USA, Russia, Japan, and Romania, who were at war with the central powers, comprising Germany, Hungary, Bulgaria, and the Ottoman Empire. \n\nThe first world war was the first large scale war to be fought using modern, mechanised warfare and as such as was one of the bloodiest conflicts in human history, with 16 million soldiers and civilians having perished before its end in 1918. Modern mechanisms of death, such as tanks, machine-guns, and aircraft, faced off against more traditional forms of war, including infantry advances, and mounted combat. While the war has gained a reputation for pointless, unmitigated slaughter, it also was saw a great deal of heroism, as well as technological advances.\n\nSome historians claim that ways the war itself never really ended, as the causes of the second world war can be traced directly to the first."
     },
     {
@@ -25,6 +25,10 @@
             {
                 "title": "Lance Corporal A. K. Croker of the Lancashire Hussars",
                 "src": "images/slide7.jpg"
+            },
+            {
+                "title": "Soldiers go 'over the top' of the trench",
+                "src": "images/slide8.jpg"
             }
         ]
     },
@@ -35,12 +39,30 @@
         "description": "This video from the US army, shows induction and basic training of soldiers during the first world war.",
         "src": "videos/basic_training.mp4",
         "contentType": "video/mp4"
-    },  
+    }, 
+    {
+        "id": "2384089331",
+        "type": "image",
+        "title": "Countries of the war",
+        "description": "This map shows the countries involved in the first world war",
+        "src": "images/map.jpg"
+    },
+    {
+        "id": "2295378246",
+        "type": "slideshow",
+        "title": "Vehicals of the war",
+        "images": [
+            {
+                "title": "Soldiers atop an armoured cars",
+                "src": "images/armored_car.jpg"
+            }
+        ]
+    },
     {
         "id": "2869511261",
         "type": "quiz",
         "title": "The Great War Quiz",
-        "description": "Try out your knowledge and see what you know in our quick and fun world war one quiz!",
+        "description": "Try out your knowledge and see what you know in our world war one quiz!",
         "questions": [
             {
                 "text": "When was the first world war?",
@@ -76,5 +98,5 @@
         ],
         "currentAnswers": [],
         "answers": []
-    }
+    }    
 ]

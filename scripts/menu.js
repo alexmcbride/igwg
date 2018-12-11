@@ -14,13 +14,13 @@ var menu = (function () {
 
     // Generates HTML for the pages.
     var generateHtml = function () {
-        var html = '<ul>';
+        var html = '<div class="list-group">';
         for (var pageName in pageMap) {
             if (pageMap.hasOwnProperty(pageName)) {
-                html += '<li><a href="#' + pageName + '">' + pageMap[pageName] + '</a></li>';
+                html += '<a class="list-group-item" href="#' + pageName + '">' + pageMap[pageName] + '</a>';
             }
         }
-        return html + '</ul>';
+        return html + '</div>';
     };
 
     // Displays menu on HTML element specified.
