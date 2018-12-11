@@ -5,17 +5,18 @@ var searchManager = (function () {
         var html = '<h2>Search Results</h2>';
         html += '<p>Results for "' + text + '"...</p>';
         html += '<ul>';
-        pages.forEach( function(page) {
-            html += '<li>';
+        html += pages.map(function (page) {
+            var html = '<li>';
             html += '<a href="#' + urlHelper.generateHash(page.type, page.id) + '">' + page.title + '</a>';
             html += '</li>';
-        });
+            return html;
+        }).join('');
         html += '</ul>';
         content.render(html);
     };
 
     // Renders the 'no results' message to main content.
-    var noResults = function() {
+    var noResults = function () {
         var html = '<h2>Search Results</h2>';
         html += '<p>There are no results to display</p>';
         content.render(html);

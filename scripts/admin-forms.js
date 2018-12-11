@@ -206,6 +206,11 @@ var adminForms = (function () {
             html += '<span class="form-error" id="video-title-error"></span>';
             html += '</div>';
             html += '<div class="form-group">';
+            html += '<label for="video-description">Description</label><br>';
+            html += '<input type="text" id="video-description" class="form-control">';
+            html += '<span class="form-error" id="video-description-error"></span>';
+            html += '</div>';
+            html += '<div class="form-group">';
             html += '<label for="video-src">Video URL</label><br>';
             html += '<input type="text" id="video-src" class="form-control">';
             html += '<span class="form-error" id="video-src-error"></span>';
@@ -221,12 +226,14 @@ var adminForms = (function () {
         update: function (page) {
             this.page = page;
             document.getElementById('video-title').value = page.title;
+            document.getElementById('video-description').value = page.description;
             document.getElementById('video-src').value = page.src;
             document.getElementById('video-type').value = page.contentType;
         },
         clear: function () {
             delete this.page;
             document.getElementById('video-title').value = '';
+            document.getElementById('video-description').value = '';
             document.getElementById('video-src').value = '';
             document.getElementById('video-type').value = '';
         },
@@ -235,14 +242,18 @@ var adminForms = (function () {
             dataStore.setPage({
                 id: getOrCreateId(page),
                 type: "video",
-                title: this.getTitle(),
-                src: this.getSrc(),
-                contentType: this.getContentType()
+                title: document.getElementById('video-title').value.trim(),
+                description: document.getElementById('video-description').value.trim(),
+                src: document.getElementById('video-src').value.trim(),
+                contentType: document.getElementById('video-type').value.trim()
             });
         },
         validate: function () {
             var success = true;
             if (!validateRequired('video-title', 'Title')) {
+                success = false;
+            }
+            if (!validateRequired('video-description', 'Description')) {
                 success = false;
             }
             if (!validateRequired('video-src', 'URL')) {
@@ -252,15 +263,6 @@ var adminForms = (function () {
                 success = false;
             }
             return success;
-        },
-        getTitle: function () {
-            return document.getElementById('video-title').value.trim();
-        },
-        getSrc: function () {
-            return document.getElementById('video-src').value.trim();
-        },
-        getContentType: function () {
-            return document.getElementById('video-type').value.trim();
         }
     };
 
@@ -276,6 +278,11 @@ var adminForms = (function () {
             html += '<span class="form-error" id="image-title-error"></span>';
             html += '</div>';
             html += '<div class="form-group">';
+            html += '<label for="image-description">Description</label><br>';
+            html += '<input type="text" id="image-description" class="form-control">';
+            html += '<span class="form-error" id="image-description-error"></span>';
+            html += '</div>';            
+            html += '<div class="form-group">';
             html += '<label for="image-src">Image URL</label><br>';
             html += '<input type="text" id="image-src" class="form-control">';
             html += '<span class="form-error" id="image-src-error"></span>';
@@ -285,11 +292,13 @@ var adminForms = (function () {
         update: function (page) {
             this.page = page;
             document.getElementById('image-title').value = page.title;
+            document.getElementById('image-description').value = page.description;
             document.getElementById('image-src').value = page.src;
         },
         clear: function () {
             delete this.page;
             document.getElementById('image-title').value = '';
+            document.getElementById('image-description').value = '';
             document.getElementById('image-src').value = '';
         },
         save: function () {
@@ -297,8 +306,9 @@ var adminForms = (function () {
             dataStore.setPage({
                 id: getOrCreateId(page),
                 type: "image",
-                title: this.getTitle(),
-                src: this.getSrc()
+                title: document.getElementById('image-title').value.trim(),
+                description: document.getElementById('image-description').value.trim(),
+                src: document.getElementById('image-src').value.trim()
             });
         },
         validate: function () {
@@ -306,16 +316,13 @@ var adminForms = (function () {
             if (!validateRequired('image-title', 'Title')) {
                 success = false;
             }
+            if (!validateRequired('image-description', 'Description')) {
+                success = false;
+            }
             if (!validateRequired('image-src', 'URL')) {
                 success = false;
             }
             return success;
-        },
-        getTitle: function () {
-            return document.getElementById('image-title').value.trim();
-        },
-        getSrc: function () {
-            return document.getElementById('image-src').value.trim();
         }
     };
 
