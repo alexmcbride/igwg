@@ -90,14 +90,13 @@ var dataStore = (function () {
         ids.splice(ids.indexOf(pageId), 1);
         setPageIds(ids);
 
+        // Remove from index.
         var indexes = getIndexes();
         var index;
         for (var key in indexes) {
-            if (indexes.hasOwnProperty(key)) {
-                if (indexes[key].id === pageId) {
-                    index = key;
-                    break;
-                }
+            if (indexes.hasOwnProperty(key) && indexes[key].id === pageId) {
+                index = key;
+                break;
             }
         }
         indexes.splice(index, 1);
