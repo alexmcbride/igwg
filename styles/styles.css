@@ -31,6 +31,7 @@ header {
     background-image: url('../images/icons/poppy.png');
     background-repeat: no-repeat;
     background-position: left center;
+    background-position-y: 15px;
     padding-left: 120px;
 }
 
