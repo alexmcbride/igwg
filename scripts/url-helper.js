@@ -61,7 +61,7 @@ var urlHelper = (function () {
         return null;
     };
 
-    // Creates a URL for the specified page.
+    // Creates a hash for the specified page.
     var generateHash = function (page, pageId, dataId) {
         var url = page;
         if (pageId) {
