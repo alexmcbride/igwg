@@ -20,7 +20,7 @@ var adminForms = (function () {
         return true;
     };
 
-    var getOrCreateId = function(page) {
+    var getOrCreateId = function (page) {
         return page === undefined ? adminManager.createId() : page.id;
     }
 
@@ -119,7 +119,7 @@ var adminForms = (function () {
             delete this.page;
             document.getElementById('slideshow-title').value = '';
             document.getElementById('slideshow-slides').innerHTML = '';
-        },        
+        },
         update: function (page) {
             this.page = page;
             document.getElementById('slideshow-title').value = page.title;
@@ -188,9 +188,11 @@ var adminForms = (function () {
             list.appendChild(listItem);
         },
         deleteSlide: function (btnEl) {
-            var listItem = btnEl.parentNode;
-            var list = document.getElementById('slideshow-slides');
-            list.removeChild(listItem);
+            if (confirm('Are you sure you want to delete this slide?')) {
+                var listItem = btnEl.parentNode;
+                var list = document.getElementById('slideshow-slides');
+                list.removeChild(listItem);
+            }
         }
     };
 
@@ -281,7 +283,7 @@ var adminForms = (function () {
             html += '<label for="image-description">Description</label><br>';
             html += '<input type="text" id="image-description" class="form-control">';
             html += '<span class="form-error" id="image-description-error"></span>';
-            html += '</div>';            
+            html += '</div>';
             html += '<div class="form-group">';
             html += '<label for="image-src">Image URL</label><br>';
             html += '<input type="text" id="image-src" class="form-control">';
@@ -490,14 +492,18 @@ var adminForms = (function () {
             answerListEl.append(answerEl);
         },
         removeQuestion: function (btnEl) {
-            var questionEl = btnEl.parentNode;
-            var questionListEl = questionEl.parentNode;
-            questionListEl.removeChild(questionEl);
+            if (confirm('Are you sure you want to remove this question?')) {
+                var questionEl = btnEl.parentNode;
+                var questionListEl = questionEl.parentNode;
+                questionListEl.removeChild(questionEl);
+            }
         },
         removeAnswer: function (btnEl) {
-            var answerEl = btnEl.parentNode;
-            var answerListEl = answerEl.parentNode;
-            answerListEl.removeChild(answerEl);
+            if (confirm('Are you sure you want to remove this answer?')) {
+                var answerEl = btnEl.parentNode;
+                var answerListEl = answerEl.parentNode;
+                answerListEl.removeChild(answerEl);
+            }
         },
         getAnswers: function (questionEl) {
             var answers = [];
