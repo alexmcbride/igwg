@@ -3,7 +3,7 @@
  * 
  * - form: gets the html to display the form for creating the page
  * - update: adds existing page information to the form
- * - clear: clears a form, removing data
+ * - clear: clears the form, removing data
  * - save: saves form to data store
  * - validates: checks that a form is valid
  * 
