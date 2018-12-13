@@ -22,7 +22,7 @@ var adminForms = (function () {
 
     var getOrCreateId = function (page) {
         return page === undefined ? adminManager.createId() : page.id;
-    }
+    };
 
     // Class to represent adding post.
     var Post = {
