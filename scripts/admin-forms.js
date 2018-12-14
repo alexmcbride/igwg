@@ -542,11 +542,124 @@ var adminForms = (function () {
         }
     };
 
+    // Class to represent adding heroes.
+    var Heroes = {
+        form: function () {
+            delete this.page;
+            var html = '<h3>Heroes</h3>';
+            html += '<div class="form-group">';
+            html += '<label for="heroes-title">Title</label><br>';
+            html += '<input type="text" id="heroes-title" class="form-control">';
+            html += '<span class="form-error" id="heroes-title-error"></span>';
+            html += '</div>';
+            html += '<hr>';
+            html += '<div id="heroes-list">';
+            html += '</div>';
+            html += '<input type="button" value="Add Hero" class="btn btn-secondary" onclick="adminManager.addHero()">';
+            return html;
+        },
+        update: function (page) {
+            this.page = page;
+            document.getElementById('heroes-title').value = page.title;
+            this.updateHeros(page.heroes);
+        },
+        clear: function () {
+            delete this.page;
+            document.getElementById('heroes-title').value = '';
+            document.getElementById('heros-list').innerHTML = '';
+        },
+        save: function () {
+            var page = this.page;
+            dataStore.setPage({
+                id: getOrCreateId(page),
+                type: "heroes",
+                title: this.getTitle(),
+                heroes: this.getHeroes()
+            });
+        },
+        validate: function () {
+            var success = true;
+
+            if (!validateRequired('heroes-title', 'Title')) {
+                success = false;
+            }
+
+            return success;
+        },
+        getTitle: function () {
+            return document.getElementById('heroes-title').value.trim();
+        },
+        addHero: function () {
+            var html = '<div class="form-group">';
+            html += '<input type="text" placeholder="Title" class="hero-title"> ';
+            html += '<input type="text" placeholder="Publ Date" class="hero-publ-date"> ';
+            html += '</div>';
+            html += '<div class="form-group">';
+            html += '<input type="text" placeholder="Source" class="hero-source"> ';
+            html += '<input type="text" placeholder="Subject" class="hero-subject"> ';
+            html += '</div>';
+            html += '<div class="form-group">';
+            html += '<input type="text" placeholder="Descript." class="hero-descript"> ';
+            html += '<input type="text" placeholder="History" class="hero-history"> ';
+            html += '<button type="button" onclick="adminManager.removeHero(this)" class="btn btn-light btn-image" title="Remove Hero">';
+            html += '<img src="images/icons/delete-button.png" alt="Delete">';
+            html += '</button>';
+            html += '</div>';
+            html += '<hr>';
+
+            var list = document.getElementById('heroes-list');
+            var item = document.createElement('div');
+            item.setAttribute('class', 'hero-item');
+            item.innerHTML = html;
+            list.appendChild(item);
+            return item;
+        },
+        removeHero: function (btnEl) {
+            if (confirm('Are you sure?')) {
+                var item = btnEl.parentNode.parentNode;
+                var list = document.getElementById('heroes-list');
+                list.removeChild(item);
+            }
+        },
+        getHeroes: function () {
+            var heroes = [];
+            var items = document.getElementsByClassName('hero-item');
+            for (var key in items) {
+                if (items.hasOwnProperty(key)) {
+                    heroes.push(this.getHero(items[key]));
+                }
+            }
+            return heroes;
+        },
+        getHero: function (item) {
+            return {
+                title: item.getElementsByClassName('hero-title')[0].value.trim(),
+                publDate: item.getElementsByClassName('hero-publ-date')[0].value.trim(),
+                source: item.getElementsByClassName('hero-source')[0].value.trim(),
+                subject: item.getElementsByClassName('hero-subject')[0].value.trim(),
+                descript: item.getElementsByClassName('hero-descript')[0].value.trim(),
+                history: item.getElementsByClassName('hero-history')[0].value.trim(),
+            };
+        },
+        updateHeros: function (heroes) {
+            heroes.forEach(function (hero) {
+                var item = this.addHero();
+                item.getElementsByClassName('hero-title')[0].value = hero.title;
+                item.getElementsByClassName('hero-publ-date')[0].value = hero.publDate;
+                item.getElementsByClassName('hero-source')[0].value = hero.source;
+                item.getElementsByClassName('hero-subject')[0].value = hero.subject;
+                item.getElementsByClassName('hero-descript')[0].value = hero.descript;
+                item.getElementsByClassName('hero-history')[0].value = hero.history;
+            }.bind(this));
+        }
+    };
+
     return {
         Post: Post,
         Image: Image,
         Video: Video,
         Slideshow: Slideshow,
-        Quiz: Quiz
+        Quiz: Quiz,
+        Heroes: Heroes
     }
 })();

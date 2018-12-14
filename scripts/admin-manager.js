@@ -4,6 +4,13 @@
 // different pages.
 var adminManager = (function () {
     var currentPage = null;
+    var formTypes = [];
+    formTypes['post'] = 'Post';
+    formTypes['image'] = 'Image';
+    formTypes['slideshow'] = 'Slideshow';
+    formTypes['video'] = 'Video';
+    formTypes['quiz'] = 'quiz';
+    formTypes['heroes'] = 'Heroes';
 
     // Displays the current admin manager state.
     var display = function () {
@@ -73,6 +80,7 @@ var adminManager = (function () {
         html += '<option value="slideshow">Slideshow</option>';
         html += '<option value="quiz">Quiz</option>';
         html += '<option value="video">Video</option>';
+        html += '<option value="heroes">Heroes</option>';
         html += '</select>';
         html += '<hr>';
         html += '</div>';
@@ -103,6 +111,8 @@ var adminManager = (function () {
                 return adminForms.Video;
             case 'image':
                 return adminForms.Image;
+            case 'heroes':
+                return adminForms.Heroes;
         }
         return null;
     };
@@ -227,6 +237,16 @@ var adminManager = (function () {
         currentPage.removeAnswer(btnEl);
     };
 
+    // Removes a question from the current question.
+    var addHero = function () {
+        currentPage.addHero();
+    };
+
+    // Removes a hero from the current heroes thing.
+    var removeHero = function (btnEl) {
+        currentPage.removeHero(btnEl);
+    };
+
     return {
         display: display,
         formChange: formChange,
@@ -239,6 +259,8 @@ var adminManager = (function () {
         addAnswer: addAnswer,
         removeAnswer: removeAnswer,
         removeQuestion: removeQuestion,
-        createId: createId
+        createId: createId,
+        addHero: addHero,
+        removeHero: removeHero
     };
 })();
