@@ -32,8 +32,8 @@ var urlHelper = (function () {
         return null;
     };
 
-    // Gets the slide from the hash.
-    var slide = function() {
+    // Gets an index from the hash.
+    var index = function() {
         var segments = hash();
         if (segments.length > 2) {
             var slide = parseInt(segments[2]);
@@ -77,7 +77,7 @@ var urlHelper = (function () {
         hash: hash,
         page: page,
         pageId: pageId,
-        slide: slide,
+        index: index,
         generateHash: generateHash,
         search: search
     };

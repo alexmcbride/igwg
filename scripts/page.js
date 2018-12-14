@@ -86,6 +86,11 @@ var page = (function () {
         searchManager.display();
     };
 
+    // The heroes page.
+    var heroes = function (data) {
+        heroesManager.display(data);
+    };
+
     return {
         home: home,
         post: post,
@@ -97,6 +102,7 @@ var page = (function () {
         login: login,
         logout: logout,
         admin: admin,
-        search: search
+        search: search,
+        heroes: heroes,
     }
 })();

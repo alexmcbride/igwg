@@ -39,7 +39,7 @@
         "description": "This video from the US army, shows induction and basic training of soldiers during the first world war.",
         "src": "videos/basic_training.mp4",
         "contentType": "video/mp4"
-    }, 
+    },
     {
         "id": "2384089331",
         "type": "image",
@@ -55,6 +55,121 @@
             {
                 "title": "Soldiers atop an armoured cars",
                 "src": "images/armored_car.jpg"
+            }
+        ]
+    },
+    {
+        "id": "3537157927",
+        "type": "heroes",
+        "title": "Heroes of the great war",
+        "persons": [
+            {
+                "title": "[Allen [sic] Oswald Coker]",
+                "publDate": 1918,
+                "descript": "reference in newspaper",
+                "history": "Of 5th Pioneer Battalion (5th Pioneers)  from Prospect  killed in action 29 July 1918, France.",
+                "subject": "Coker, Allan Oswald, 1879-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 17 August 1918, p. 27, col. b;Chronicle, 31 August 1918, p. 39, col. a;Chronicle, 26 October 1918, p. 38, col. a",
+                "addedName": ""
+            },
+            {
+                "title": "[Private H. W. Richards]",
+                "publDate": 1918,
+                "descript": "portrait (17 August, p. 26);reference in newspaper",
+                "history": "Private, 11th Reinforcements, 10th Battalion  from Woodville  killed in action 7 July 1918, aged 29  electricity meter inspector  third son of Mr. and Mrs. W. Richards.",
+                "subject": "Richards, Harold William, 1889-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 17 August 1918, p. 26, col. b  p. 39, col. a;Chronicle, 10 August 1918, p. 39, col. c",
+                "addedName": ""
+            },
+            {
+                "title": "[Private Maurice Theobald]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait (2 November, p. 26)",
+                "history": "Private, service number 4863, 43rd Battalion  from Meadows  killed in action 26 August 1918, France, aged 23 years and 7 months  banker  eldest son of Rev. Thomas and Mrs Theobald, fiance of Laura Genge.",
+                "subject": "Theobald, Maurice James, 1895-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 14 September 1918, p. 27, col. e;Chronicle, 21 September 1918, p. 27, col. c;Chronicle, 2 November 1918, p. 26, col. d  p. 38, col. b",
+                "addedName": ""
+            },
+            {
+                "title": "[Private George Danford Neave]",
+                "publDate": 1918,
+                "descript": "reference in newspaper",
+                "history": "Private, 10th Battalion  killed in action 18 September 1915, Gallipoli  cousin of Fred and Stella.",
+                "subject": "Neave, George Danford, 1894-1915;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 14 September 1918, p. 28, col. b;Chronicle, 21 September 1918, p. 28, col. e",
+                "addedName": ""
+            },
+            {
+                "title": "[Lieutenant Frank Rosevear]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Lieutenant (acting Captain), 13th London Regiment  from Meadowside  killed in action 23 August 1918, aged 25  brother of L. A. Wilde and Captain Archie Rosevear (invalided out, London), son of Mrs. E. C. Rosevear.",
+                "subject": "Rosevear, Frank, d. 1918.;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 7 September 1918, p. 27, col. c;Chronicle, 14 September 1918, p. 24, col. a  p.38, col. d",
+                "addedName": ""
+            },
+            {
+                "title": "[Private Harry Emsley]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Private, 16th Battalion  from Prospect  killed in action 8 August 1918, France, aged 34  fourth son of Mrs. J. E. Emsley.",
+                "subject": "Emsley, Harry, 1884-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 14 September 1918, p. 24, col. b  p. 38, col. c",
+                "addedName": ""
+            },
+            {
+                "title": "[Private L. Dodd]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Private, 43rd Battalion, service number 4776  from Broken Hill  killed in action 22 August 1918, France, aged 20.",
+                "subject": "Dodd, Lindsay Ray, 1897-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 14 September 1918, p. 24, col. b;Chronicle, 28 September 1918, p. 38, col. d;Chronicle, 19 October 1918, p. 37, col. d",
+                "addedName": ""
+            },
+            {
+                "title": "[Lieutenant Sydney C. Stockham]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Lieutenant, 27th Battalion  from Fullarton  died of wounds 18 August 1918, France, aged 28  youngest son of G. W. and S. Stockham.",
+                "subject": "Stockham, Sydney C., 1889-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 7 September 1918, p. 27, col. c;Chronicle, 14 September 1918, p. 24, col. c  p. 38, col. d",
+                "addedName": ""
+            },
+            {
+                "title": "[Lieutenant Alfred H. Moss]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Lieutenant, original 10th Battalion  from Smithfield  drowned from the torpedoed hospital ship Warilda, aged 21  second son of Mrs. A. M. Moss  brother of Howard and Cyril.",
+                "subject": "Moss, Alfred Hubert, 1896-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 17 August 1918, p. 27, col. c;Chronicle, 14 September 1918, p. 24, col. d",
+                "addedName": ""
+            },
+            {
+                "title": "[Private Claud William Mason]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Private, D Company, 48th Battalion  from O'Halloran Hill  killed in action 8 August 1918, France, aged 23  youngest son of Mr. and Mrs. J. W. Mason  student Surveyor.",
+                "subject": "Mason, Claud William, 1894-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 31 August 1918, p. 27, col. e;Chronicle, 28 September 1918, p. 34, col. e  p. 39, col. a;Chronicle, 14 September 1918, p. 24, col. d",
+                "addedName": ""
+            },
+            {
+                "title": "[Sergeant Percy Oliver Gunn]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait (14 September)",
+                "history": "Sergeant, service number 816, 2nd Machine Gun Battalion  from Adelaide  died of wounds 9 August 1918, France, aged 29  youngest son, brother of Mrs. A. E. Moller and Mrs. A. R. Wenzel.",
+                "subject": "Gunn, Percy Oliver, 1889-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 31 August 1918, p. 31, col. c  p. 39, col. a;Chronicle, 7 September 1918, p. 39, col. b;Chronicle, 14 September 1918, p. 24, col. e",
+                "addedName": ""
+            },
+            {
+                "title": "[Private B. C. Dawe]",
+                "publDate": 1918,
+                "descript": "reference in newspaper;portrait",
+                "history": "Private  from Port Adelaide  killed in action 11 August 1918  married.",
+                "subject": "Dawe, Bertie Chloride, 1887-1918;World War, 1914-1918 -- South Australia",
+                "source": "Chronicle, 14 September 1918, p. 24, col. e  p. 38, col. c",
+                "addedName": ""
             }
         ]
     },
@@ -98,5 +213,5 @@
         ],
         "currentAnswers": [],
         "answers": []
-    }    
+    }
 ]

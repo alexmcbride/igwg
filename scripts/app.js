@@ -21,6 +21,7 @@ var app = (function () {
         contentLoader.addPage('logout', page.logout);
         contentLoader.addPage('admin', page.admin);
         contentLoader.addPage('search', page.search);
+        contentLoader.addPage('heroes', page.heroes);
 
         // Initialize content loader, which takes over from here.
         contentLoader.initialize('home' /* defaultPage */);

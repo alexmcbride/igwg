@@ -86,7 +86,7 @@ var slideshowManager = (function () {
 
     // Get HTML for the page.
     var generateHtml = function () {
-        var currentIndex = urlHelper.slide();
+        var currentIndex = urlHelper.index();
         var slide = pageData.images[currentIndex];
         if (slide === undefined) {
             return '<p>Slide not found :(</p>';
