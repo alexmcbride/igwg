@@ -584,6 +584,8 @@ var adminForms = (function () {
                 success = false;
             }
 
+            // We don't both to validate heroes as I couldn't be arsed writing the code.
+
             return success;
         },
         getTitle: function () {
