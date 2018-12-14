@@ -5,7 +5,7 @@ var heroesManager = (function () {
         html += '<h2>' + data.title + '</h2>';
         html += '<p>Select a hero from the list to learn more about them</p>';
         html += '<div class="row">';
-        html += '<div class="col" id="master">';
+        html += '<div class="col-5" id="master">';
         html += '<ul>';
         data.heroes.forEach(function (hero, index) {
             var hash = urlHelper.generateHash(data.type, data.id, index);
