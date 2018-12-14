@@ -553,8 +553,7 @@ var adminForms = (function () {
             html += '<span class="form-error" id="heroes-title-error"></span>';
             html += '</div>';
             html += '<hr>';
-            html += '<div id="heroes-list">';
-            html += '</div>';
+            html += '<div id="heroes-list"></div>';
             html += '<input type="button" value="Add Hero" class="btn btn-secondary" onclick="adminManager.addHero()">';
             return html;
         },
@@ -579,17 +578,15 @@ var adminForms = (function () {
         },
         validate: function () {
             var success = true;
-
             if (!validateRequired('heroes-title', 'Title')) {
                 success = false;
             }
-
             return success;
         },
         getTitle: function () {
             return document.getElementById('heroes-title').value.trim();
         },
-        addHero: function () {
+        generateHtml: function() {
             var html = '<div class="form-group">';
             html += '<input type="text" placeholder="Title" class="hero-title"> ';
             html += '<input type="text" placeholder="Publ Date" class="hero-publ-date"> ';
@@ -606,11 +603,13 @@ var adminForms = (function () {
             html += '</button>';
             html += '</div>';
             html += '<hr>';
-
+            return html;
+        },
+        addHero: function () {
             var list = document.getElementById('heroes-list');
             var item = document.createElement('div');
             item.setAttribute('class', 'hero-item');
-            item.innerHTML = html;
+            item.innerHTML = this.generateHtml();
             list.appendChild(item);
             return item;
         },

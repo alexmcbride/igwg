@@ -1,6 +1,6 @@
 /* Provides an interface for the data stored in local storage.*/
 var dataStore = (function () {
-    var version = 67; // Increment this when schema changes to cause local storage to be overridden.
+    var version = 69; // Increment this when schema changes to cause local storage to be overridden.
 
     // Saves array of pages to storage.
     var saveLocalStorage = function (pages) {
@@ -31,8 +31,7 @@ var dataStore = (function () {
             // Load the json payload into local storage
             ajax.getJson(file, function (result) {
                 if (result.success) {
-                    var pages = JSON.parse(result.response);
-                    saveLocalStorage(pages);
+                    saveLocalStorage(result.response);
                 }
                 callback(result);
             });
