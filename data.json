@@ -234,7 +234,7 @@
         "description": "Try out your knowledge and see what you know in our world war one quiz!",
         "questions": [
             {
-                "text": "When was the first world war?",
+                "text": "When did the war begin and end?",
                 "correctIndex": 2,
                 "options": [
                     "1910 - 1920",
@@ -259,9 +259,29 @@
                 "options": [
                     "Queen Victoria",
                     "Kaiser Wilhelm",
-                    "George V",
+                    "King George V",
                     "Archduke Franz Ferdinand",
                     "Charlie Chaplin"
+                ]
+            },
+            {
+                "text": "Which battalion was hero Allen Oswald Coker in?",
+                "correctIndex": 1,
+                "options": [
+                    "Royal Engineers",
+                    "5th Pioneers",
+                    "The Rifles",
+                    "Coldstream Guards"
+                ]
+            },
+            {
+                "text": "Which were the two sides in the war?",
+                "correctIndex": 3,
+                "options": [
+                    "Central Powers",
+                    "Allied Powers",
+                    "Neutral Countries",
+                    "All of the Above"
                 ]
             }
         ],
