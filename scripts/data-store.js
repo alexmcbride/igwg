@@ -85,6 +85,7 @@ var dataStore = (function () {
     var removePage = function (pageId) {
         window.localStorage.removeItem(pageId);
 
+        // Remove from IDs
         var ids = getPageIds();
         ids.splice(ids.indexOf(pageId), 1);
         setPageIds(ids);
