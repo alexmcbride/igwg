@@ -1,30 +1,33 @@
-// Module for managing pages. The currentPage is set to an object from admin-forms.js 
+// Module for managing pages. The currentForm is set to an object from admin-forms.js 
 // module, depending on the page select drop down. If page select set to 'create' then 
 // a second drop down for form-select is available that switches between forms for 
 // different pages.
 var adminManager = (function () {
-    var currentPage = null;
+    var currentForm = null;
 
-    // Displays the current admin manager state.
+    // Displays the current form state.
     var display = function () {
         if (loginManager.isLoggedIn()) {
-            if (currentPage === null) {
-                currentPage = getPage('post');
+            if (currentForm === null) {
+                currentForm = getPage('post');
             }
 
-            var html = generateHtml();
-            mainContent.render(html);
+            var formHtml = currentForm.form();
+            var pageHtml = generateHtml(formHtml);
+            mainContent.render(pageHtml);
         } else {
+            // Not logged in.
             mainContent.render('<p>You must be logged in to view this page</p>');
         }
     };
 
-    // Generates a random ID for pages.
+    // Generates a random ID for new pages.
     var createId = function () {
         return crypto.getRandomValues(new Uint32Array(1)).join('');
     };
 
-    var getSelectedValue = function () {
+    // Gets value of the page select drop down.
+    var getSelectedPageValue = function () {
         var el = document.getElementById('page-select');
         if (el !== null) {
             return el.value;
@@ -34,7 +37,7 @@ var adminManager = (function () {
 
     // Generates HTML for page select drop down
     var getPageSelectHtml = function () {
-        var value = getSelectedValue();
+        var value = getSelectedPageValue();
         var html = '<select id="page-select" onchange="adminManager.pageChange()" class="form-control">';
         html += '<option value="create">Create new page</option>';
         html += '<option disabled>----</option>';
@@ -52,7 +55,7 @@ var adminManager = (function () {
     };
 
     // Generates HTML to display the admin form
-    var generateHtml = function () {
+    var generateHtml = function (formHtml) {
         var html = '<form id="admin-form">';
         html += '<h2>Manage Pages</h2>';
 
@@ -80,7 +83,7 @@ var adminManager = (function () {
 
         html += '<p id="message"></p>';
         html += '<div id="form-content">';
-        html += currentPage.form();
+        html += formHtml;
         html += '</div>';
         html += '<hr>';
         html += '<div>';
@@ -122,8 +125,8 @@ var adminManager = (function () {
         if (page == null) {
             throw 'Form type not found';
         } else {
-            currentPage = page;
-            document.getElementById('form-content').innerHTML = currentPage.form();
+            currentForm = page;
+            document.getElementById('form-content').innerHTML = currentForm.form();
             message('');
         }
     };
@@ -136,17 +139,17 @@ var adminManager = (function () {
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
 
-            currentPage = getPage('post');
-            document.getElementById('form-content').innerHTML = currentPage.form();
+            currentForm = getPage('post');
+            document.getElementById('form-content').innerHTML = currentForm.form();
         } else {
             // disable select input
             document.getElementById('form-select-box').style.display = 'none';
             document.getElementById('deleteButton').style.display = 'inline';
 
             var page = dataStore.findPage(pageId);
-            currentPage = getPage(page.type);
-            document.getElementById('form-content').innerHTML = currentPage.form();
-            currentPage.update(page);
+            currentForm = getPage(page.type);
+            document.getElementById('form-content').innerHTML = currentForm.form();
+            currentForm.update(page);
         }
     };
 
@@ -165,13 +168,13 @@ var adminManager = (function () {
 
     // Called to save the current page state.
     var save = function () {
-        if (currentPage == null) {
+        if (currentForm == null) {
             throw 'Current page not set';
         } else {
             // Save if page valid.
             clearFormErrors();
-            if (currentPage.validate()) {
-                currentPage.save();
+            if (currentForm.validate()) {
+                currentForm.save();
                 message('Page saved!');
 
                 app.refreshMenu(); // Tell app to redraw main menu.
@@ -182,7 +185,7 @@ var adminManager = (function () {
 
     // Removes page from local storage.
     var deletePage = function () {
-        if (currentPage == null) {
+        if (currentForm == null) {
             throw 'Current page not set';
         } else {
             var pageId = document.getElementById('page-select').value;
@@ -202,42 +205,42 @@ var adminManager = (function () {
 
     // Adds a slide to the current slideshow.
     var addSlide = function () {
-        currentPage.addSlide();
+        currentForm.addSlide();
     };
 
     // Removes a slide from the current slideshow.
     var deleteSlide = function (btnEl) {
-        currentPage.deleteSlide(btnEl);
+        currentForm.deleteSlide(btnEl);
     };
 
     // Adds a question to the current page.
     var addQuestion = function () {
-        currentPage.addQuestion();
+        currentForm.addQuestion();
     };
 
     // Adds an answer to the current question.
     var addAnswer = function (btnEl) {
-        currentPage.addAnswer(btnEl);
+        currentForm.addAnswer(btnEl);
     };
 
     // Removes a question from the page.
     var removeQuestion = function (btnEl) {
-        currentPage.removeQuestion(btnEl);
+        currentForm.removeQuestion(btnEl);
     };
 
     // Removes a question from the current question.
     var removeAnswer = function (btnEl) {
-        currentPage.removeAnswer(btnEl);
+        currentForm.removeAnswer(btnEl);
     };
 
     // Removes a question from the current question.
     var addHero = function () {
-        currentPage.addHero();
+        currentForm.addHero();
     };
 
     // Removes a hero from the current heroes thing.
     var removeHero = function (btnEl) {
-        currentPage.removeHero(btnEl);
+        currentForm.removeHero(btnEl);
     };
 
     return {
