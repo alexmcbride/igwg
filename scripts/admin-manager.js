@@ -9,7 +9,7 @@ var adminManager = (function () {
     var display = function () {
         if (loginManager.isLoggedIn()) {
             if (currentForm === null) {
-                currentForm = getPage('post');
+                currentForm = getPageForm('post');
             }
 
             var formHtml = currentForm.form();
@@ -95,7 +95,7 @@ var adminManager = (function () {
     };
 
     // Gets the current state based on the type string.
-    var getPage = function (type) {
+    var getPageForm = function (type) {
         switch (type) {
             case 'post':
                 return adminForms.Post;
@@ -121,11 +121,11 @@ var adminManager = (function () {
 
     // Changes to show form for page type
     var performFormChange = function (pageType) {
-        var page = getPage(pageType);
-        if (page == null) {
+        var pageForm = getPageForm(pageType);
+        if (pageForm == null) {
             throw 'Form type not found';
         } else {
-            currentForm = page;
+            currentForm = pageForm;
             document.getElementById('form-content').innerHTML = currentForm.form();
             message('');
         }
@@ -139,7 +139,7 @@ var adminManager = (function () {
             document.getElementById('form-select-box').style.display = 'block';
             document.getElementById('deleteButton').style.display = 'none';
 
-            currentForm = getPage('post');
+            currentForm = getPageForm('post');
             document.getElementById('form-content').innerHTML = currentForm.form();
         } else {
             // disable select input
@@ -147,7 +147,7 @@ var adminManager = (function () {
             document.getElementById('deleteButton').style.display = 'inline';
 
             var page = dataStore.findPage(pageId);
-            currentForm = getPage(page.type);
+            currentForm = getPageForm(page.type);
             document.getElementById('form-content').innerHTML = currentForm.form();
             currentForm.update(page);
         }
