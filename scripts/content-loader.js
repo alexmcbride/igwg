@@ -16,7 +16,7 @@ var contentLoader = (function () {
         }
     };
 
-    // Loads the specified route, and attempts to load the content from that route if present.
+    // Loads the specified route, and attempts to load the content for that route if present.
     var load = function (pageName, pageId) {
         var pageHandler = getPageHandler(pageName);
         if (pageId !== undefined && pageId !== null) {

@@ -69,22 +69,26 @@ var loginManager = (function () {
         hideError();
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
-
         var user = authenticate(username, password);
         if (user !== null) {
-            window.localStorage.setItem('loggedIn', JSON.stringify({ username: user.username }));
-            currentState = logoutState;
-            mainContent.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>.</p>');
-            redisplayLogin();
+            performLogin(user);
         } else {
             showError('Username and password incorrect');
         }
     };
 
+    // Set login stuff
+    var performLogin = function(user) {
+        window.localStorage.setItem('loggedIn', JSON.stringify({ username: user.username }));
+        currentState = logoutState; // Change status.
+        mainContent.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>.</p>');
+        redisplayLogin();
+    }
+    
     // Called when the user clicks the logout button.
     var logout = function () {
         window.localStorage.removeItem('loggedIn');
-        currentState = loginState;
+        currentState = loginState; // Change state
         update();
         redisplayLogin();
         showError('You are now logged out');
