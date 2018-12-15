@@ -22,9 +22,9 @@ var contentLoader = (function () {
         if (pageId !== undefined && pageId !== null) {
             var pageData = dataStore.findPage(pageId);
             if (pageData === null) {
-                content.render('<h3>Not Found</h3><p>Page data for ID "' + pageId + '" not found</p>');
+                mainContent.render('<h3>Not Found</h3><p>Page data for ID "' + pageId + '" not found</p>');
             } else if (pageData.type !== pageName) {
-                content.render('<h3>Not Found</h3><p>Page type "' + pageData.type + '" does not match route "' + pageName + '"</p>');
+                mainContent.render('<h3>Not Found</h3><p>Page type "' + pageData.type + '" does not match route "' + pageName + '"</p>');
             } else {
                 pageHandler(pageData);
             }

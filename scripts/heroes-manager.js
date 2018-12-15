@@ -31,7 +31,7 @@ var heroesManager = (function () {
         var index = urlHelper.index();
         var hero = pageData.heroes[index];
         var html = generateHtml(pageData, hero);
-        content.render(html);
+        mainContent.render(html);
     };
 
     return {

@@ -10,7 +10,7 @@ var page = (function () {
         html += '<p>Here you will find information about the war, slide shows, videos, and quizzes. All designed to help you understand what happened and why.</p>';
         html += '<a class="btn btn-primary btn-lg" href="#post/580559509" role="button">Start your journey!</a>';
         html += '</div>';
-        content.render(html);
+        mainContent.render(html);
     };
 
     var replaceNewlines = function (str) {
@@ -23,7 +23,7 @@ var page = (function () {
             '<h3>' + data.title + '</h3>' +
             '<p>' + replaceNewlines(data.content) + '</p>' +
             '</div>';
-        content.render(html);
+        mainContent.render(html);
     };
 
     // The single image page.
@@ -33,7 +33,7 @@ var page = (function () {
             '<p>' + data.description + '</p>' +
             '<p><img src="' + data.src + '" alt="' + data.title + '" width="800px"></p>' +
             '</div>';
-        content.render(html);
+        mainContent.render(html);
     };
 
     // The single video page.
@@ -46,14 +46,14 @@ var page = (function () {
             'Your browser does not support this video' +
             '</video>' +
             '</div>';
-        content.render(html);
+        mainContent.render(html);
     };
 
     // A special page for when another page is not found. Aww.
     var notFound = function () {
         var html = '<h3>Not found</h3>';
         html += "<p>Aww, that page wasn't found. :(</p>";
-        content.render(html);
+        mainContent.render(html);
     };
 
     // The slideshow page.

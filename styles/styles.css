@@ -38,3 +38,7 @@ header {
 h1 small {
     font-size: 70%;
 }
+
+#search-content {
+    margin-top: 10px;
+}

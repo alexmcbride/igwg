@@ -1,6 +1,6 @@
 // Module to encapsulate writing the main content, as some dynamic modules 
 // can update this themselves as needed.
-var content = (function () {
+var mainContent = (function () {
     var content = null;
 
     // Sets the main content element.

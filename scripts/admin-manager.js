@@ -20,9 +20,9 @@ var adminManager = (function () {
             }
 
             var html = generateHtml();
-            content.render(html);
+            mainContent.render(html);
         } else {
-            content.render('<p>You must be logged in to view this page</p>');
+            mainContent.render('<p>You must be logged in to view this page</p>');
         }
     };
 

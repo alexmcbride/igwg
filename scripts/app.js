@@ -6,7 +6,7 @@ var app = (function () {
         initializeMainMenu();
 
         // Initialize modules 
-        content.initialize('main-content');
+        mainContent.initialize('main-content');
         searchManager.initialize('search-content');
         loginManager.initialize('login-content');
 
