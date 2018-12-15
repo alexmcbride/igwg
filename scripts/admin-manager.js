@@ -4,13 +4,6 @@
 // different pages.
 var adminManager = (function () {
     var currentPage = null;
-    var formTypes = [];
-    formTypes['post'] = 'Post';
-    formTypes['image'] = 'Image';
-    formTypes['slideshow'] = 'Slideshow';
-    formTypes['video'] = 'Video';
-    formTypes['quiz'] = 'quiz';
-    formTypes['heroes'] = 'Heroes';
 
     // Displays the current admin manager state.
     var display = function () {
