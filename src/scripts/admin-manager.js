@@ -14,10 +14,10 @@ var adminManager = (function () {
 
             var formHtml = currentForm.form();
             var pageHtml = generateHtml(formHtml);
-            mainContent.render(pageHtml);
+            app.render(pageHtml);
         } else {
             // Not logged in.
-            mainContent.render('<p>You must be logged in to view this page</p>');
+            app.render('<p>You must be logged in to view this page</p>');
         }
     };
 

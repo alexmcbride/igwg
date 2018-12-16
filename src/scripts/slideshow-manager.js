@@ -105,7 +105,7 @@ var slideshowManager = (function () {
     var display = function (data) {
         pageData = data;
         var html = generateHtml();
-        mainContent.render(html);
+        app.render(html);
     };
 
     return {

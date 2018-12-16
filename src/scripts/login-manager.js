@@ -81,7 +81,7 @@ var loginManager = (function () {
     var performLogin = function(user) {
         window.localStorage.setItem('loggedIn', JSON.stringify({ username: user.username }));
         currentState = logoutState; // Change status.
-        mainContent.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>.</p>');
+        app.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>.</p>');
         redisplayLogin();
     }
     
@@ -97,7 +97,7 @@ var loginManager = (function () {
     // Gets HTML for the current state and draws it on the main content element.
     var update = function (error) {
         var html = currentState(error);
-        mainContent.render(html);
+        app.render(html);
     };
 
     // Displays the current loginManager state.

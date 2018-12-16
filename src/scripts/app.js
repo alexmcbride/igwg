@@ -6,7 +6,6 @@ var app = (function () {
         initializeMainMenu();
 
         // Initialize modules 
-        mainContent.initialize('main-content');
         searchManager.initialize('search-content');
         loginManager.initialize('login-content');
 
@@ -55,9 +54,15 @@ var app = (function () {
         initializeMainMenu();
     };
 
+    // Renders HTML to the main content element.
+    var render = function (html) {
+        document.getElementById('main-content').innerHTML = html;
+    };
+
     return {
         run: run,
-        refreshMenu: refreshMenu
+        refreshMenu: refreshMenu,
+        render: render
     };
 })();
 

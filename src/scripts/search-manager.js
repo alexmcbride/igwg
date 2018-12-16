@@ -12,14 +12,14 @@ var searchManager = (function () {
             return html;
         }).join('');
         html += '</ul>';
-        mainContent.render(html);
+        app.render(html);
     };
 
     // Renders the 'no results' message to main content.
     var noResults = function () {
         var html = '<h2>Search Results</h2>';
         html += '<p>There are no results to display</p>';
-        mainContent.render(html);
+        app.render(html);
     };
 
     // Displays the search results.
