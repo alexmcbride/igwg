@@ -26,6 +26,7 @@ var adminForms = (function () {
 
     // Class to represent adding post.
     var Post = {
+        name: 'post',
         form: function () {
             delete this.page;
             var html = '<div class="post-form">';
@@ -90,6 +91,7 @@ var adminForms = (function () {
 
     // Class to manage adding slideshow.
     var Slideshow = {
+        name: 'slideshow',
         slideInputHtml: function (page) {
             if (page === undefined) {
                 page = { title: '', src: '' };
@@ -200,6 +202,7 @@ var adminForms = (function () {
 
     // Class to manage adding video.
     var Video = {
+        name: 'video',
         form: function () {
             delete this.page;
             var html = '<div class="video-form">';
@@ -272,6 +275,7 @@ var adminForms = (function () {
 
     // Class to help adding images.
     var Image = {
+        name: 'image',
         form: function () {
             delete this.page;
             var html = '<div class="image-form">';
@@ -333,6 +337,7 @@ var adminForms = (function () {
 
     // Class to help adding quizzes
     var Quiz = {
+        name: 'quiz',
         form: function () {
             delete this.page;
             var html = '<div class="quiz-form">';
@@ -548,6 +553,7 @@ var adminForms = (function () {
 
     // Class to represent adding heroes.
     var Heroes = {
+        name: 'heroes',
         form: function () {
             delete this.page;
             var html = '<h3>Heroes</h3>';

@@ -54,6 +54,22 @@ var adminManager = (function () {
         document.getElementById('page-select-control').innerHTML = getPageSelectHtml();
     };
 
+    var getFormSelected = function (name) {
+        return currentForm.name === name ? ' selected' : '';
+    }
+
+    var getFormSelectHtml = function () {
+        var html = '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';
+        html += '<option value="post"' + getFormSelected('post') + '>Post</option>';
+        html += '<option value="image"' + getFormSelected('image') + '>Image</option>';
+        html += '<option value="slideshow"' + getFormSelected('slideshow') + '>Slideshow</option>';
+        html += '<option value="quiz"' + getFormSelected('quiz') + '>Quiz</option>';
+        html += '<option value="video"' + getFormSelected('video') + '>Video</option>';
+        html += '<option value="heroes"' + getFormSelected('heroes') + '>Heroes</option>';
+        html += '</select>';
+        return html;
+    };
+
     // Generates HTML to display the admin form
     var generateHtml = function (formHtml) {
         var html = '<form id="admin-form">';
@@ -70,14 +86,7 @@ var adminManager = (function () {
 
         html += '<div class="form-group" id="form-select-box">';
         html += '<label for="form-select">Select the type of page to create:</label><br>';
-        html += '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';
-        html += '<option value="post">Post</option>';
-        html += '<option value="image">Image</option>';
-        html += '<option value="slideshow">Slideshow</option>';
-        html += '<option value="quiz">Quiz</option>';
-        html += '<option value="video">Video</option>';
-        html += '<option value="heroes">Heroes</option>';
-        html += '</select>';
+        html += getFormSelectHtml();
         html += '<hr>';
         html += '</div>';
 
