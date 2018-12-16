@@ -53,8 +53,24 @@
         "title": "Vehicals of the war",
         "images": [
             {
-                "title": "Soldiers atop an armoured cars",
+                "title": "Soldiers atop an armoured car",
                 "src": "images/armored_car.jpg"
+            },
+            {
+                "title": "The Mark IV British tank known as 'Little Willie'",
+                "src": "images/Mark_IV.jpg"
+            },
+            {
+                "title": "An Albatros D.II German bi-plane",
+                "src": "images/albatros.jpg"
+            },
+            {
+                "title": "Warship HMS Gloucester Italy 1917",
+                "src": "images/hms_gloucester.jpg"
+            },
+            {
+                "title": "Warship HMS Gloucester Italy 1917",
+                "src": "images/hms_gloucester.jpg"
             }
         ]
     },
