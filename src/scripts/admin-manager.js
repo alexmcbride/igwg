@@ -56,7 +56,7 @@ var adminManager = (function () {
 
     var getFormSelected = function (name) {
         return currentForm.name === name ? ' selected' : '';
-    }
+    };
 
     var getFormSelectHtml = function () {
         var html = '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';

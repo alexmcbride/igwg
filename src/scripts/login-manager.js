@@ -83,7 +83,7 @@ var loginManager = (function () {
         currentState = logoutState; // Change status.
         app.render('<h2>Logged In</h2><p>Welcome, ' + user.username + '! You can now <a href="#admin">manage pages</a>.</p>');
         redisplayLogin();
-    }
+    };
     
     // Called when the user clicks the logout button.
     var logout = function () {
