@@ -30,6 +30,7 @@ var adminForms = (function () {
             delete this.page;
             var html = '<div class="post-form">';
             html += '<h3>Post</h3>';
+            html += '<div class="group-form">';
             html += '<label for="post-title">Title</label><br>';
             html += '<input type="text" id="post-title" class="form-control">';
             html += '<span class="form-error" id="post-title-error"></span>';
@@ -38,6 +39,7 @@ var adminForms = (function () {
             html += '<label for="post-content">Content</label><br>';
             html += '<textarea id="post-content" rows="10" class="form-control"></textarea>';
             html += '<span class="form-error" id="post-content-error"></span>';
+            html += '</div>';
             html += '</div>';
             return html;
         },
@@ -289,6 +291,7 @@ var adminForms = (function () {
             html += '<input type="text" id="image-src" class="form-control">';
             html += '<span class="form-error" id="image-src-error"></span>';
             html += '</div>';
+            html += '</div>';
             return html;
         },
         update: function (page) {
@@ -349,6 +352,7 @@ var adminForms = (function () {
             html += '<ol id="question-list">';
             html += '</ol>';
             html += '<button type="button" class="btn btn-secondary" onclick="adminManager.addQuestion()">Add Question</button>';
+            html += '</div>';
             html += '</div>';
             return html;
         },

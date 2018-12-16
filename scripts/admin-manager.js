@@ -61,7 +61,7 @@ var adminManager = (function () {
 
         html += '<hr>';
         html += '<div class="form-group">';
-        html += '<label for="page-select">Select page to manage</label><br>';
+        html += '<label for="page-select">Select page to manage:</label><br>';
         html += '<div id="page-select-control">';
         html += getPageSelectHtml();
         html += '</div>';
@@ -69,7 +69,7 @@ var adminManager = (function () {
         html += '</div>';
 
         html += '<div class="form-group" id="form-select-box">';
-        html += '<label for="form-select">Select the type of page</label><br>';
+        html += '<label for="form-select">Select the type of page to create:</label><br>';
         html += '<select id="form-select" onchange="adminManager.formChange()" class="form-control">';
         html += '<option value="post">Post</option>';
         html += '<option value="image">Image</option>';
@@ -86,10 +86,8 @@ var adminManager = (function () {
         html += formHtml;
         html += '</div>';
         html += '<hr>';
-        html += '<div>';
         html += '<input type="button" value="Save" onclick="adminManager.save()" class="btn btn-primary"> ';
         html += '<input type="button" value="Delete" onclick="adminManager.deletePage()" id="deleteButton" class="btn btn-primary" style="display: none;">';
-        html += '</div>';
         html += '</form>';
         return html;
     };
