@@ -32,6 +32,9 @@ header {
     background-repeat: no-repeat;
     background-position: left center;
     background-position-y: 15px;
+}
+
+.main-header {
     padding-left: 120px;
 }
 
