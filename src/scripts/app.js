@@ -43,7 +43,7 @@ var app = (function () {
             if (result.success) {
                 start();
             } else {
-                document.getElementById('main-content').innerHTML = "Error: " + result.response;
+                render("Error: " + result.response);
             }
         }, 'data.json');
     };
