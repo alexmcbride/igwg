@@ -1,6 +1,7 @@
 // Responsible for loading content. Watches for hash changes and loads the page.
 var contentLoader = (function () {
     var pageMap = [];
+    var notFound = null;
 
     // Adds page to the map for particular route.
     var addPage = function (pageName, pageHandler) {
@@ -10,7 +11,7 @@ var contentLoader = (function () {
     // Gets a handler for a specific route from the map.
     var getPageHandler = function (pageName) {
         if (pageMap[pageName] === undefined) {
-            return page.notFound;
+            return notFound;
         } else {
             return pageMap[pageName];
         }
@@ -41,7 +42,8 @@ var contentLoader = (function () {
     };
 
     // Runs the content loader, which draws the main content, and watches for location changes.
-    var initialize = function (defaultPage) {
+    var initialize = function (defaultPage, notFoundHandler) {
+        notFound = notFoundHandler;
         if (window.location.hash) {
             locationChanged(); // Hash already set when page loaded.
         } else {

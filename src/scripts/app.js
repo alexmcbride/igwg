@@ -23,7 +23,7 @@ var app = (function () {
         contentLoader.addPage('heroes', page.heroes);
 
         // Initialize content loader, which takes over from here.
-        contentLoader.initialize('home' /* defaultPage */);
+        contentLoader.initialize('home', page.notFound);
     };
 
     // Loads the main menu.
