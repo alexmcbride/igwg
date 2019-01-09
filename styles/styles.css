@@ -1,0 +1,47 @@
+
+header {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+
+.btn-image {
+    padding: 2px 4px 4px;
+    margin-top: -2px;
+}
+
+.form-error {
+    color: #c00;
+}
+
+#main-content p {
+    text-align: justify;
+}
+
+.home-bg {
+    background-image: url('../images/header-bg2.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 150px;
+    padding-top: 20px;
+}
+
+.header-bg {
+    background-image: url('../images/icons/poppy.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-position-y: 15px;
+}
+
+.main-header {
+    padding-left: 120px;
+}
+
+h1 small {
+    font-size: 70%;
+}
+
+#search-content {
+    margin-top: 10px;
+}
